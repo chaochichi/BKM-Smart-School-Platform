@@ -244,6 +244,7 @@ button{ font-family:inherit; }
 .gap-8{ gap:8px; } .gap-12{ gap:12px; }
 .text-soft{ color:var(--ink-soft); }
 .text-faint{ color:var(--ink-faint); }
+.text-center{ text-align:center; }
 .mb-0{ margin-bottom:0; } .mt-0{ margin-top:0; }
 .center-col{ display:flex; flex-direction:column; align-items:center; text-align:center; }
 .divider{ height:1px; background:var(--border); margin:18px 0; border:none; }
@@ -413,25 +414,26 @@ button{ font-family:inherit; }
       <p class="splash-tag">Module 1 of many &middot; Attendance</p>
     </section>
 
-    <!-- ============ LOGIN ============ -->
+    <!-- ============ LOGIN / FIND ACCOUNT ============ -->
     <section class="view" id="view-login">
       <div class="login-wrap">
         <div class="login-card center-col">
           <div class="login-logo"><span class="material-symbols-outlined icon-fill">school</span></div>
           <h1 class="login-title">BKM Smart School</h1>
-          <p class="login-sub">Welcome back. Sign in with your school Google account to continue.</p>
+          <p class="login-sub">กรอกชื่อ-นามสกุล หรืออีเมลที่ลงทะเบียนไว้ เพื่อเข้าสู่ระบบ</p>
 
-          <button class="btn-google" id="btn-google-signin" onclick="loginWithGoogle()">
-            <svg width="18" height="18" viewBox="0 0 24 24">
-              <path d="M22.56 12.25C22.56 11.47 22.49 10.72 22.37 10H12V14.26H17.92C17.66 15.63 16.89 16.78 15.73 17.56V20.31H19.29C21.37 18.39 22.56 15.58 22.56 12.25Z" fill="#4285F4"/>
-              <path d="M12 23C14.97 23 17.46 22.02 19.29 20.31L15.73 17.56C14.74 18.23 13.48 18.63 12 18.63C9.13 18.63 6.7 16.69 5.82 14.1H2.15V16.94C3.96 20.54 7.69 23 12 23Z" fill="#34A853"/>
-              <path d="M5.82 14.1C5.59 13.44 5.46 12.74 5.46 12C5.46 11.26 5.59 10.56 5.82 9.9V7.06H2.15C1.4 8.56 0.96 10.24 0.96 12C0.96 13.76 1.4 15.44 2.15 16.94L5.82 14.1Z" fill="#FBBC05"/>
-              <path d="M12 5.38C13.62 5.38 15.06 5.94 16.2 7.02L19.36 3.86C17.46 2.09 14.97 1 12 1C7.69 1 3.96 3.46 2.15 7.06L5.82 9.9C6.7 7.31 9.13 5.38 12 5.38Z" fill="#EA4335"/>
-            </svg>
-            Sign in with Google
-          </button>
+          <div class="field" style="width:100%; text-align:left;">
+            <label for="login-lookup">ชื่อ-นามสกุล หรือ อีเมล</label>
+            <div class="field-input">
+              <span class="material-symbols-outlined">person_search</span>
+              <input type="text" id="login-lookup" placeholder="เช่น Ananda Srisuwan">
+            </div>
+          </div>
+          <button class="btn btn-primary" style="margin-top:4px;" onclick="findAccount()">เข้าสู่ระบบ</button>
 
-          <p class="login-foot">By continuing you agree to the school's Acceptable Use Policy.</p>
+          <div class="divider" style="width:100%;"></div>
+          <p class="text-soft" style="font-size:13px; margin:0 0 10px;">ยังไม่มีบัญชี?</p>
+          <button class="btn btn-outline" onclick="navigate('register')">ลงทะเบียนใหม่</button>
         </div>
       </div>
     </section>
@@ -440,32 +442,31 @@ button{ font-family:inherit; }
     <section class="view" id="view-register">
       <div class="reg-wrap">
         <div class="reg-head">
-          <h1>Complete your profile</h1>
-          <p>One-time setup &middot; takes less than a minute</p>
-        </div>
-
-        <div class="google-preview">
-          <img id="reg-google-avatar" src="" alt="Google avatar">
-          <div>
-            <p class="gp-label">Imported from Google</p>
-            <p class="gp-email" id="reg-google-email"></p>
-          </div>
+          <h1>ลงทะเบียนผู้ใช้งานใหม่</h1>
+          <p>ใช้เวลาไม่ถึงนาที &middot; ชื่อและอีเมลต้องไม่ซ้ำกับผู้ใช้ที่มีอยู่</p>
         </div>
 
         <form class="card card-pad" onsubmit="return submitRegistration(event)">
           <div class="field">
-            <label for="reg-name">Full name</label>
+            <label for="reg-name">ชื่อ-นามสกุล</label>
             <div class="field-input">
               <span class="material-symbols-outlined">person</span>
               <input type="text" id="reg-name" placeholder="e.g. Ananda Srisuwan" required>
             </div>
           </div>
           <div class="field">
-            <label for="reg-position">Position</label>
+            <label for="reg-email">อีเมล</label>
+            <div class="field-input">
+              <span class="material-symbols-outlined">mail</span>
+              <input type="email" id="reg-email" placeholder="name@example.com" required>
+            </div>
+          </div>
+          <div class="field">
+            <label for="reg-position">ตำแหน่ง</label>
             <div class="field-input">
               <span class="material-symbols-outlined">badge</span>
               <select id="reg-position" required>
-                <option value="" disabled selected>Select your role</option>
+                <option value="" disabled selected>เลือกตำแหน่ง</option>
                 <option>Teacher</option>
                 <option>Administrator</option>
                 <option>Support staff</option>
@@ -473,14 +474,14 @@ button{ font-family:inherit; }
             </div>
           </div>
           <div class="field">
-            <label for="reg-dept">Department / subject</label>
+            <label for="reg-dept">กลุ่มสาระ / แผนก</label>
             <div class="field-input">
               <span class="material-symbols-outlined">domain</span>
               <input type="text" id="reg-dept" placeholder="e.g. Mathematics">
             </div>
           </div>
           <div class="field" style="margin-bottom:4px;">
-            <label for="reg-phone">Phone number</label>
+            <label for="reg-phone">เบอร์โทรศัพท์</label>
             <div class="field-input">
               <span class="material-symbols-outlined">call</span>
               <input type="tel" id="reg-phone" placeholder="08X-XXX-XXXX" required>
@@ -500,9 +501,10 @@ button{ font-family:inherit; }
 
           <div style="margin-top:22px;">
             <button type="submit" class="btn btn-primary">
-              Create account <span class="material-symbols-outlined">arrow_forward</span>
+              ลงทะเบียน <span class="material-symbols-outlined">arrow_forward</span>
             </button>
           </div>
+          <p class="text-center text-faint" style="font-size:12px; margin-top:12px;">มีบัญชีอยู่แล้ว? <a href="#login">เข้าสู่ระบบ</a></p>
         </form>
       </div>
     </section>
@@ -746,15 +748,18 @@ button{ font-family:inherit; }
 
 
 <script src="https://www.gstatic.com/firebasejs/12.15.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/12.15.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/12.15.0/firebase-database-compat.js"></script>
 <script>
 /* =========================================================
-   BKM SMART SCHOOL PLATFORM — single-file SPA, Firebase-backed
+   BKM SMART SCHOOL PLATFORM — single-file SPA, Firebase Realtime Database
+   No Firebase Authentication — simple name/email-based registration instead.
    Realtime Database layout:
-     users/{uid}            -> { name, position, department, phone, email, photoURL, role, createdAt }
-     attendance/{uid}/{date}-> { checkInTime, checkInTimeLocal, lat, lng, status, checkOutTime, checkOutTimeLocal, outLat, outLng }
-     settings/               -> { schoolName, address, workStartTime, workEndTime, lateGraceMinutes, schoolLat, schoolLng, geofenceRadiusM }
+     users/{pushKey}            -> { name, position, department, phone, email, role, createdAt }
+     attendance/{pushKey}/{date}-> { checkInTime, checkInTimeLocal, lat, lng, status, checkOutTime, checkOutTimeLocal, outLat, outLng }
+     settings/                   -> { schoolName, address, workStartTime, workEndTime, lateGraceMinutes, schoolLat, schoolLng, geofenceRadiusM }
+   "Logged in" on this device = a push key stored in localStorage('bkm_uid').
+   No password — anyone with the database URL can read/write directly via the API;
+   this trades real access control for simplicity, by request.
    ========================================================= */
 
 const firebaseConfig = {
@@ -769,7 +774,6 @@ const firebaseConfig = {
 };
 
 const FIREBASE_SDK_URL = "https://www.gstatic.com/firebasejs/12.15.0/firebase-app-compat.js";
-let auth = null;
 let db = null;
 let FIREBASE_READY = false;
 
@@ -778,7 +782,6 @@ try {
     throw new Error('Firebase SDK scripts did not load from gstatic.com');
   }
   firebase.initializeApp(firebaseConfig);
-  auth = firebase.auth();
   db = firebase.database();
   FIREBASE_READY = true;
 } catch (initErr) {
@@ -845,20 +848,18 @@ const ROUTES = {
   settings:   { chrome:true,  nav:'settings',   topbar:{ left:'back', back:'home', title:'Settings' } }
 };
 
-/* ---------------- SESSION STATE (now backed by Firebase, not localStorage) ---------------- */
-let currentUser = null;   // firebase.auth User
-let userProfile = null;   // users/{uid} record
-let appSettings = {};     // settings/ record
-let authResolved = false;
+/* ---------------- SESSION STATE (no Firebase Auth — plain registration) ---------------- */
+let currentUserId = null;  // push key of users/{key}, or null
+let userProfile = null;    // users/{currentUserId} record
+let appSettings = {};      // settings/ record
+let sessionResolved = false;
 let domTimerDone = false;
-let geoCoords = null;     // last known {lat,lng} from this device
+let geoCoords = null;       // last known {lat,lng} from this device
 
 function isAdmin(){ return !!(userProfile && userProfile.role === 'admin'); }
 
 function avatarUrl(){
-  const photo = (userProfile && userProfile.photoURL) || (currentUser && currentUser.photoURL);
-  if (photo) return photo;
-  const seed = (userProfile && userProfile.name) || (currentUser && currentUser.displayName) || 'U';
+  const seed = (userProfile && userProfile.name) || 'U';
   return 'https://api.dicebear.com/7.x/initials/svg?seed=' + encodeURIComponent(seed) + '&backgroundType=solid&backgroundColor=154fce';
 }
 
@@ -925,7 +926,6 @@ function render(){
 
   populateUserChrome();
   if (route === 'splash') trySettleSplash();
-  if (route === 'register') populateRegisterFromAuth();
   if (route === 'home') renderModuleGrid();
   if (route === 'attendance') enterAttendance();
   if (route === 'history') enterHistory();
@@ -1045,66 +1045,73 @@ function toggleTheme(checked){
   localStorage.setItem('bkm_theme', next);
 }
 
-/* ---------------- AUTH + SPLASH ---------------- */
+/* ---------------- SESSION + SPLASH ---------------- */
 function trySettleSplash(){
-  if (!authResolved || !domTimerDone) return;
+  if (!sessionResolved || !domTimerDone) return;
   if ((location.hash || '#splash').replace('#', '') !== 'splash') return;
-  navigate(currentUser ? (userProfile ? 'home' : 'register') : 'login');
+  navigate(currentUserId && userProfile ? 'home' : 'login');
 }
 
-if (FIREBASE_READY){
-  auth.onAuthStateChanged(async (user) => {
-    currentUser = user;
-    userProfile = null;
-    if (user){
-      try {
-        const snap = await db.ref('users/' + user.uid).once('value');
+async function resumeSession(){
+  const savedId = localStorage.getItem('bkm_uid');
+  if (savedId && FIREBASE_READY){
+    try {
+      const snap = await db.ref('users/' + savedId).once('value');
+      if (snap.exists()){
+        currentUserId = savedId;
         userProfile = snap.val();
-      } catch (err){
-        showToast('เชื่อมต่อฐานข้อมูลไม่สำเร็จ: ' + err.message, 'error');
+      } else {
+        localStorage.removeItem('bkm_uid');
       }
+    } catch (err){
+      showToast('เชื่อมต่อฐานข้อมูลไม่สำเร็จ: ' + err.message, 'error');
     }
-    authResolved = true;
-    const route = (location.hash || '#splash').replace('#', '');
-    if (route === 'splash'){
-      trySettleSplash();
-    } else if (user && !userProfile && route !== 'register'){
-      navigate('register');
-    } else if (!user && route !== 'login'){
-      navigate('login');
-    } else {
-      render();
-    }
-  });
+  }
+  sessionResolved = true;
+  const route = (location.hash || '#splash').replace('#', '');
+  if (route === 'splash'){
+    trySettleSplash();
+  } else {
+    render();
+  }
 }
 
-function loginWithGoogle(){
-  const btn = document.getElementById('btn-google-signin');
-  if (btn) btn.disabled = true;
-  const provider = new firebase.auth.GoogleAuthProvider();
-  auth.signInWithPopup(provider).catch(err => {
-    showToast('เข้าสู่ระบบไม่สำเร็จ: ' + err.message, 'error');
-    if (btn) btn.disabled = false;
-  });
+function normalize(s){ return (s || '').trim().toLowerCase(); }
+
+async function findAccount(){
+  const input = document.getElementById('login-lookup').value;
+  const query = normalize(input);
+  if (!query){ showToast('กรุณากรอกชื่อหรืออีเมล', 'error'); return; }
+  try {
+    const snap = await db.ref('users').once('value');
+    const all = snap.val() || {};
+    const matchKey = Object.keys(all).find(key => {
+      const u = all[key];
+      return normalize(u.name) === query || normalize(u.email) === query;
+    });
+    if (!matchKey){
+      showToast('ไม่พบบัญชีนี้ในระบบ กรุณาตรวจสอบหรือลงทะเบียนใหม่', 'error');
+      return;
+    }
+    currentUserId = matchKey;
+    userProfile = all[matchKey];
+    localStorage.setItem('bkm_uid', matchKey);
+    showToast('เข้าสู่ระบบสำเร็จ ยินดีต้อนรับ ' + (userProfile.name || ''), 'success');
+    navigate('home');
+  } catch (err){
+    showToast('ค้นหาไม่สำเร็จ: ' + err.message, 'error');
+  }
 }
 
 function logout(){
-  auth.signOut().then(() => { showToast('ออกจากระบบแล้ว', 'info'); navigate('login'); });
+  localStorage.removeItem('bkm_uid');
+  currentUserId = null;
+  userProfile = null;
+  showToast('ออกจากระบบในอุปกรณ์นี้แล้ว', 'info');
+  navigate('login');
 }
 
 /* ---------------- REGISTRATION ---------------- */
-function populateRegisterFromAuth(){
-  if (!currentUser) return;
-  const img = document.getElementById('reg-google-avatar');
-  const emailEl = document.getElementById('reg-google-email');
-  if (img) img.src = currentUser.photoURL || avatarUrl();
-  if (emailEl) emailEl.textContent = currentUser.email || '';
-  const nameEl = document.getElementById('reg-name');
-  if (nameEl && !nameEl.value && currentUser.displayName){
-    nameEl.value = currentUser.displayName;
-    syncRegistrationPreview();
-  }
-}
 function syncRegistrationPreview(){
   const name = document.getElementById('reg-name').value.trim();
   const position = document.getElementById('reg-position').value;
@@ -1113,26 +1120,42 @@ function syncRegistrationPreview(){
   document.getElementById('pc-position').textContent = (position || 'Position') + (dept ? ' \u00b7 ' + dept : '');
   document.getElementById('pc-initials').textContent = name ? name.trim()[0].toUpperCase() : 'A';
 }
+
 async function submitRegistration(e){
   e.preventDefault();
-  if (!currentUser){ showToast('กรุณาเข้าสู่ระบบก่อน', 'error'); navigate('login'); return false; }
   const btn = e.target.querySelector('button[type="submit"]');
   btn.disabled = true;
+  const name = document.getElementById('reg-name').value.trim();
+  const email = document.getElementById('reg-email').value.trim();
+  const position = document.getElementById('reg-position').value;
+  const department = document.getElementById('reg-dept').value.trim();
+  const phone = document.getElementById('reg-phone').value.trim();
+
   try {
     const usersSnap = await db.ref('users').once('value');
-    const isFirstUser = !usersSnap.exists();
+    const all = usersSnap.val() || {};
+    const nameTaken = Object.values(all).some(u => normalize(u.name) === normalize(name));
+    const emailTaken = Object.values(all).some(u => normalize(u.email) === normalize(email));
+    if (nameTaken){
+      showToast('มีชื่อนี้ลงทะเบียนไว้แล้ว กรุณาใช้หน้าเข้าสู่ระบบ', 'error');
+      return false;
+    }
+    if (emailTaken){
+      showToast('อีเมลนี้มีผู้ลงทะเบียนแล้ว กรุณาใช้หน้าเข้าสู่ระบบ', 'error');
+      return false;
+    }
+
+    const isFirstUser = Object.keys(all).length === 0;
     const profile = {
-      name: document.getElementById('reg-name').value,
-      position: document.getElementById('reg-position').value,
-      department: document.getElementById('reg-dept').value || '',
-      phone: document.getElementById('reg-phone').value,
-      email: currentUser.email || '',
-      photoURL: currentUser.photoURL || '',
+      name, email, position, department, phone,
       role: isFirstUser ? 'admin' : 'teacher',
       createdAt: firebase.database.ServerValue.TIMESTAMP
     };
-    await db.ref('users/' + currentUser.uid).set(profile);
+    const newRef = db.ref('users').push();
+    await newRef.set(profile);
+    currentUserId = newRef.key;
     userProfile = profile;
+    localStorage.setItem('bkm_uid', currentUserId);
     showToast('ลงทะเบียนสำเร็จ ยินดีต้อนรับสู่ BKM Smart School', 'success');
     navigate('home');
   } catch (err){
@@ -1143,9 +1166,9 @@ async function submitRegistration(e){
   return false;
 }
 
-/* ---------------- HOME / ATTENDANCE HEADER CHROME ---------------- */
+/* ---------------- HOME + ATTENDANCE HEADER CHROME ---------------- */
 function populateUserChrome(){
-  const name = (userProfile && userProfile.name) || (currentUser && currentUser.displayName) || '';
+  const name = (userProfile && userProfile.name) || '';
   const homeName = document.getElementById('home-username');
   if (homeName) homeName.textContent = name.split(' ')[0] || 'there';
 
@@ -1194,9 +1217,9 @@ async function refreshAttendanceToday(){
   const inBtn = document.getElementById('btn-checkin');
   const outBtn = document.getElementById('btn-checkout');
   const line = document.getElementById('att-status-line');
-  if (!currentUser){ return; }
+  if (!currentUserId){ return; }
   try {
-    const snap = await db.ref('attendance/' + currentUser.uid + '/' + dateKey()).once('value');
+    const snap = await db.ref('attendance/' + currentUserId + '/' + dateKey()).once('value');
     const rec = snap.val();
     if (rec){
       const inTime = rec.checkInTimeLocal ? new Date(rec.checkInTimeLocal).toLocaleTimeString('en-GB', { hour:'2-digit', minute:'2-digit' }) : '-';
@@ -1215,12 +1238,12 @@ async function refreshAttendanceToday(){
 }
 
 async function doCheckIn(){
-  if (!currentUser) return;
+  if (!currentUserId) return;
   const btn = document.getElementById('btn-checkin');
   btn.disabled = true;
   const key = dateKey();
   try {
-    const existing = await db.ref('attendance/' + currentUser.uid + '/' + key).once('value');
+    const existing = await db.ref('attendance/' + currentUserId + '/' + key).once('value');
     if (existing.exists()){
       showToast('คุณเช็คอินวันนี้ไปแล้ว', 'error');
       await refreshAttendanceToday();
@@ -1228,7 +1251,7 @@ async function doCheckIn(){
     }
     const now = new Date();
     const status = computeStatus(now);
-    await db.ref('attendance/' + currentUser.uid + '/' + key).set({
+    await db.ref('attendance/' + currentUserId + '/' + key).set({
       checkInTime: firebase.database.ServerValue.TIMESTAMP,
       checkInTimeLocal: now.toISOString(),
       lat: geoCoords ? geoCoords.lat : null,
@@ -1244,13 +1267,13 @@ async function doCheckIn(){
 }
 
 async function doCheckOut(){
-  if (!currentUser) return;
+  if (!currentUserId) return;
   const btn = document.getElementById('btn-checkout');
   btn.disabled = true;
   const key = dateKey();
   try {
     const now = new Date();
-    await db.ref('attendance/' + currentUser.uid + '/' + key).update({
+    await db.ref('attendance/' + currentUserId + '/' + key).update({
       checkOutTime: firebase.database.ServerValue.TIMESTAMP,
       checkOutTimeLocal: now.toISOString(),
       outLat: geoCoords ? geoCoords.lat : null,
@@ -1286,10 +1309,10 @@ async function enterHistory(){
 }
 
 async function loadHistory(monthStr){
-  if (!currentUser) return;
+  if (!currentUserId) return;
   const list = document.getElementById('history-list');
   try {
-    const snap = await db.ref('attendance/' + currentUser.uid).once('value');
+    const snap = await db.ref('attendance/' + currentUserId).once('value');
     const all = snap.val() || {};
     const entries = Object.keys(all)
       .filter(d => d.startsWith(monthStr))
@@ -1426,7 +1449,7 @@ function populateProfile(){
   document.getElementById('profile-avatar').src = avatarUrl();
   document.getElementById('profile-name').textContent = userProfile.name || '';
   document.getElementById('profile-position').textContent = userProfile.position || '';
-  document.getElementById('profile-id').textContent = currentUser ? ('ID ' + currentUser.uid.slice(-6).toUpperCase()) : '';
+  document.getElementById('profile-id').textContent = currentUserId ? ('ID ' + currentUserId.slice(-6).toUpperCase()) : '';
   document.getElementById('profile-email').textContent = userProfile.email || '';
   document.getElementById('profile-phone').textContent = userProfile.phone || '-';
   document.getElementById('profile-department').textContent = userProfile.department || '-';
@@ -1434,13 +1457,13 @@ function populateProfile(){
 }
 
 async function editProfile(){
-  if (!userProfile || !currentUser) return;
+  if (!userProfile || !currentUserId) return;
   const name = prompt('Full name', userProfile.name || '');
   if (name === null) return;
   const phone = prompt('Phone number', userProfile.phone || '');
   const department = prompt('Department', userProfile.department || '');
   try {
-    await db.ref('users/' + currentUser.uid).update({ name, phone, department });
+    await db.ref('users/' + currentUserId).update({ name, phone, department });
     userProfile = { ...userProfile, name, phone, department };
     populateProfile();
     populateUserChrome();
@@ -1520,6 +1543,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   setTimeout(() => { domTimerDone = true; trySettleSplash(); }, 1200);
+  resumeSession();
   render();
 });
 

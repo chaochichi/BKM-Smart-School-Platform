@@ -1,0 +1,1528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>BKM Smart School Platform</title>
+<meta name="theme-color" content="#154FCE">
+<link rel="manifest" href="data:application/manifest+json;base64,eyJuYW1lIjogIkJLTSBTbWFydCBTY2hvb2wgUGxhdGZvcm0iLCAic2hvcnRfbmFtZSI6ICJCS00gU2Nob29sIiwgImRlc2NyaXB0aW9uIjogIkRpZ2l0YWwgcGxhdGZvcm0gZm9yIEJhbiBLaG9rIE11YXkgU2Nob29sIOKAlCBhdHRlbmRhbmNlLCBkYXNoYm9hcmQgYW5kIGZ1dHVyZSBzY2hvb2wgbW9kdWxlcy4iLCAic3RhcnRfdXJsIjogIi4iLCAic2NvcGUiOiAiLiIsICJkaXNwbGF5IjogInN0YW5kYWxvbmUiLCAib3JpZW50YXRpb24iOiAicG9ydHJhaXQiLCAiYmFja2dyb3VuZF9jb2xvciI6ICIjRjVGOEZDIiwgInRoZW1lX2NvbG9yIjogIiMxNTRGQ0UiLCAiaWNvbnMiOiBbeyJzcmMiOiAiZGF0YTppbWFnZS9zdmcreG1sO2Jhc2U2NCxQSE4yWnlCNGJXeHVjejBpYUhSMGNEb3ZMM2QzZHk1M015NXZjbWN2TWpBd01DOXpkbWNpSUhacFpYZENiM2c5SWpBZ01DQTFNVElnTlRFeUlqNEtQSEpsWTNRZ2QybGtkR2c5SWpVeE1pSWdhR1ZwWjJoMFBTSTFNVElpSUhKNFBTSTVOaUlnWm1sc2JEMGlJekUxTkVaRFJTSXZQZ284Y0dGMGFDQmtQU0pOTWpVMklERTBNQ0E1TmlBeU1UQnNNVFl3SURjd0lERTJNQzAzTUMweE5qQXROekJhSWlCbWFXeHNQU0lqUmtaR1JrWkdJaTgrQ2p4d1lYUm9JR1E5SWsweU5UWWdNamt3SURFME1DQXlOREIyTmpaak1DQXpPQ0ExTWlBMk9DQXhNVFlnTmpoek1URTJMVE13SURFeE5pMDJPSFl0Tmpac0xURXhOaUExTUZvaUlHWnBiR3c5SWlOR1JrWkdSa1lpSUc5d1lXTnBkSGs5SWpBdU9USWlMejRLUEM5emRtYysiLCAic2l6ZXMiOiAiNTEyeDUxMiIsICJ0eXBlIjogImltYWdlL3N2Zyt4bWwiLCAicHVycG9zZSI6ICJhbnkgbWFza2FibGUifV19">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap">
+<style>
+/* =========================================================
+   BKM SMART SCHOOL PLATFORM — DESIGN SYSTEM
+   Shared tokens + reusable components for every screen.
+   Edit once here -> every screen updates (true design consistency).
+   ========================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;500;600;700&display=swap');
+
+:root{
+  /* ---- Brand tokens (light) ---- */
+  --ink:#101828;
+  --ink-soft:#4B5566;
+  --ink-faint:#8995A8;
+  --primary:#154FCE;
+  --primary-dark:#0E3C9F;
+  --primary-light:#9FC1F5;
+  --primary-tint:#EAF1FC;
+  --cyan:#14B8C4;
+  --cyan-tint:#E2F8FA;
+  --surface-app:#F5F8FC;
+  --surface-card:#FFFFFF;
+  --border:#E1E7F0;
+  --success:#1A9E6B;
+  --success-tint:#E4F7EE;
+  --warn:#B8780E;
+  --warn-tint:#FCF1DD;
+  --danger:#C53434;
+  --danger-tint:#FBE8E8;
+
+  --radius-sm:10px;
+  --radius-md:16px;
+  --radius-lg:22px;
+  --radius-full:999px;
+  --shadow-sm:0 1px 3px rgba(16,24,40,.06);
+  --shadow-md:0 6px 20px rgba(16,24,40,.08);
+  --shadow-lg:0 14px 36px rgba(16,24,40,.12);
+  --topbar-h:60px;
+  --bottomnav-h:74px;
+  --max-w:480px;
+}
+
+[data-theme="dark"]{
+  --ink:#EAF0FB;
+  --ink-soft:#9AA8C0;
+  --ink-faint:#5E6B82;
+  --primary:#5C93F0;
+  --primary-dark:#3E73D6;
+  --primary-light:#2C4978;
+  --primary-tint:#162943;
+  --cyan:#34D7E3;
+  --cyan-tint:#0F2B30;
+  --surface-app:#0B1220;
+  --surface-card:#131B2C;
+  --border:#233047;
+  --success:#3FCB94;
+  --success-tint:#10291F;
+  --warn:#E0A53B;
+  --warn-tint:#2E2410;
+  --danger:#F0696B;
+  --danger-tint:#2E1414;
+  --shadow-sm:0 1px 3px rgba(0,0,0,.3);
+  --shadow-md:0 6px 20px rgba(0,0,0,.35);
+  --shadow-lg:0 14px 36px rgba(0,0,0,.45);
+}
+
+*{ box-sizing:border-box; }
+html,body{ margin:0; padding:0; }
+body{
+  font-family:'Noto Sans Thai',-apple-system,sans-serif;
+  background:var(--surface-app); color:var(--ink);
+  -webkit-font-smoothing:antialiased;
+  min-height:100dvh;
+  transition:background .2s,color .2s;
+}
+a{ color:var(--primary); text-decoration:none; }
+button{ font-family:inherit; }
+.material-symbols-outlined{ font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24; vertical-align:middle; line-height:1; }
+.icon-fill{ font-variation-settings:'FILL' 1; }
+.tabular{ font-variant-numeric:tabular-nums; }
+
+/* ---------- Layout shell ---------- */
+.viewport{ max-width:var(--max-w); margin:0 auto; min-height:100dvh; position:relative; background:var(--surface-app); }
+.app-content{ padding:calc(var(--topbar-h) + 16px) 16px calc(var(--bottomnav-h) + 24px); }
+.app-content.no-bottom-nav{ padding-bottom:24px; }
+.screen-padded{ padding:20px 20px calc(var(--bottomnav-h) + 24px); }
+
+/* ---------- Top App Bar ---------- */
+.topbar{
+  position:fixed; top:0; left:50%; transform:translateX(-50%);
+  width:100%; max-width:var(--max-w); height:var(--topbar-h); z-index:50;
+  background:var(--surface-card); border-bottom:1px solid var(--border);
+  display:flex; align-items:center; justify-content:space-between; padding:0 16px;
+}
+.topbar-left{ display:flex; align-items:center; gap:10px; min-width:0; }
+.topbar-title{ font-size:16px; font-weight:600; color:var(--ink); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.topbar-avatar{ width:36px; height:36px; border-radius:50%; overflow:hidden; flex-shrink:0; background:var(--primary-tint); }
+.topbar-avatar img{ width:100%; height:100%; object-fit:cover; }
+.icon-btn{
+  width:38px; height:38px; border-radius:50%; border:none; background:transparent;
+  color:var(--ink-soft); display:flex; align-items:center; justify-content:center; flex-shrink:0;
+}
+.icon-btn:hover{ background:var(--primary-tint); color:var(--primary); }
+
+/* ---------- Bottom Navigation ---------- */
+.bottom-nav{
+  position:fixed; bottom:0; left:50%; transform:translateX(-50%);
+  width:100%; max-width:var(--max-w); height:var(--bottomnav-h); z-index:50;
+  background:var(--surface-card); border-top:1px solid var(--border);
+  display:flex; align-items:center; justify-content:space-around; padding-bottom:8px;
+  box-shadow:var(--shadow-md);
+}
+.nav-item{
+  display:flex; flex-direction:column; align-items:center; gap:3px; flex:1;
+  color:var(--ink-faint); padding:6px 4px; position:relative;
+}
+.nav-item .material-symbols-outlined{ font-size:24px; }
+.nav-item .nav-label{ font-size:11px; font-weight:500; }
+.nav-item.active{ color:var(--primary); }
+.nav-item.active::before{
+  content:''; position:absolute; top:-9px; left:50%; transform:translateX(-50%);
+  width:28px; height:3px; border-radius:var(--radius-full); background:var(--primary);
+}
+
+/* ---------- Cards ---------- */
+.card{ background:var(--surface-card); border:1px solid var(--border); border-radius:var(--radius-md); box-shadow:var(--shadow-sm); }
+.card-pad{ padding:18px; }
+.card-title{ font-size:15px; font-weight:600; color:var(--ink); display:flex; align-items:center; gap:8px; margin:0 0 12px; }
+.card-title .material-symbols-outlined{ color:var(--primary); font-size:20px; }
+
+/* ---------- Module tiles (SIGNATURE: plug-in connector tab) ---------- */
+.module-grid{ display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+.module-tile{
+  position:relative; background:var(--surface-card); border:1px solid var(--border);
+  border-radius:var(--radius-md); padding:22px 14px 16px; text-align:center;
+  box-shadow:var(--shadow-sm); transition:transform .15s, box-shadow .2s; cursor:pointer;
+}
+.module-tile:active{ transform:scale(.97); }
+.module-tile::before{
+  content:''; position:absolute; top:-1px; left:50%; transform:translateX(-50%);
+  width:34px; height:7px; border-radius:0 0 7px 7px;
+}
+.module-tile.is-active::before{ background:var(--primary); }
+.module-tile.is-active:hover{ box-shadow:var(--shadow-md); border-color:var(--primary-light); }
+.module-tile.is-soon{ opacity:.78; }
+.module-tile.is-soon::before{ border:1.5px dashed var(--ink-faint); background:transparent; border-top:none; height:6px; }
+.module-icon{
+  width:52px; height:52px; border-radius:50%; margin:0 auto 10px;
+  display:flex; align-items:center; justify-content:center; font-size:26px;
+}
+.module-tile.is-active .module-icon{ background:var(--primary-tint); color:var(--primary); }
+.module-tile.is-soon .module-icon{ background:var(--surface-app); color:var(--ink-faint); }
+.module-name{ font-size:13.5px; font-weight:600; color:var(--ink); margin:0; }
+.module-soon-tag{ font-size:10px; font-weight:600; color:var(--ink-faint); margin-top:3px; letter-spacing:.02em; }
+.module-tile-more{
+  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px;
+  border:1.5px dashed var(--border); border-radius:var(--radius-md); padding:22px 10px;
+  color:var(--ink-faint); font-size:12.5px; font-weight:500; text-align:center;
+}
+
+/* ---------- Buttons ---------- */
+.btn{
+  display:inline-flex; align-items:center; justify-content:center; gap:8px;
+  height:50px; padding:0 22px; border-radius:var(--radius-full); border:none;
+  font-size:15px; font-weight:600; cursor:pointer; width:100%;
+}
+.btn .material-symbols-outlined{ font-size:20px; }
+.btn-primary{ background:var(--primary); color:#fff; }
+.btn-primary:active{ background:var(--primary-dark); }
+.btn-primary:disabled{ background:var(--border); color:var(--ink-faint); }
+.btn-secondary{ background:var(--cyan-tint); color:var(--primary-dark); }
+.btn-outline{ background:transparent; border:1.5px solid var(--border); color:var(--ink); }
+.btn-outline:active{ background:var(--surface-app); }
+.btn-danger-outline{ background:transparent; border:1.5px solid var(--danger); color:var(--danger); }
+.btn-sm{ height:38px; font-size:13px; padding:0 16px; width:auto; }
+
+/* ---------- Form fields ---------- */
+.field{ margin-bottom:16px; }
+.field label{ display:block; font-size:13px; font-weight:600; color:var(--ink-soft); margin-bottom:6px; }
+.field-input{ position:relative; }
+.field-input .material-symbols-outlined{ position:absolute; left:14px; top:50%; transform:translateY(-50%); color:var(--ink-faint); font-size:20px; }
+.field input, .field select{
+  width:100%; height:48px; border-radius:var(--radius-sm); border:1.5px solid var(--border);
+  background:var(--surface-app); color:var(--ink); font-size:14.5px; padding:0 14px 0 42px;
+  font-family:inherit;
+}
+.field input:focus, .field select:focus{ outline:none; border-color:var(--primary); background:var(--surface-card); }
+.field input::placeholder{ color:var(--ink-faint); }
+
+/* ---------- Badges / status pills ---------- */
+.badge{ display:inline-flex; align-items:center; gap:4px; font-size:11.5px; font-weight:600; padding:4px 10px; border-radius:var(--radius-full); }
+.badge-success{ background:var(--success-tint); color:var(--success); }
+.badge-warn{ background:var(--warn-tint); color:var(--warn); }
+.badge-danger{ background:var(--danger-tint); color:var(--danger); }
+.badge-neutral{ background:var(--surface-app); color:var(--ink-faint); border:1px solid var(--border); }
+
+/* ---------- Stat tiles ---------- */
+.stat-grid{ display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+.stat-tile{ background:var(--surface-card); border:1px solid var(--border); border-radius:var(--radius-md); padding:16px; }
+.stat-tile .stat-label{ font-size:12px; color:var(--ink-soft); font-weight:500; margin:0 0 6px; }
+.stat-tile .stat-value{ font-size:26px; font-weight:700; margin:0; line-height:1; }
+.stat-tile .stat-icon{ float:right; font-size:20px; opacity:.55; }
+
+/* ---------- Toggle switch ---------- */
+.switch{ position:relative; width:46px; height:26px; flex-shrink:0; }
+.switch input{ opacity:0; width:0; height:0; }
+.switch .track{ position:absolute; inset:0; background:var(--border); border-radius:var(--radius-full); transition:.2s; cursor:pointer; }
+.switch .track::before{ content:''; position:absolute; width:20px; height:20px; left:3px; top:3px; background:#fff; border-radius:50%; transition:.2s; box-shadow:var(--shadow-sm); }
+.switch input:checked + .track{ background:var(--primary); }
+.switch input:checked + .track::before{ transform:translateX(20px); }
+
+/* ---------- Settings rows ---------- */
+.settings-row{ display:flex; align-items:center; justify-content:between; gap:12px; padding:14px 0; border-bottom:1px solid var(--border); }
+.settings-row:last-child{ border-bottom:none; }
+.settings-row-icon{ width:38px; height:38px; border-radius:var(--radius-sm); background:var(--surface-app); color:var(--ink-soft); display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+.settings-row-text{ flex:1; min-width:0; }
+.settings-row-text .t1{ font-size:14.5px; font-weight:500; margin:0; }
+.settings-row-text .t2{ font-size:12px; color:var(--ink-soft); margin:2px 0 0; }
+.settings-section-label{ font-size:12.5px; font-weight:700; color:var(--ink-soft); text-transform:uppercase; letter-spacing:.04em; margin:24px 4px 10px; display:flex; align-items:center; gap:8px; }
+
+/* ---------- Toast notification ---------- */
+.toast-host{ position:fixed; bottom:calc(var(--bottomnav-h) + 14px); left:50%; transform:translateX(-50%); width:calc(100% - 32px); max-width:calc(var(--max-w) - 32px); z-index:200; display:flex; flex-direction:column; gap:8px; pointer-events:none; }
+.toast{
+  background:var(--ink); color:var(--surface-app); border-radius:var(--radius-sm); padding:13px 16px;
+  font-size:13.5px; font-weight:500; display:flex; align-items:center; gap:10px; box-shadow:var(--shadow-lg);
+  opacity:0; transform:translateY(10px); transition:.25s; pointer-events:auto;
+}
+.toast.show{ opacity:1; transform:translateY(0); }
+.toast.success{ background:var(--success); color:#fff; }
+.toast.error{ background:var(--danger); color:#fff; }
+.toast .material-symbols-outlined{ font-size:20px; }
+
+/* ---------- Utility ---------- */
+.flex-row{ display:flex; align-items:center; }
+.gap-8{ gap:8px; } .gap-12{ gap:12px; }
+.text-soft{ color:var(--ink-soft); }
+.text-faint{ color:var(--ink-faint); }
+.mb-0{ margin-bottom:0; } .mt-0{ margin-top:0; }
+.center-col{ display:flex; flex-direction:column; align-items:center; text-align:center; }
+.divider{ height:1px; background:var(--border); margin:18px 0; border:none; }
+
+/* =========================================================
+   SPA ROUTER — one shell, nine views, no page reloads
+   ========================================================= */
+.view{ display:none; }
+.view.active{ display:block; animation:viewIn .18s ease-out; }
+@keyframes viewIn{ from{ opacity:0; transform:translateY(4px); } to{ opacity:1; transform:translateY(0); } }
+
+/* =========================================================
+   SCREEN: Splash
+   ========================================================= */
+.splash-wrap{ min-height:100dvh; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:22px; padding:24px; text-align:center; background:linear-gradient(180deg,var(--primary-tint) 0%,var(--surface-app) 55%); }
+.splash-logo{ width:104px; height:104px; border-radius:24px; background:var(--surface-card); display:flex; align-items:center; justify-content:center; box-shadow:var(--shadow-lg); position:relative; }
+.splash-logo::after{ content:''; position:absolute; inset:-10px; border-radius:30px; border:2px solid var(--primary-light); opacity:.6; animation:ringPulse 2.2s ease-out infinite; }
+@keyframes ringPulse{ 0%{ transform:scale(.92); opacity:.7; } 100%{ transform:scale(1.18); opacity:0; } }
+.splash-logo .material-symbols-outlined{ font-size:52px; color:var(--primary); }
+.splash-title{ font-size:22px; font-weight:700; color:var(--ink); margin:0; }
+.splash-sub{ font-size:14px; color:var(--ink-soft); margin:2px 0 0; }
+.splash-dots{ display:flex; gap:6px; margin-top:10px; }
+.splash-dots span{ width:7px; height:7px; border-radius:50%; background:var(--primary); animation:dotBeat 1.2s ease-in-out infinite; }
+.splash-dots span:nth-child(2){ animation-delay:.15s; } .splash-dots span:nth-child(3){ animation-delay:.3s; }
+@keyframes dotBeat{ 0%,100%{ opacity:.25; transform:scale(.8); } 50%{ opacity:1; transform:scale(1); } }
+.splash-tag{ position:absolute; bottom:34px; left:50%; transform:translateX(-50%); font-size:12px; color:var(--ink-faint); }
+
+/* =========================================================
+   SCREEN: Login
+   ========================================================= */
+.login-wrap{ min-height:100dvh; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:28px 24px; }
+.login-logo{ width:76px; height:76px; border-radius:20px; background:var(--primary-tint); display:flex; align-items:center; justify-content:center; margin-bottom:18px; }
+.login-logo .material-symbols-outlined{ font-size:38px; color:var(--primary); }
+.login-card{ width:100%; }
+.login-title{ font-size:21px; font-weight:700; margin:0 0 4px; text-align:center; }
+.login-sub{ font-size:14px; color:var(--ink-soft); margin:0 0 28px; text-align:center; }
+.btn-google{ width:100%; height:52px; border-radius:var(--radius-full); border:1.5px solid var(--border); background:var(--surface-card); display:flex; align-items:center; justify-content:center; gap:10px; font-size:14.5px; font-weight:600; color:var(--ink); cursor:pointer; }
+.btn-google:active{ background:var(--surface-app); }
+.login-foot{ margin-top:24px; text-align:center; font-size:12px; color:var(--ink-faint); }
+.login-foot a{ color:var(--ink-soft); }
+
+/* =========================================================
+   SCREEN: Registration
+   ========================================================= */
+.reg-wrap{ padding:28px 20px 40px; }
+.reg-head{ text-align:center; margin-bottom:20px; }
+.reg-head h1{ font-size:20px; font-weight:700; margin:0 0 4px; }
+.reg-head p{ font-size:13.5px; color:var(--ink-soft); margin:0; }
+.google-preview{ display:flex; align-items:center; gap:12px; background:var(--cyan-tint); border:1px solid var(--border); border-radius:var(--radius-md); padding:14px; margin-bottom:18px; }
+.google-preview img{ width:48px; height:48px; border-radius:50%; object-fit:cover; border:2px solid var(--surface-card); }
+.google-preview .gp-label{ font-size:11.5px; font-weight:600; color:var(--primary-dark); text-transform:uppercase; letter-spacing:.03em; margin:0; }
+.google-preview .gp-email{ font-size:13.5px; color:var(--ink); margin:2px 0 0; word-break:break-all; }
+.preview-card{ margin-top:22px; }
+.preview-card .pc-title{ font-size:12.5px; font-weight:700; color:var(--ink-soft); text-transform:uppercase; letter-spacing:.04em; margin:0 0 10px; }
+.pc-row{ display:flex; align-items:center; gap:14px; }
+.pc-avatar{ width:56px; height:56px; border-radius:50%; background:var(--primary-tint); color:var(--primary); display:flex; align-items:center; justify-content:center; font-size:20px; font-weight:700; flex-shrink:0; }
+.pc-name{ font-size:16px; font-weight:700; margin:0; }
+.pc-meta{ font-size:13px; color:var(--ink-soft); margin:2px 0 0; }
+
+/* =========================================================
+   SCREEN: Home
+   ========================================================= */
+.home-hero{ display:flex; align-items:center; justify-content:space-between; margin-bottom:18px; }
+.home-hero .hi{ font-size:19px; font-weight:700; margin:0; }
+.home-hero .school{ font-size:12.5px; color:var(--ink-soft); margin:2px 0 0; }
+.home-clock-card{ display:flex; align-items:center; justify-content:space-between; margin-bottom:20px; }
+.home-clock-card .date{ font-size:13px; color:var(--ink-soft); }
+.home-clock-card .time{ font-size:24px; font-weight:700; color:var(--primary); }
+.section-label{ font-size:13px; font-weight:700; color:var(--ink-soft); text-transform:uppercase; letter-spacing:.04em; margin:6px 4px 12px; }
+
+/* =========================================================
+   SCREEN: Attendance check-in
+   ========================================================= */
+.att-user{ display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; }
+.att-user .pic{ width:44px; height:44px; border-radius:50%; object-fit:cover; border:2px solid var(--primary-light); }
+.att-user .name{ font-size:14px; font-weight:600; margin:0; }
+.att-user .role{ font-size:12px; color:var(--ink-soft); margin:0; }
+.att-user .time{ font-size:22px; font-weight:700; color:var(--primary); text-align:right; }
+.att-user .date{ font-size:11.5px; color:var(--ink-soft); text-align:right; text-transform:uppercase; }
+.gps-grid{ display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:10px; }
+.gps-mini{ background:var(--surface-app); border-radius:var(--radius-sm); padding:10px 12px; }
+.gps-mini .l{ font-size:11px; color:var(--ink-soft); margin:0 0 2px; }
+.gps-mini .v{ font-size:13.5px; font-weight:600; margin:0; }
+.gps-status{ display:flex; align-items:center; justify-content:space-between; background:var(--cyan-tint); border:1px solid var(--cyan); border-radius:var(--radius-sm); padding:10px 12px; }
+.gps-status.bad{ background:var(--danger-tint); border-color:var(--danger); }
+.gps-status .gs-left{ display:flex; align-items:center; gap:8px; font-size:13px; font-weight:600; }
+.pulse{ width:9px; height:9px; border-radius:50%; background:var(--cyan); position:relative; }
+.pulse::before{ content:''; position:absolute; inset:0; border-radius:50%; background:var(--cyan); animation:pulseRing 1.4s infinite; }
+@keyframes pulseRing{ 0%{ transform:scale(1); opacity:.6; } 100%{ transform:scale(2.6); opacity:0; } }
+.camera-frame{ position:relative; aspect-ratio:3/4; background:var(--ink); border-radius:var(--radius-md); overflow:hidden; margin:16px 0; }
+[data-theme="dark"] .camera-frame{ background:#060a14; }
+.camera-frame .cam-fallback{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center; color:rgba(255,255,255,.25); }
+.cam-guide{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center; }
+.cam-guide-box{ width:56%; aspect-ratio:3/4; border:2px dashed rgba(255,255,255,.45); border-radius:2rem; }
+.cam-hint{ position:absolute; bottom:14px; left:14px; right:14px; background:rgba(255,255,255,.92); color:var(--ink); font-size:12px; text-align:center; padding:8px; border-radius:var(--radius-sm); }
+.status-line{ text-align:center; font-size:13px; color:var(--ink-soft); margin:14px 0; }
+.btn-stack{ display:flex; flex-direction:column; gap:10px; }
+
+/* =========================================================
+   SCREEN: Attendance history
+   ========================================================= */
+.filter-row{ display:flex; gap:10px; margin-bottom:14px; }
+.filter-row select{ flex:1; padding-left:14px; }
+.search-box{ position:relative; margin-bottom:16px; }
+.search-box .material-symbols-outlined{ position:absolute; left:14px; top:50%; transform:translateY(-50%); color:var(--ink-faint); font-size:20px; }
+.search-box input{ width:100%; height:44px; border-radius:var(--radius-sm); border:1.5px solid var(--border); background:var(--surface-card); padding:0 14px 0 42px; font-size:14px; font-family:inherit; color:var(--ink); }
+.hist-row{ display:flex; align-items:center; gap:12px; padding:13px 0; border-bottom:1px solid var(--border); }
+.hist-row:last-child{ border-bottom:none; }
+.hist-icon{ width:38px; height:38px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+.hist-icon.ontime{ background:var(--success-tint); color:var(--success); }
+.hist-icon.late{ background:var(--warn-tint); color:var(--warn); }
+.hist-icon.absent{ background:var(--danger-tint); color:var(--danger); }
+.hist-main{ flex:1; min-width:0; }
+.hist-main .d{ font-size:14px; font-weight:600; margin:0; }
+.hist-main .w{ font-size:12px; color:var(--ink-soft); margin:0; }
+.hist-times{ text-align:right; font-size:12.5px; color:var(--ink-soft); }
+.hist-times .tt{ font-weight:600; color:var(--ink); }
+
+/* =========================================================
+   SCREEN: Admin dashboard
+   ========================================================= */
+.chart-card{ margin-bottom:14px; }
+.chart-legend{ display:flex; gap:14px; margin-top:10px; font-size:11.5px; color:var(--ink-soft); }
+.chart-legend span{ display:flex; align-items:center; gap:5px; }
+.dot{ width:8px; height:8px; border-radius:50%; }
+.recent-row{ display:flex; align-items:center; gap:10px; padding:10px 0; border-bottom:1px solid var(--border); }
+.recent-row:last-child{ border-bottom:none; }
+.recent-row img{ width:36px; height:36px; border-radius:50%; object-fit:cover; }
+.recent-row .nm{ font-size:13.5px; font-weight:600; margin:0; }
+.recent-row .dp{ font-size:11.5px; color:var(--ink-soft); margin:0; }
+.recent-row .tm{ font-size:12px; color:var(--ink-soft); text-align:right; }
+
+/* =========================================================
+   SCREEN: Profile
+   ========================================================= */
+.pf-header{ text-align:center; padding:8px 0 20px; }
+.pf-avatar-wrap{ position:relative; width:104px; height:104px; margin:0 auto 14px; }
+.pf-avatar-wrap img{ width:100%; height:100%; border-radius:50%; object-fit:cover; border:3px solid var(--surface-card); box-shadow:var(--shadow-md); }
+.pf-edit-fab{ position:absolute; bottom:-2px; right:-2px; width:32px; height:32px; border-radius:50%; background:var(--primary); color:#fff; border:none; display:flex; align-items:center; justify-content:center; box-shadow:var(--shadow-sm); }
+.pf-name{ font-size:19px; font-weight:700; margin:0; }
+.pf-role{ font-size:14px; color:var(--primary); font-weight:600; margin:3px 0 8px; }
+.detail-row{ display:flex; align-items:center; gap:12px; padding:12px 0; border-bottom:1px solid var(--border); }
+.detail-row:last-child{ border-bottom:none; }
+.detail-row .di{ width:38px; height:38px; border-radius:50%; background:var(--cyan-tint); color:var(--cyan); display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+.detail-row .dl{ font-size:11.5px; color:var(--ink-soft); margin:0; }
+.detail-row .dv{ font-size:14px; font-weight:500; margin:1px 0 0; }
+
+</style>
+</head>
+<body>
+<div class="viewport">
+
+  <header class="topbar" id="app-topbar" style="display:none;"></header>
+
+  <main id="app-main">
+
+    <!-- ============ SPLASH ============ -->
+    <section class="view" id="view-splash">
+      <div class="splash-wrap">
+        <div class="splash-logo"><span class="material-symbols-outlined icon-fill">school</span></div>
+        <div>
+          <p class="splash-title">BKM Smart School Platform</p>
+          <p class="splash-sub">Ban Khok Muay School &middot; Digital Campus</p>
+        </div>
+        <div class="splash-dots"><span></span><span></span><span></span></div>
+      </div>
+      <p class="splash-tag">Module 1 of many &middot; Attendance</p>
+    </section>
+
+    <!-- ============ LOGIN ============ -->
+    <section class="view" id="view-login">
+      <div class="login-wrap">
+        <div class="login-card center-col">
+          <div class="login-logo"><span class="material-symbols-outlined icon-fill">school</span></div>
+          <h1 class="login-title">BKM Smart School</h1>
+          <p class="login-sub">Welcome back. Sign in with your school Google account to continue.</p>
+
+          <button class="btn-google" id="btn-google-signin" onclick="loginWithGoogle()">
+            <svg width="18" height="18" viewBox="0 0 24 24">
+              <path d="M22.56 12.25C22.56 11.47 22.49 10.72 22.37 10H12V14.26H17.92C17.66 15.63 16.89 16.78 15.73 17.56V20.31H19.29C21.37 18.39 22.56 15.58 22.56 12.25Z" fill="#4285F4"/>
+              <path d="M12 23C14.97 23 17.46 22.02 19.29 20.31L15.73 17.56C14.74 18.23 13.48 18.63 12 18.63C9.13 18.63 6.7 16.69 5.82 14.1H2.15V16.94C3.96 20.54 7.69 23 12 23Z" fill="#34A853"/>
+              <path d="M5.82 14.1C5.59 13.44 5.46 12.74 5.46 12C5.46 11.26 5.59 10.56 5.82 9.9V7.06H2.15C1.4 8.56 0.96 10.24 0.96 12C0.96 13.76 1.4 15.44 2.15 16.94L5.82 14.1Z" fill="#FBBC05"/>
+              <path d="M12 5.38C13.62 5.38 15.06 5.94 16.2 7.02L19.36 3.86C17.46 2.09 14.97 1 12 1C7.69 1 3.96 3.46 2.15 7.06L5.82 9.9C6.7 7.31 9.13 5.38 12 5.38Z" fill="#EA4335"/>
+            </svg>
+            Sign in with Google
+          </button>
+
+          <p class="login-foot">By continuing you agree to the school's Acceptable Use Policy.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ REGISTRATION ============ -->
+    <section class="view" id="view-register">
+      <div class="reg-wrap">
+        <div class="reg-head">
+          <h1>Complete your profile</h1>
+          <p>One-time setup &middot; takes less than a minute</p>
+        </div>
+
+        <div class="google-preview">
+          <img id="reg-google-avatar" src="" alt="Google avatar">
+          <div>
+            <p class="gp-label">Imported from Google</p>
+            <p class="gp-email" id="reg-google-email"></p>
+          </div>
+        </div>
+
+        <form class="card card-pad" onsubmit="return submitRegistration(event)">
+          <div class="field">
+            <label for="reg-name">Full name</label>
+            <div class="field-input">
+              <span class="material-symbols-outlined">person</span>
+              <input type="text" id="reg-name" placeholder="e.g. Ananda Srisuwan" required>
+            </div>
+          </div>
+          <div class="field">
+            <label for="reg-position">Position</label>
+            <div class="field-input">
+              <span class="material-symbols-outlined">badge</span>
+              <select id="reg-position" required>
+                <option value="" disabled selected>Select your role</option>
+                <option>Teacher</option>
+                <option>Administrator</option>
+                <option>Support staff</option>
+              </select>
+            </div>
+          </div>
+          <div class="field">
+            <label for="reg-dept">Department / subject</label>
+            <div class="field-input">
+              <span class="material-symbols-outlined">domain</span>
+              <input type="text" id="reg-dept" placeholder="e.g. Mathematics">
+            </div>
+          </div>
+          <div class="field" style="margin-bottom:4px;">
+            <label for="reg-phone">Phone number</label>
+            <div class="field-input">
+              <span class="material-symbols-outlined">call</span>
+              <input type="tel" id="reg-phone" placeholder="08X-XXX-XXXX" required>
+            </div>
+          </div>
+
+          <div class="preview-card">
+            <p class="pc-title">Profile preview</p>
+            <div class="card card-pad pc-row" style="background:var(--surface-app);">
+              <div class="pc-avatar" id="pc-initials">A</div>
+              <div>
+                <p class="pc-name" id="pc-name">Your name</p>
+                <p class="pc-meta" id="pc-position">Position &middot; Department</p>
+              </div>
+            </div>
+          </div>
+
+          <div style="margin-top:22px;">
+            <button type="submit" class="btn btn-primary">
+              Create account <span class="material-symbols-outlined">arrow_forward</span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- ============ HOME ============ -->
+    <section class="view app-content" id="view-home">
+      <div class="home-hero">
+        <div>
+          <p class="hi">Hi, <span id="home-username">there</span> &#128075;</p>
+          <p class="school">Ban Khok Muay School</p>
+        </div>
+      </div>
+
+      <div class="card card-pad home-clock-card">
+        <div>
+          <div class="date" id="home-date">Loading date&hellip;</div>
+          <div class="text-faint" style="font-size:12px;">Term 1 &middot; Week 12</div>
+        </div>
+        <div class="time tabular" id="home-time">--:--</div>
+      </div>
+
+      <p class="section-label">Your modules</p>
+      <div class="module-grid" id="module-grid-mount"></div>
+    </section>
+
+    <!-- ============ ATTENDANCE CHECK-IN ============ -->
+    <section class="view app-content" id="view-attendance">
+      <div class="card card-pad att-user">
+        <div class="flex-row gap-12">
+          <img class="pic" id="att-user-avatar" src="" alt="user">
+          <div>
+            <p class="name" id="att-user-name">&nbsp;</p>
+            <p class="role" id="att-user-role">&nbsp;</p>
+          </div>
+        </div>
+        <div>
+          <div class="time tabular" id="att-time">--:--</div>
+          <div class="date" id="att-date">...</div>
+        </div>
+      </div>
+
+      <div class="card card-pad" style="margin-top:14px;">
+        <p class="card-title"><span class="material-symbols-outlined">my_location</span>Location verification</p>
+        <div class="gps-grid">
+          <div class="gps-mini"><p class="l">Distance from school</p><p class="v" id="gps-distance">Locating&hellip;</p></div>
+          <div class="gps-mini"><p class="l">Geofence radius</p><p class="v" id="gps-radius">200 m</p></div>
+        </div>
+        <div class="gps-status" id="gps-status-box">
+          <div class="gs-left"><span class="material-symbols-outlined icon-fill" id="gps-icon" style="color:var(--cyan);">verified</span><span id="gps-text">Checking signal&hellip;</span></div>
+          <span class="pulse"></span>
+        </div>
+      </div>
+
+      <div class="camera-frame">
+        <div class="cam-fallback"><span class="material-symbols-outlined" style="font-size:48px;">photo_camera</span></div>
+        <div class="cam-guide"><div class="cam-guide-box"></div></div>
+        <div class="cam-hint">Position your face within the frame</div>
+      </div>
+
+      <p class="status-line" id="att-status-line">You haven't checked in today.</p>
+
+      <div class="btn-stack">
+        <button class="btn btn-primary" id="btn-checkin" onclick="doCheckIn()">
+          <span class="material-symbols-outlined icon-fill">login</span> Check in
+        </button>
+        <button class="btn btn-secondary" id="btn-checkout" onclick="doCheckOut()" disabled>
+          <span class="material-symbols-outlined">logout</span> Check out
+        </button>
+      </div>
+    </section>
+
+    <!-- ============ ATTENDANCE HISTORY ============ -->
+    <section class="view app-content" id="view-history">
+      <div class="filter-row">
+        <select id="month-filter"></select>
+      </div>
+
+      <div class="stat-grid" style="margin-bottom:16px;">
+        <div class="stat-tile"><span class="material-symbols-outlined stat-icon" style="color:var(--success);">how_to_reg</span><p class="stat-label">Present</p><p class="stat-value" id="hist-stat-present">0</p></div>
+        <div class="stat-tile"><span class="material-symbols-outlined stat-icon" style="color:var(--warn);">schedule</span><p class="stat-label">Late</p><p class="stat-value" id="hist-stat-late">0</p></div>
+        <div class="stat-tile"><span class="material-symbols-outlined stat-icon" style="color:var(--danger);">person_off</span><p class="stat-label">Absent</p><p class="stat-value" id="hist-stat-absent">0</p></div>
+        <div class="stat-tile"><span class="material-symbols-outlined stat-icon" style="color:var(--primary);">insights</span><p class="stat-label">Attendance rate</p><p class="stat-value" id="hist-stat-rate">0%</p></div>
+      </div>
+
+      <div class="card card-pad">
+        <div id="history-list"><p class="text-faint" style="text-align:center; padding:24px 0;">Loading&hellip;</p></div>
+      </div>
+    </section>
+
+    <!-- ============ ADMIN DASHBOARD ============ -->
+    <section class="view app-content" id="view-dashboard">
+      <div class="stat-grid" style="margin-bottom:16px;">
+        <div class="stat-tile"><span class="material-symbols-outlined stat-icon" style="color:var(--primary);">groups</span><p class="stat-label">Total staff</p><p class="stat-value" id="dash-total-staff">&ndash;</p></div>
+        <div class="stat-tile"><span class="material-symbols-outlined stat-icon" style="color:var(--success);">how_to_reg</span><p class="stat-label">Present today</p><p class="stat-value" id="dash-present">&ndash;</p></div>
+        <div class="stat-tile"><span class="material-symbols-outlined stat-icon" style="color:var(--warn);">schedule</span><p class="stat-label">Late today</p><p class="stat-value" id="dash-late">&ndash;</p></div>
+        <div class="stat-tile"><span class="material-symbols-outlined stat-icon" style="color:var(--danger);">person_off</span><p class="stat-label">Absent today</p><p class="stat-value" id="dash-absent">&ndash;</p></div>
+      </div>
+
+      <div class="card card-pad chart-card">
+        <p class="card-title"><span class="material-symbols-outlined">show_chart</span>Daily attendance &middot; this week</p>
+        <svg viewBox="0 0 320 120" width="100%" height="120" preserveAspectRatio="none">
+          <polyline id="trend-polyline" points="10,110 60,110 110,110 160,110 210,110 260,110 310,110" fill="none" stroke="#154FCE" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+          <g fill="#154FCE" id="trend-dots"></g>
+        </svg>
+        <div class="flex-row" id="trend-labels" style="justify-content:space-between; font-size:11px; color:var(--ink-faint); margin-top:4px;"></div>
+      </div>
+
+      <div class="card card-pad chart-card center-col">
+        <p class="card-title" style="align-self:flex-start;"><span class="material-symbols-outlined">donut_large</span>Late statistics &middot; this month</p>
+        <svg viewBox="0 0 120 120" width="120" height="120">
+          <circle cx="60" cy="60" r="46" fill="none" stroke="var(--border)" stroke-width="14"/>
+          <circle id="donut-progress" cx="60" cy="60" r="46" fill="none" stroke="#154FCE" stroke-width="14"
+                  stroke-dasharray="0 289" stroke-linecap="round" transform="rotate(-90 60 60)"/>
+          <text x="60" y="56" text-anchor="middle" font-size="20" font-weight="700" fill="var(--ink)" id="donut-pct">&ndash;</text>
+          <text x="60" y="72" text-anchor="middle" font-size="10" fill="var(--ink-soft)">on time</text>
+        </svg>
+        <div class="chart-legend">
+          <span><span class="dot" style="background:#154FCE;"></span>On time</span>
+          <span><span class="dot" style="background:var(--border);"></span>Late</span>
+        </div>
+      </div>
+
+      <div class="card card-pad">
+        <p class="card-title"><span class="material-symbols-outlined">history_toggle_off</span>Recent check-ins</p>
+        <div id="recent-checkins-list"><p class="text-faint" style="font-size:13px;">Loading&hellip;</p></div>
+      </div>
+    </section>
+
+    <!-- ============ PROFILE ============ -->
+    <section class="view app-content" id="view-profile">
+      <div class="pf-header">
+        <div class="pf-avatar-wrap">
+          <img id="profile-avatar" src="" alt="Profile photo">
+          <button class="pf-edit-fab" aria-label="Change photo" onclick="uploadProfilePhoto()">
+            <span class="material-symbols-outlined" style="font-size:16px;">photo_camera</span>
+          </button>
+        </div>
+        <p class="pf-name" id="profile-name">&nbsp;</p>
+        <p class="pf-role" id="profile-position">&nbsp;</p>
+        <span class="badge badge-neutral" id="profile-id">&nbsp;</span>
+      </div>
+
+      <div class="card card-pad">
+        <p class="card-title"><span class="material-symbols-outlined">badge</span>Professional details</p>
+        <div class="detail-row">
+          <div class="di"><span class="material-symbols-outlined" style="font-size:18px;">mail</span></div>
+          <div><p class="dl">Email</p><p class="dv" id="profile-email">&ndash;</p></div>
+        </div>
+        <div class="detail-row">
+          <div class="di"><span class="material-symbols-outlined" style="font-size:18px;">call</span></div>
+          <div><p class="dl">Phone</p><p class="dv" id="profile-phone">&ndash;</p></div>
+        </div>
+        <div class="detail-row">
+          <div class="di"><span class="material-symbols-outlined" style="font-size:18px;">domain</span></div>
+          <div><p class="dl">Department</p><p class="dv" id="profile-department">&ndash;</p></div>
+        </div>
+        <div class="detail-row">
+          <div class="di"><span class="material-symbols-outlined" style="font-size:18px;">calendar_month</span></div>
+          <div><p class="dl">Joined</p><p class="dv" id="profile-startdate">&ndash;</p></div>
+        </div>
+      </div>
+
+      <div style="margin-top:16px; display:flex; flex-direction:column; gap:10px;">
+        <button class="btn btn-primary" onclick="editProfile()">
+          <span class="material-symbols-outlined">edit</span> Edit profile
+        </button>
+        <button class="btn btn-danger-outline" onclick="logout()">
+          <span class="material-symbols-outlined">logout</span> Log out
+        </button>
+      </div>
+    </section>
+
+    <!-- ============ SETTINGS ============ -->
+    <section class="view app-content" id="view-settings">
+      <p class="settings-section-label"><span class="material-symbols-outlined" style="font-size:16px;">tune</span>General</p>
+      <div class="card card-pad">
+        <div class="settings-row">
+          <div class="settings-row-icon"><span class="material-symbols-outlined">dark_mode</span></div>
+          <div class="settings-row-text"><p class="t1">Dark mode</p><p class="t2">Easier on the eyes in low light</p></div>
+          <label class="switch"><input type="checkbox" data-theme-toggle><span class="track"></span></label>
+        </div>
+        <div class="settings-row">
+          <div class="settings-row-icon"><span class="material-symbols-outlined">notifications_active</span></div>
+          <div class="settings-row-text"><p class="t1">Notifications</p><p class="t2">Check-in reminders and alerts</p></div>
+          <label class="switch"><input type="checkbox" checked><span class="track"></span></label>
+        </div>
+        <div class="settings-row">
+          <div class="settings-row-icon"><span class="material-symbols-outlined">language</span></div>
+          <div class="settings-row-text"><p class="t1">Language</p><p class="t2">Interface language</p></div>
+          <select style="height:36px; border-radius:var(--radius-sm); border:1.5px solid var(--border); background:var(--surface-app); color:var(--ink); font-family:inherit; padding:0 8px;">
+            <option>English</option>
+            <option selected>&#3616;&#3634;&#3625;&#3634;&#3652;&#3607;&#3618;</option>
+          </select>
+        </div>
+      </div>
+
+      <p class="settings-section-label" id="admin-section-label" style="display:none;">
+        <span class="material-symbols-outlined" style="font-size:16px;">admin_panel_settings</span>School settings &middot; <span class="badge badge-warn">Admin only</span>
+      </p>
+      <div class="card card-pad" id="admin-section" style="display:none;">
+        <div class="field">
+          <label for="set-schoolname">School name</label>
+          <div class="field-input"><span class="material-symbols-outlined">account_balance</span><input type="text" id="set-schoolname"></div>
+        </div>
+        <div class="field">
+          <label for="set-address">Address</label>
+          <div class="field-input"><span class="material-symbols-outlined">location_on</span><input type="text" id="set-address"></div>
+        </div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+          <div class="field"><label for="set-start">Work start</label><div class="field-input"><span class="material-symbols-outlined">schedule</span><input type="time" id="set-start"></div></div>
+          <div class="field"><label for="set-end">Work end</label><div class="field-input"><span class="material-symbols-outlined">schedule</span><input type="time" id="set-end"></div></div>
+        </div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+          <div class="field"><label for="set-grace">Late grace (min)</label><div class="field-input"><span class="material-symbols-outlined">hourglass_bottom</span><input type="number" id="set-grace"></div></div>
+          <div class="field"><label for="set-radius">Geofence radius (m)</label><div class="field-input"><span class="material-symbols-outlined">my_location</span><input type="number" id="set-radius"></div></div>
+        </div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+          <div class="field"><label for="set-lat">School latitude</label><div class="field-input"><span class="material-symbols-outlined">explore</span><input type="text" id="set-lat"></div></div>
+          <div class="field"><label for="set-lng">School longitude</label><div class="field-input"><span class="material-symbols-outlined">explore</span><input type="text" id="set-lng"></div></div>
+        </div>
+        <button class="btn btn-primary" style="margin-top:4px;" onclick="saveSettings()">Save school settings</button>
+      </div>
+
+      <p class="settings-section-label"><span class="material-symbols-outlined" style="font-size:16px;">info</span>About</p>
+      <div class="card card-pad">
+        <div class="settings-row"><div class="settings-row-text"><p class="t1">Version</p></div><span class="text-soft">1.0.0</span></div>
+        <div class="settings-row" style="cursor:pointer;" onclick="showToast('You are on the latest version','success')">
+          <div class="settings-row-text"><p class="t1" style="color:var(--primary);">Check for updates</p></div>
+        </div>
+      </div>
+
+      <button class="btn btn-danger-outline" style="margin-top:18px;" onclick="logout()">
+        <span class="material-symbols-outlined">logout</span> Log out
+      </button>
+    </section>
+
+  </main>
+
+  <nav class="bottom-nav" id="bottom-nav-mount" style="display:none;"></nav>
+</div>
+
+
+<script src="https://www.gstatic.com/firebasejs/12.15.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/12.15.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/12.15.0/firebase-database-compat.js"></script>
+<script>
+/* =========================================================
+   BKM SMART SCHOOL PLATFORM — single-file SPA, Firebase-backed
+   Realtime Database layout:
+     users/{uid}            -> { name, position, department, phone, email, photoURL, role, createdAt }
+     attendance/{uid}/{date}-> { checkInTime, checkInTimeLocal, lat, lng, status, checkOutTime, checkOutTimeLocal, outLat, outLng }
+     settings/               -> { schoolName, address, workStartTime, workEndTime, lateGraceMinutes, schoolLat, schoolLng, geofenceRadiusM }
+   ========================================================= */
+
+const firebaseConfig = {
+  apiKey: "AIzaSyC3wIfLmTusbz1RD0g6JAJEXmwiiV4ZcC8",
+  authDomain: "bkm-smart-school.firebaseapp.com",
+  databaseURL: "https://bkm-smart-school-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "bkm-smart-school",
+  storageBucket: "bkm-smart-school.firebasestorage.app",
+  messagingSenderId: "279250652300",
+  appId: "1:279250652300:web:07e55d4ac7cabbce0e3fa9",
+  measurementId: "G-MLQ7L38DR0"
+};
+
+const FIREBASE_SDK_URL = "https://www.gstatic.com/firebasejs/12.15.0/firebase-app-compat.js";
+let auth = null;
+let db = null;
+let FIREBASE_READY = false;
+
+try {
+  if (typeof firebase === 'undefined') {
+    throw new Error('Firebase SDK scripts did not load from gstatic.com');
+  }
+  firebase.initializeApp(firebaseConfig);
+  auth = firebase.auth();
+  db = firebase.database();
+  FIREBASE_READY = true;
+} catch (initErr) {
+  console.error('Firebase init failed:', initErr);
+}
+
+function showFirebaseLoadError(){
+  const root = document.querySelector('.viewport') || document.body;
+  root.innerHTML = `
+    <div style="min-height:100dvh; display:flex; align-items:center; justify-content:center; padding:24px; text-align:center; font-family:'Noto Sans Thai',sans-serif;">
+      <div style="max-width:340px;">
+        <div style="width:64px;height:64px;border-radius:50%;background:#FBE8E8;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;">
+          <span class="material-symbols-outlined" style="font-size:32px;color:#C53434;">wifi_off</span>
+        </div>
+        <h2 style="font-size:18px;margin:0 0 8px;color:#101828;">เชื่อมต่อ Firebase ไม่สำเร็จ</h2>
+        <p style="font-size:14px;color:#4B5566;line-height:1.6;margin:0 0 16px;">
+          ไม่สามารถโหลดไลบรารี Firebase จาก gstatic.com ได้ สาเหตุที่เป็นไปได้:
+        </p>
+        <ul style="text-align:left;font-size:13px;color:#4B5566;line-height:1.7;margin:0 0 16px;padding-left:20px;">
+          <li>อินเทอร์เน็ตหลุดหรือช้าเกินไปขณะโหลดหน้า</li>
+          <li>เครือข่าย/ไฟร์วอลล์ของโรงเรียนบล็อกการเข้าถึง gstatic.com</li>
+          <li>โปรแกรมบล็อกโฆษณา (ad blocker) บล็อกสคริปต์นี้</li>
+        </ul>
+        <a href="${FIREBASE_SDK_URL}" target="_blank" style="display:inline-block;font-size:13px;color:#154FCE;">ทดสอบเปิดลิงก์นี้ในแท็บใหม่ &raquo;</a>
+        <p style="font-size:12px;color:#8995A8;margin-top:16px;">ถ้าเปิดลิงก์นี้ไม่ได้เลย แปลว่าเครือข่ายบล็อกอยู่ — ลองเปลี่ยนเครือข่าย (เช่น ใช้ 4G มือถือ) แล้วโหลดหน้านี้ใหม่อีกครั้ง</p>
+      </div>
+    </div>`;
+}
+
+/* ---------------- MODULE REGISTRY ---------------- */
+const MODULE_REGISTRY = [
+  { id:'attendance', name:'Attendance',         icon:'alarm',         status:'active', route:'attendance' },
+  { id:'dashboard',   name:'Dashboard',          icon:'bar_chart',     status:'active', route:'dashboard', adminOnly:true },
+  { id:'profile',     name:'Profile',            icon:'person',        status:'active', route:'profile' },
+  { id:'settings',    name:'Settings',           icon:'settings',      status:'active', route:'settings' },
+  { id:'document',    name:'Document',           icon:'description',  status:'soon' },
+  { id:'homevisit',   name:'Home Visit',         icon:'home_work',    status:'soon' },
+  { id:'robot',       name:'Robot Learning',     icon:'smart_toy',    status:'soon' },
+  { id:'media',       name:'Learning Media',     icon:'menu_book',    status:'soon' },
+  { id:'library',     name:'Library',            icon:'local_library',status:'planned' },
+  { id:'qa',          name:'Quality Assurance',  icon:'verified',     status:'planned' },
+  { id:'exec',        name:'Executive Dashboard',icon:'insights',     status:'planned' },
+  { id:'leave',       name:'Leave Management',   icon:'event_busy',   status:'planned' },
+  { id:'asset',       name:'Asset Management',   icon:'inventory_2',  status:'planned' }
+];
+
+const BottomNavItems = [
+  { id:'home',       icon:'home',       label:'Home',       route:'home' },
+  { id:'attendance', icon:'fact_check', label:'Attendance', route:'attendance' },
+  { id:'dashboard',  icon:'dashboard',  label:'Dashboard',  route:'dashboard', adminOnly:true },
+  { id:'profile',    icon:'person',     label:'Profile',    route:'profile' },
+  { id:'settings',   icon:'settings',  label:'Settings',    route:'settings' }
+];
+
+const ROUTES = {
+  splash:     { chrome:false },
+  login:      { chrome:false },
+  register:   { chrome:false },
+  home:       { chrome:true,  nav:'home',       topbar:{ left:'brand' } },
+  attendance: { chrome:true,  nav:'attendance', topbar:{ left:'back', back:'home', title:'Attendance', right:'icon', rightIcon:'history', rightRoute:'history' } },
+  history:    { chrome:true,  nav:'attendance', topbar:{ left:'back', back:'attendance', title:'Attendance history' } },
+  dashboard:  { chrome:true,  nav:'dashboard',  adminOnly:true, topbar:{ left:'back', back:'home', title:'Dashboard', right:'badge', rightText:'Admin' } },
+  profile:    { chrome:true,  nav:'profile',    topbar:{ left:'back', back:'home', title:'Profile' } },
+  settings:   { chrome:true,  nav:'settings',   topbar:{ left:'back', back:'home', title:'Settings' } }
+};
+
+/* ---------------- SESSION STATE (now backed by Firebase, not localStorage) ---------------- */
+let currentUser = null;   // firebase.auth User
+let userProfile = null;   // users/{uid} record
+let appSettings = {};     // settings/ record
+let authResolved = false;
+let domTimerDone = false;
+let geoCoords = null;     // last known {lat,lng} from this device
+
+function isAdmin(){ return !!(userProfile && userProfile.role === 'admin'); }
+
+function avatarUrl(){
+  const photo = (userProfile && userProfile.photoURL) || (currentUser && currentUser.photoURL);
+  if (photo) return photo;
+  const seed = (userProfile && userProfile.name) || (currentUser && currentUser.displayName) || 'U';
+  return 'https://api.dicebear.com/7.x/initials/svg?seed=' + encodeURIComponent(seed) + '&backgroundType=solid&backgroundColor=154fce';
+}
+
+function dateKey(d){
+  d = d || new Date();
+  return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+}
+
+function distanceMeters(lat1, lng1, lat2, lng2){
+  const R = 6371000;
+  const toRad = x => x * Math.PI / 180;
+  const dLat = toRad(lat2 - lat1), dLng = toRad(lng2 - lng1);
+  const a = Math.sin(dLat / 2) ** 2 + Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(dLng / 2) ** 2;
+  return Math.round(R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a)));
+}
+
+function computeStatus(now){
+  const start = (appSettings.workStartTime || '07:30').split(':').map(Number);
+  const grace = Number(appSettings.lateGraceMinutes || 15);
+  const cutoff = new Date(now);
+  cutoff.setHours(start[0] || 7, (start[1] || 30) + grace, 0, 0);
+  return now.getTime() <= cutoff.getTime() ? 'On time' : 'Late';
+}
+
+function getCoordsSafe(){
+  return new Promise(resolve => {
+    if (!navigator.geolocation){ resolve(null); return; }
+    navigator.geolocation.getCurrentPosition(
+      pos => resolve({ lat: pos.coords.latitude, lng: pos.coords.longitude }),
+      () => resolve(null),
+      { enableHighAccuracy:true, timeout:8000 }
+    );
+  });
+}
+
+/* ---------------- ROUTER ---------------- */
+function navigate(route){ location.hash = route; }
+
+function render(){
+  let route = (location.hash || '#splash').replace('#', '');
+  if (!ROUTES[route]) route = 'splash';
+  const cfg = ROUTES[route];
+
+  if (cfg.adminOnly && !isAdmin()){ location.hash = 'home'; return; }
+
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  const target = document.getElementById('view-' + route);
+  if (target) target.classList.add('active');
+
+  const topbar = document.getElementById('app-topbar');
+  const bottomnav = document.getElementById('bottom-nav-mount');
+  if (cfg.chrome){
+    topbar.style.display = 'flex';
+    bottomnav.style.display = 'flex';
+    renderTopbar(cfg.topbar);
+    renderBottomNav(cfg.nav);
+  } else {
+    topbar.style.display = 'none';
+    bottomnav.style.display = 'none';
+  }
+
+  document.title = (cfg.topbar && cfg.topbar.title ? cfg.topbar.title + ' \u00b7 ' : '') + 'BKM Smart School Platform';
+  window.scrollTo(0, 0);
+
+  populateUserChrome();
+  if (route === 'splash') trySettleSplash();
+  if (route === 'register') populateRegisterFromAuth();
+  if (route === 'home') renderModuleGrid();
+  if (route === 'attendance') enterAttendance();
+  if (route === 'history') enterHistory();
+  if (route === 'dashboard') enterDashboard();
+  if (route === 'profile') populateProfile();
+  if (route === 'settings') enterSettings();
+}
+window.addEventListener('hashchange', render);
+
+/* ---------------- TOP APP BAR ---------------- */
+function renderTopbar(t){
+  const el = document.getElementById('app-topbar');
+  if (!t){ el.innerHTML = ''; return; }
+  let left;
+  if (t.left === 'brand'){
+    left = `<div class="topbar-left">
+      <div class="topbar-avatar"><img src="${avatarUrl()}" alt="avatar"></div>
+      <span class="topbar-title">BKM Smart School</span>
+    </div>`;
+  } else {
+    left = `<div class="topbar-left">
+      <button class="icon-btn" aria-label="Back" onclick="navigate('${t.back}')"><span class="material-symbols-outlined">arrow_back</span></button>
+      <span class="topbar-title">${t.title || ''}</span>
+    </div>`;
+  }
+  let right = '<span style="width:38px;" aria-hidden="true"></span>';
+  if (t.right === 'icon'){
+    right = `<button class="icon-btn" aria-label="${t.rightIcon}" onclick="navigate('${t.rightRoute}')"><span class="material-symbols-outlined">${t.rightIcon}</span></button>`;
+  } else if (t.right === 'badge'){
+    right = `<span class="badge badge-neutral">${t.rightText}</span>`;
+  } else if (t.left === 'brand'){
+    right = `<button class="icon-btn" aria-label="Notifications"><span class="material-symbols-outlined">notifications</span></button>`;
+  }
+  el.innerHTML = left + right;
+}
+
+function renderBottomNav(activeId){
+  const mount = document.getElementById('bottom-nav-mount');
+  const admin = isAdmin();
+  const items = BottomNavItems.filter(i => !i.adminOnly || admin);
+  mount.innerHTML = items.map(i => `
+    <a class="nav-item ${i.id === activeId ? 'active' : ''}" href="#${i.route}">
+      <span class="material-symbols-outlined ${i.id === activeId ? 'icon-fill' : ''}">${i.icon}</span>
+      <span class="nav-label">${i.label}</span>
+    </a>`).join('');
+}
+
+function renderModuleGrid(){
+  const mount = document.getElementById('module-grid-mount');
+  if (!mount) return;
+  const admin = isAdmin();
+  const active = MODULE_REGISTRY.filter(m => m.status === 'active' && (!m.adminOnly || admin));
+  const soon = MODULE_REGISTRY.filter(m => m.status === 'soon');
+  const plannedCount = MODULE_REGISTRY.filter(m => m.status === 'planned').length;
+
+  let html = active.map(m => `
+    <a class="module-tile is-active" href="#${m.route}">
+      <div class="module-icon"><span class="material-symbols-outlined icon-fill">${m.icon}</span></div>
+      <p class="module-name">${m.name}</p>
+    </a>`).join('');
+
+  html += soon.map(m => `
+    <div class="module-tile is-soon" onclick="showToast('${m.name} is coming in a future update','info')">
+      <div class="module-icon"><span class="material-symbols-outlined">${m.icon}</span></div>
+      <p class="module-name">${m.name}</p>
+      <p class="module-soon-tag">COMING SOON</p>
+    </div>`).join('');
+
+  if (plannedCount > 0){
+    html += `<div class="module-tile-more" style="grid-column:span 2;" onclick="showToast('${plannedCount} more modules are on the roadmap','info')">
+      <span class="material-symbols-outlined" style="font-size:22px;">add_circle</span>
+      <span>+${plannedCount} more modules on the roadmap — this grid grows automatically</span>
+    </div>`;
+  }
+  mount.innerHTML = html;
+}
+
+/* ---------------- TOAST ---------------- */
+function ensureToastHost(){
+  let host = document.querySelector('.toast-host');
+  if (!host){ host = document.createElement('div'); host.className = 'toast-host'; document.body.appendChild(host); }
+  return host;
+}
+function showToast(message, type){
+  const host = ensureToastHost();
+  const icons = { success:'check_circle', error:'error', info:'info' };
+  const el = document.createElement('div');
+  el.className = 'toast ' + (type || '');
+  el.innerHTML = `<span class="material-symbols-outlined">${icons[type] || 'notifications'}</span><span>${message}</span>`;
+  host.appendChild(el);
+  requestAnimationFrame(() => el.classList.add('show'));
+  setTimeout(() => { el.classList.remove('show'); setTimeout(() => el.remove(), 250); }, 3500);
+}
+
+/* ---------------- CLOCKS ---------------- */
+function startClock(timeElId, dateElId){
+  function tick(){
+    const now = new Date();
+    const t = document.getElementById(timeElId);
+    const d = document.getElementById(dateElId);
+    if (t) t.textContent = now.toLocaleTimeString('en-GB', { hour:'2-digit', minute:'2-digit' });
+    if (d) d.textContent = now.toLocaleDateString('en-US', { weekday:'short', day:'numeric', month:'short' });
+  }
+  tick();
+  setInterval(tick, 1000);
+}
+
+/* ---------------- THEME (UI preference only — fine to keep local) ---------------- */
+function initTheme(){
+  const saved = localStorage.getItem('bkm_theme') || 'light';
+  document.documentElement.setAttribute('data-theme', saved);
+  document.querySelectorAll('[data-theme-toggle]').forEach(t => { t.checked = saved === 'dark'; });
+}
+function toggleTheme(checked){
+  const next = checked ? 'dark' : 'light';
+  document.documentElement.setAttribute('data-theme', next);
+  localStorage.setItem('bkm_theme', next);
+}
+
+/* ---------------- AUTH + SPLASH ---------------- */
+function trySettleSplash(){
+  if (!authResolved || !domTimerDone) return;
+  if ((location.hash || '#splash').replace('#', '') !== 'splash') return;
+  navigate(currentUser ? (userProfile ? 'home' : 'register') : 'login');
+}
+
+if (FIREBASE_READY){
+  auth.onAuthStateChanged(async (user) => {
+    currentUser = user;
+    userProfile = null;
+    if (user){
+      try {
+        const snap = await db.ref('users/' + user.uid).once('value');
+        userProfile = snap.val();
+      } catch (err){
+        showToast('เชื่อมต่อฐานข้อมูลไม่สำเร็จ: ' + err.message, 'error');
+      }
+    }
+    authResolved = true;
+    const route = (location.hash || '#splash').replace('#', '');
+    if (route === 'splash'){
+      trySettleSplash();
+    } else if (user && !userProfile && route !== 'register'){
+      navigate('register');
+    } else if (!user && route !== 'login'){
+      navigate('login');
+    } else {
+      render();
+    }
+  });
+}
+
+function loginWithGoogle(){
+  const btn = document.getElementById('btn-google-signin');
+  if (btn) btn.disabled = true;
+  const provider = new firebase.auth.GoogleAuthProvider();
+  auth.signInWithPopup(provider).catch(err => {
+    showToast('เข้าสู่ระบบไม่สำเร็จ: ' + err.message, 'error');
+    if (btn) btn.disabled = false;
+  });
+}
+
+function logout(){
+  auth.signOut().then(() => { showToast('ออกจากระบบแล้ว', 'info'); navigate('login'); });
+}
+
+/* ---------------- REGISTRATION ---------------- */
+function populateRegisterFromAuth(){
+  if (!currentUser) return;
+  const img = document.getElementById('reg-google-avatar');
+  const emailEl = document.getElementById('reg-google-email');
+  if (img) img.src = currentUser.photoURL || avatarUrl();
+  if (emailEl) emailEl.textContent = currentUser.email || '';
+  const nameEl = document.getElementById('reg-name');
+  if (nameEl && !nameEl.value && currentUser.displayName){
+    nameEl.value = currentUser.displayName;
+    syncRegistrationPreview();
+  }
+}
+function syncRegistrationPreview(){
+  const name = document.getElementById('reg-name').value.trim();
+  const position = document.getElementById('reg-position').value;
+  const dept = document.getElementById('reg-dept').value;
+  document.getElementById('pc-name').textContent = name || 'Your name';
+  document.getElementById('pc-position').textContent = (position || 'Position') + (dept ? ' \u00b7 ' + dept : '');
+  document.getElementById('pc-initials').textContent = name ? name.trim()[0].toUpperCase() : 'A';
+}
+async function submitRegistration(e){
+  e.preventDefault();
+  if (!currentUser){ showToast('กรุณาเข้าสู่ระบบก่อน', 'error'); navigate('login'); return false; }
+  const btn = e.target.querySelector('button[type="submit"]');
+  btn.disabled = true;
+  try {
+    const usersSnap = await db.ref('users').once('value');
+    const isFirstUser = !usersSnap.exists();
+    const profile = {
+      name: document.getElementById('reg-name').value,
+      position: document.getElementById('reg-position').value,
+      department: document.getElementById('reg-dept').value || '',
+      phone: document.getElementById('reg-phone').value,
+      email: currentUser.email || '',
+      photoURL: currentUser.photoURL || '',
+      role: isFirstUser ? 'admin' : 'teacher',
+      createdAt: firebase.database.ServerValue.TIMESTAMP
+    };
+    await db.ref('users/' + currentUser.uid).set(profile);
+    userProfile = profile;
+    showToast('ลงทะเบียนสำเร็จ ยินดีต้อนรับสู่ BKM Smart School', 'success');
+    navigate('home');
+  } catch (err){
+    showToast('บันทึกไม่สำเร็จ: ' + err.message, 'error');
+  } finally {
+    btn.disabled = false;
+  }
+  return false;
+}
+
+/* ---------------- HOME / ATTENDANCE HEADER CHROME ---------------- */
+function populateUserChrome(){
+  const name = (userProfile && userProfile.name) || (currentUser && currentUser.displayName) || '';
+  const homeName = document.getElementById('home-username');
+  if (homeName) homeName.textContent = name.split(' ')[0] || 'there';
+
+  const attAvatar = document.getElementById('att-user-avatar');
+  const attName = document.getElementById('att-user-name');
+  const attRole = document.getElementById('att-user-role');
+  if (attAvatar) attAvatar.src = avatarUrl();
+  if (attName) attName.textContent = name;
+  if (attRole) attRole.textContent = (userProfile && userProfile.position) || '';
+}
+
+/* ---------------- ATTENDANCE ---------------- */
+async function enterAttendance(){
+  await refreshGeoCard();
+  await refreshAttendanceToday();
+}
+
+async function refreshGeoCard(){
+  const distEl = document.getElementById('gps-distance');
+  const textEl = document.getElementById('gps-text');
+  const iconEl = document.getElementById('gps-icon');
+  const radiusEl = document.getElementById('gps-radius');
+  if (radiusEl) radiusEl.textContent = (appSettings.geofenceRadiusM || 200) + ' m';
+  if (textEl) textEl.textContent = 'กำลังค้นหาตำแหน่ง…';
+  const coords = await getCoordsSafe();
+  geoCoords = coords;
+  if (!coords){
+    if (textEl) textEl.textContent = 'ไม่สามารถระบุตำแหน่งได้';
+    if (distEl) distEl.textContent = 'N/A';
+    return;
+  }
+  if (!appSettings.schoolLat){
+    if (distEl) distEl.textContent = 'N/A';
+    if (textEl) textEl.textContent = 'ยังไม่ได้ตั้งค่าตำแหน่งโรงเรียน';
+    return;
+  }
+  const dist = distanceMeters(coords.lat, coords.lng, Number(appSettings.schoolLat), Number(appSettings.schoolLng));
+  const radius = Number(appSettings.geofenceRadiusM || 200);
+  const within = dist <= radius;
+  if (distEl) distEl.textContent = dist + ' m';
+  if (textEl) textEl.textContent = within ? 'Status: verified \u00b7 inside school zone' : 'Status: outside school zone';
+  if (iconEl){ iconEl.textContent = within ? 'verified' : 'error'; iconEl.style.color = within ? 'var(--cyan)' : 'var(--danger)'; }
+}
+
+async function refreshAttendanceToday(){
+  const inBtn = document.getElementById('btn-checkin');
+  const outBtn = document.getElementById('btn-checkout');
+  const line = document.getElementById('att-status-line');
+  if (!currentUser){ return; }
+  try {
+    const snap = await db.ref('attendance/' + currentUser.uid + '/' + dateKey()).once('value');
+    const rec = snap.val();
+    if (rec){
+      const inTime = rec.checkInTimeLocal ? new Date(rec.checkInTimeLocal).toLocaleTimeString('en-GB', { hour:'2-digit', minute:'2-digit' }) : '-';
+      const outTime = rec.checkOutTimeLocal ? new Date(rec.checkOutTimeLocal).toLocaleTimeString('en-GB', { hour:'2-digit', minute:'2-digit' }) : null;
+      line.textContent = 'Checked in at ' + inTime + ' \u00b7 ' + rec.status + (outTime ? (' \u00b7 Checked out at ' + outTime) : '');
+      inBtn.disabled = true; inBtn.style.opacity = .5;
+      outBtn.disabled = !!outTime; outBtn.style.opacity = outTime ? .5 : 1;
+    } else {
+      line.textContent = "You haven't checked in today.";
+      inBtn.disabled = false; inBtn.style.opacity = 1;
+      outBtn.disabled = true; outBtn.style.opacity = .5;
+    }
+  } catch (err){
+    showToast('โหลดข้อมูลการเช็คชื่อไม่สำเร็จ: ' + err.message, 'error');
+  }
+}
+
+async function doCheckIn(){
+  if (!currentUser) return;
+  const btn = document.getElementById('btn-checkin');
+  btn.disabled = true;
+  const key = dateKey();
+  try {
+    const existing = await db.ref('attendance/' + currentUser.uid + '/' + key).once('value');
+    if (existing.exists()){
+      showToast('คุณเช็คอินวันนี้ไปแล้ว', 'error');
+      await refreshAttendanceToday();
+      return;
+    }
+    const now = new Date();
+    const status = computeStatus(now);
+    await db.ref('attendance/' + currentUser.uid + '/' + key).set({
+      checkInTime: firebase.database.ServerValue.TIMESTAMP,
+      checkInTimeLocal: now.toISOString(),
+      lat: geoCoords ? geoCoords.lat : null,
+      lng: geoCoords ? geoCoords.lng : null,
+      status: status
+    });
+    showToast('เช็คอินสำเร็จ \u00b7 ' + status, 'success');
+    await refreshAttendanceToday();
+  } catch (err){
+    showToast('เช็คอินไม่สำเร็จ: ' + err.message, 'error');
+    btn.disabled = false;
+  }
+}
+
+async function doCheckOut(){
+  if (!currentUser) return;
+  const btn = document.getElementById('btn-checkout');
+  btn.disabled = true;
+  const key = dateKey();
+  try {
+    const now = new Date();
+    await db.ref('attendance/' + currentUser.uid + '/' + key).update({
+      checkOutTime: firebase.database.ServerValue.TIMESTAMP,
+      checkOutTimeLocal: now.toISOString(),
+      outLat: geoCoords ? geoCoords.lat : null,
+      outLng: geoCoords ? geoCoords.lng : null
+    });
+    showToast('เช็คเอาท์สำเร็จ', 'success');
+    await refreshAttendanceToday();
+  } catch (err){
+    showToast('เช็คเอาท์ไม่สำเร็จ: ' + err.message, 'error');
+    btn.disabled = false;
+  }
+}
+
+/* ---------------- ATTENDANCE HISTORY ---------------- */
+function ensureMonthOptions(){
+  const sel = document.getElementById('month-filter');
+  if (sel.options.length) return;
+  const now = new Date();
+  for (let i = 0; i < 6; i++){
+    const d = new Date(now.getFullYear(), now.getMonth() - i, 1);
+    const ym = d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0');
+    const opt = document.createElement('option');
+    opt.value = ym;
+    opt.textContent = d.toLocaleDateString('en-US', { month:'long', year:'numeric' });
+    sel.appendChild(opt);
+  }
+  sel.addEventListener('change', () => loadHistory(sel.value));
+}
+
+async function enterHistory(){
+  ensureMonthOptions();
+  await loadHistory(document.getElementById('month-filter').value);
+}
+
+async function loadHistory(monthStr){
+  if (!currentUser) return;
+  const list = document.getElementById('history-list');
+  try {
+    const snap = await db.ref('attendance/' + currentUser.uid).once('value');
+    const all = snap.val() || {};
+    const entries = Object.keys(all)
+      .filter(d => d.startsWith(monthStr))
+      .sort().reverse()
+      .map(d => ({ date:d, ...all[d] }));
+
+    const present = entries.length;
+    const late = entries.filter(e => e.status === 'Late').length;
+    const onTime = present - late;
+    const rate = present > 0 ? Math.round((onTime / present) * 100) : 0;
+    document.getElementById('hist-stat-present').textContent = present;
+    document.getElementById('hist-stat-late').textContent = late;
+    document.getElementById('hist-stat-absent').textContent = 0;
+    document.getElementById('hist-stat-rate').textContent = rate + '%';
+
+    if (!entries.length){
+      list.innerHTML = '<p class="text-faint" style="text-align:center; padding:24px 0;">No attendance records for this month yet.</p>';
+      return;
+    }
+    list.innerHTML = entries.map(e => {
+      const isLate = e.status === 'Late';
+      const iconClass = isLate ? 'late' : 'ontime';
+      const icon = isLate ? 'schedule' : 'check_circle';
+      const badgeClass = isLate ? 'badge-warn' : 'badge-success';
+      const d = new Date(e.date);
+      const dayLabel = d.toLocaleDateString('en-US', { month:'short', day:'numeric' });
+      const weekday = d.toLocaleDateString('en-US', { weekday:'short' });
+      const inT = e.checkInTimeLocal ? new Date(e.checkInTimeLocal).toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'}) : '-';
+      const outT = e.checkOutTimeLocal ? new Date(e.checkOutTimeLocal).toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'}) : '-';
+      return `<div class="hist-row">
+        <div class="hist-icon ${iconClass}"><span class="material-symbols-outlined icon-fill">${icon}</span></div>
+        <div class="hist-main"><p class="d">${dayLabel}</p><p class="w">${weekday}</p></div>
+        <div class="hist-times"><div class="tt">${inT}</div><div>In</div></div>
+        <div class="hist-times"><div class="tt">${outT}</div><div>Out</div></div>
+        <span class="badge ${badgeClass}">${e.status}</span>
+      </div>`;
+    }).join('');
+  } catch (err){
+    list.innerHTML = '';
+    showToast('โหลดประวัติไม่สำเร็จ: ' + err.message, 'error');
+  }
+}
+
+/* ---------------- DASHBOARD (admin) ---------------- */
+async function enterDashboard(){
+  if (!isAdmin()) return;
+  try {
+    const [usersSnap, attSnap] = await Promise.all([
+      db.ref('users').once('value'),
+      db.ref('attendance').once('value')
+    ]);
+    const users = usersSnap.val() || {};
+    const attendance = attSnap.val() || {};
+    const totalStaff = Object.keys(users).length;
+    const today = dateKey();
+    let present = 0, late = 0;
+    const recent = [];
+    Object.keys(attendance).forEach(uid => {
+      const rec = attendance[uid] && attendance[uid][today];
+      if (rec){
+        present++;
+        if (rec.status === 'Late') late++;
+        const u = users[uid] || {};
+        recent.push({ name:u.name || 'Unknown', department:u.department || '', photoURL:u.photoURL || '', ...rec });
+      }
+    });
+    const absent = Math.max(totalStaff - present, 0);
+    document.getElementById('dash-total-staff').textContent = totalStaff;
+    document.getElementById('dash-present').textContent = present;
+    document.getElementById('dash-late').textContent = late;
+    document.getElementById('dash-absent').textContent = absent;
+
+    recent.sort((a, b) => new Date(b.checkInTimeLocal) - new Date(a.checkInTimeLocal));
+    renderRecentCheckins(recent.slice(0, 6));
+    renderWeeklyTrend(attendance);
+    renderLateDonut(attendance);
+  } catch (err){
+    showToast('โหลดข้อมูลแดชบอร์ดไม่สำเร็จ: ' + err.message, 'error');
+  }
+}
+
+function renderRecentCheckins(list){
+  const ul = document.getElementById('recent-checkins-list');
+  if (!list.length){ ul.innerHTML = '<p class="text-faint" style="font-size:13px;">No check-ins yet today.</p>'; return; }
+  ul.innerHTML = list.map(item => {
+    const badgeClass = item.status === 'Late' ? 'badge-warn' : 'badge-success';
+    const time = item.checkInTimeLocal ? new Date(item.checkInTimeLocal).toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'}) : '-';
+    const img = item.photoURL || ('https://api.dicebear.com/7.x/initials/svg?seed=' + encodeURIComponent(item.name));
+    return `<div class="recent-row">
+      <img src="${img}" alt="">
+      <div style="flex:1;"><p class="nm">${item.name}</p><p class="dp">${item.department}</p></div>
+      <div class="tm">${time}<br><span class="badge ${badgeClass}" style="margin-top:2px;">${item.status}</span></div>
+    </div>`;
+  }).join('');
+}
+
+function renderWeeklyTrend(attendance){
+  const days = [];
+  for (let i = 6; i >= 0; i--){ const d = new Date(); d.setDate(d.getDate() - i); days.push({ key:dateKey(d), label:d.toLocaleDateString('en-US',{weekday:'short'}) }); }
+  const counts = days.map(d => Object.keys(attendance).filter(uid => attendance[uid] && attendance[uid][d.key]).length);
+  const max = Math.max(...counts, 1);
+  const xs = [10, 60, 110, 160, 210, 260, 310];
+  const ys = counts.map(c => Math.round(110 - (c / max) * 90));
+  const points = xs.map((x, i) => `${x},${ys[i]}`).join(' ');
+  const poly = document.getElementById('trend-polyline');
+  const dots = document.getElementById('trend-dots');
+  if (poly) poly.setAttribute('points', points);
+  if (dots) dots.innerHTML = xs.map((x, i) => `<circle cx="${x}" cy="${ys[i]}" r="3.5"/>`).join('');
+  const labels = document.getElementById('trend-labels');
+  if (labels) labels.innerHTML = days.map(d => `<span>${d.label}</span>`).join('');
+}
+
+function renderLateDonut(attendance){
+  const month = dateKey().slice(0, 7);
+  let onTime = 0, late = 0;
+  Object.keys(attendance).forEach(uid => {
+    Object.keys(attendance[uid] || {}).forEach(d => {
+      if (d.startsWith(month)){ if (attendance[uid][d].status === 'Late') late++; else onTime++; }
+    });
+  });
+  const total = onTime + late;
+  const pct = total ? Math.round((onTime / total) * 100) : 100;
+  const r = 46, circumference = 2 * Math.PI * r;
+  const dash = Math.round((pct / 100) * circumference);
+  const circle = document.getElementById('donut-progress');
+  const text = document.getElementById('donut-pct');
+  if (circle) circle.setAttribute('stroke-dasharray', dash + ' ' + Math.round(circumference));
+  if (text) text.textContent = pct + '%';
+}
+
+/* ---------------- PROFILE ---------------- */
+function populateProfile(){
+  if (!userProfile) return;
+  document.getElementById('profile-avatar').src = avatarUrl();
+  document.getElementById('profile-name').textContent = userProfile.name || '';
+  document.getElementById('profile-position').textContent = userProfile.position || '';
+  document.getElementById('profile-id').textContent = currentUser ? ('ID ' + currentUser.uid.slice(-6).toUpperCase()) : '';
+  document.getElementById('profile-email').textContent = userProfile.email || '';
+  document.getElementById('profile-phone').textContent = userProfile.phone || '-';
+  document.getElementById('profile-department').textContent = userProfile.department || '-';
+  document.getElementById('profile-startdate').textContent = userProfile.createdAt ? new Date(userProfile.createdAt).toLocaleDateString('en-US', { day:'numeric', month:'long', year:'numeric' }) : '-';
+}
+
+async function editProfile(){
+  if (!userProfile || !currentUser) return;
+  const name = prompt('Full name', userProfile.name || '');
+  if (name === null) return;
+  const phone = prompt('Phone number', userProfile.phone || '');
+  const department = prompt('Department', userProfile.department || '');
+  try {
+    await db.ref('users/' + currentUser.uid).update({ name, phone, department });
+    userProfile = { ...userProfile, name, phone, department };
+    populateProfile();
+    populateUserChrome();
+    showToast('บันทึกข้อมูลโปรไฟล์แล้ว', 'success');
+  } catch (err){
+    showToast('บันทึกไม่สำเร็จ: ' + err.message, 'error');
+  }
+}
+
+async function uploadProfilePhoto(input){
+  showToast('การอัปโหลดรูปภาพต้องใช้ Firebase Storage — ถามผมเพิ่มได้เมื่อพร้อมต่อยอด', 'info');
+}
+
+/* ---------------- SETTINGS ---------------- */
+async function enterSettings(){
+  const admin = isAdmin();
+  document.getElementById('admin-section').style.display = admin ? '' : 'none';
+  document.getElementById('admin-section-label').style.display = admin ? '' : 'none';
+  if (!admin) return;
+  try {
+    const snap = await db.ref('settings').once('value');
+    appSettings = snap.val() || {};
+    document.getElementById('set-schoolname').value = appSettings.schoolName || '';
+    document.getElementById('set-address').value = appSettings.address || '';
+    document.getElementById('set-start').value = appSettings.workStartTime || '07:30';
+    document.getElementById('set-end').value = appSettings.workEndTime || '16:30';
+    document.getElementById('set-grace').value = appSettings.lateGraceMinutes || 15;
+    document.getElementById('set-radius').value = appSettings.geofenceRadiusM || 200;
+    document.getElementById('set-lat').value = appSettings.schoolLat || '';
+    document.getElementById('set-lng').value = appSettings.schoolLng || '';
+  } catch (err){
+    showToast('โหลดการตั้งค่าไม่สำเร็จ: ' + err.message, 'error');
+  }
+}
+
+async function saveSettings(){
+  if (!isAdmin()) return;
+  const payload = {
+    schoolName: document.getElementById('set-schoolname').value,
+    address: document.getElementById('set-address').value,
+    workStartTime: document.getElementById('set-start').value,
+    workEndTime: document.getElementById('set-end').value,
+    lateGraceMinutes: Number(document.getElementById('set-grace').value) || 15,
+    geofenceRadiusM: Number(document.getElementById('set-radius').value) || 200,
+    schoolLat: document.getElementById('set-lat').value,
+    schoolLng: document.getElementById('set-lng').value
+  };
+  try {
+    await db.ref('settings').update(payload);
+    appSettings = { ...appSettings, ...payload };
+    showToast('บันทึกการตั้งค่าโรงเรียนแล้ว', 'success');
+  } catch (err){
+    showToast('บันทึกไม่สำเร็จ: ' + err.message, 'error');
+  }
+}
+
+/* ---------------- GLOBAL INIT ---------------- */
+if (FIREBASE_READY){
+  db.ref('settings').on('value', snap => { appSettings = snap.val() || appSettings; });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  if (!FIREBASE_READY){
+    showFirebaseLoadError();
+    return;
+  }
+
+  initTheme();
+  startClock('home-time', 'home-date');
+  startClock('att-time', 'att-date');
+
+  document.querySelectorAll('[data-theme-toggle]').forEach(t => t.addEventListener('change', e => toggleTheme(e.target.checked)));
+
+  const regName = document.getElementById('reg-name');
+  if (regName){
+    ['reg-name', 'reg-position', 'reg-dept'].forEach(id => document.getElementById(id).addEventListener('input', syncRegistrationPreview));
+  }
+
+  setTimeout(() => { domTimerDone = true; trySettleSplash(); }, 1200);
+  render();
+});
+
+</script>
+</body>
+</html>

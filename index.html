@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="th">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>BKM Smart School Platform</title>
+<title>BKM Smart School</title>
 <meta name="theme-color" content="#154FCE">
-<link rel="manifest" href="data:application/manifest+json;base64,eyJuYW1lIjogIkJLTSBTbWFydCBTY2hvb2wgUGxhdGZvcm0iLCAic2hvcnRfbmFtZSI6ICJCS00gU2Nob29sIiwgImRlc2NyaXB0aW9uIjogIkRpZ2l0YWwgcGxhdGZvcm0gZm9yIEJhbiBLaG9rIE11YXkgU2Nob29sIOKAlCBhdHRlbmRhbmNlLCBkYXNoYm9hcmQgYW5kIGZ1dHVyZSBzY2hvb2wgbW9kdWxlcy4iLCAic3RhcnRfdXJsIjogIi4iLCAic2NvcGUiOiAiLiIsICJkaXNwbGF5IjogInN0YW5kYWxvbmUiLCAib3JpZW50YXRpb24iOiAicG9ydHJhaXQiLCAiYmFja2dyb3VuZF9jb2xvciI6ICIjRjVGOEZDIiwgInRoZW1lX2NvbG9yIjogIiMxNTRGQ0UiLCAiaWNvbnMiOiBbeyJzcmMiOiAiZGF0YTppbWFnZS9zdmcreG1sO2Jhc2U2NCxQSE4yWnlCNGJXeHVjejBpYUhSMGNEb3ZMM2QzZHk1M015NXZjbWN2TWpBd01DOXpkbWNpSUhacFpYZENiM2c5SWpBZ01DQTFNVElnTlRFeUlqNEtQSEpsWTNRZ2QybGtkR2c5SWpVeE1pSWdhR1ZwWjJoMFBTSTFNVElpSUhKNFBTSTVOaUlnWm1sc2JEMGlJekUxTkVaRFJTSXZQZ284Y0dGMGFDQmtQU0pOTWpVMklERTBNQ0E1TmlBeU1UQnNNVFl3SURjd0lERTJNQzAzTUMweE5qQXROekJhSWlCbWFXeHNQU0lqUmtaR1JrWkdJaTgrQ2p4d1lYUm9JR1E5SWsweU5UWWdNamt3SURFME1DQXlOREIyTmpaak1DQXpPQ0ExTWlBMk9DQXhNVFlnTmpoek1URTJMVE13SURFeE5pMDJPSFl0Tmpac0xURXhOaUExTUZvaUlHWnBiR3c5SWlOR1JrWkdSa1lpSUc5d1lXTnBkSGs5SWpBdU9USWlMejRLUEM5emRtYysiLCAic2l6ZXMiOiAiNTEyeDUxMiIsICJ0eXBlIjogImltYWdlL3N2Zyt4bWwiLCAicHVycG9zZSI6ICJhbnkgbWFza2FibGUifV19">
+<link rel="manifest" href="data:application/manifest+json;base64,eyJuYW1lIjogIkJLTSBTbWFydCBTY2hvb2wiLCAic2hvcnRfbmFtZSI6ICJCS00gU21hcnQgU2Nob29sIiwgImRlc2NyaXB0aW9uIjogIuC4o+C4sOC4muC4muC4muC4o+C4tOC4q+C4suC4o+C4iOC4seC4lOC4geC4suC4o+C4quC4luC4suC4meC4qOC4tuC4geC4qeC4suC4reC4seC4iOC4ieC4o+C4tOC4ouC4sCDigJQg4LmC4Lij4LiH4LmA4Lij4Li14Lii4LiZ4Lia4LmJ4Liy4LiZ4LmC4LiE4LiB4Lih4LmI4Lin4LiiIiwgInN0YXJ0X3VybCI6ICIuIiwgInNjb3BlIjogIi4iLCAiZGlzcGxheSI6ICJzdGFuZGFsb25lIiwgIm9yaWVudGF0aW9uIjogInBvcnRyYWl0IiwgImJhY2tncm91bmRfY29sb3IiOiAiI0Y1RjhGQyIsICJ0aGVtZV9jb2xvciI6ICIjMTU0RkNFIiwgImljb25zIjogW3sic3JjIjogImRhdGE6aW1hZ2Uvc3ZnK3htbDtiYXNlNjQsUEhOMlp5QjRiV3h1Y3owaWFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNQzl6ZG1jaUlIWnBaWGRDYjNnOUlqQWdNQ0ExTVRJZ05URXlJajRLUEhKbFkzUWdkMmxrZEdnOUlqVXhNaUlnYUdWcFoyaDBQU0kxTVRJaUlISjRQU0k1TmlJZ1ptbHNiRDBpSXpFMU5FWkRSU0l2UGdvOGNHRjBhQ0JrUFNKTk1qVTJJREUwTUNBNU5pQXlNVEJzTVRZd0lEY3dJREUyTUMwM01DMHhOakF0TnpCYUlpQm1hV3hzUFNJalJrWkdSa1pHSWk4K0NqeHdZWFJvSUdROUlrMHlOVFlnTWprd0lERTBNQ0F5TkRCMk5qWmpNQ0F6T0NBMU1pQTJPQ0F4TVRZZ05qaHpNVEUyTFRNd0lERXhOaTAyT0hZdE5qWnNMVEV4TmlBMU1Gb2lJR1pwYkd3OUlpTkdSa1pHUmtZaUlHOXdZV05wZEhrOUlqQXVPVElpTHo0S1BDOXpkbWMrIiwgInNpemVzIjogIjUxMng1MTIiLCAidHlwZSI6ICJpbWFnZS9zdmcreG1sIiwgInB1cnBvc2UiOiAiYW55IG1hc2thYmxlIn1dfQ==">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap">
 <style>
 /* =========================================================
@@ -404,29 +404,40 @@ button{ font-family:inherit; }
     <!-- ============ SPLASH ============ -->
     <section class="view" id="view-splash">
       <div class="splash-wrap">
-        <div class="splash-logo"><span class="material-symbols-outlined icon-fill">school</span></div>
+        <div class="splash-logo">
+          <img src="https://chaochichi.github.io/image/screen.png" alt="BKM Smart School"
+               style="width:100%; height:100%; object-fit:contain; border-radius:24px;"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <span class="material-symbols-outlined icon-fill" style="display:none;">school</span>
+        </div>
         <div>
-          <p class="splash-title">BKM Smart School Platform</p>
-          <p class="splash-sub">Ban Khok Muay School &middot; Digital Campus</p>
+          <p class="splash-title">BKM Smart School</p>
+          <p class="splash-sub">ระบบบริหารจัดการสถานศึกษาอัจฉริยะ</p>
         </div>
         <div class="splash-dots"><span></span><span></span><span></span></div>
       </div>
-      <p class="splash-tag">Module 1 of many &middot; Attendance</p>
+      <p class="splash-tag">โมดูลที่ 1 จากทั้งหมด &middot; งานเช็คชื่อ</p>
     </section>
 
     <!-- ============ LOGIN / FIND ACCOUNT ============ -->
     <section class="view" id="view-login">
       <div class="login-wrap">
         <div class="login-card center-col">
-          <div class="login-logo"><span class="material-symbols-outlined icon-fill">school</span></div>
+          <div class="login-logo">
+            <img src="https://chaochichi.github.io/image/screen.png" alt="BKM Smart School"
+                 style="width:100%; height:100%; object-fit:contain; border-radius:20px;"
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            <span class="material-symbols-outlined icon-fill" style="display:none;">school</span>
+          </div>
           <h1 class="login-title">BKM Smart School</h1>
+          <p class="text-soft" style="font-size:12.5px; margin:0 0 14px; text-align:center;">ระบบบริหารจัดการสถานศึกษาอัจฉริยะ</p>
           <p class="login-sub">กรอกชื่อ-นามสกุล หรืออีเมลที่ลงทะเบียนไว้ เพื่อเข้าสู่ระบบ</p>
 
           <div class="field" style="width:100%; text-align:left;">
             <label for="login-lookup">ชื่อ-นามสกุล หรือ อีเมล</label>
             <div class="field-input">
               <span class="material-symbols-outlined">person_search</span>
-              <input type="text" id="login-lookup" placeholder="เช่น Ananda Srisuwan">
+              <input type="text" id="login-lookup" placeholder="เช่น สมชาย ใจดี">
             </div>
           </div>
           <button class="btn btn-primary" style="margin-top:4px;" onclick="findAccount()">เข้าสู่ระบบ</button>
@@ -451,7 +462,7 @@ button{ font-family:inherit; }
             <label for="reg-name">ชื่อ-นามสกุล</label>
             <div class="field-input">
               <span class="material-symbols-outlined">person</span>
-              <input type="text" id="reg-name" placeholder="e.g. Ananda Srisuwan" required>
+              <input type="text" id="reg-name" placeholder="เช่น สมชาย ใจดี" required>
             </div>
           </div>
           <div class="field">
@@ -467,9 +478,9 @@ button{ font-family:inherit; }
               <span class="material-symbols-outlined">badge</span>
               <select id="reg-position" required>
                 <option value="" disabled selected>เลือกตำแหน่ง</option>
-                <option>Teacher</option>
-                <option>Administrator</option>
-                <option>Support staff</option>
+                <option value="ผู้อำนวยการ">ผู้อำนวยการ</option>
+                <option value="ครู">ครู</option>
+                <option value="เจ้าหน้าที่ธุรการ">เจ้าหน้าที่ธุรการ</option>
               </select>
             </div>
           </div>
@@ -477,7 +488,7 @@ button{ font-family:inherit; }
             <label for="reg-dept">กลุ่มสาระ / แผนก</label>
             <div class="field-input">
               <span class="material-symbols-outlined">domain</span>
-              <input type="text" id="reg-dept" placeholder="e.g. Mathematics">
+              <input type="text" id="reg-dept" placeholder="เช่น คณิตศาสตร์">
             </div>
           </div>
           <div class="field" style="margin-bottom:4px;">
@@ -489,12 +500,12 @@ button{ font-family:inherit; }
           </div>
 
           <div class="preview-card">
-            <p class="pc-title">Profile preview</p>
+            <p class="pc-title">ตัวอย่างโปรไฟล์</p>
             <div class="card card-pad pc-row" style="background:var(--surface-app);">
               <div class="pc-avatar" id="pc-initials">A</div>
               <div>
-                <p class="pc-name" id="pc-name">Your name</p>
-                <p class="pc-meta" id="pc-position">Position &middot; Department</p>
+                <p class="pc-name" id="pc-name">ชื่อของคุณ</p>
+                <p class="pc-meta" id="pc-position">ตำแหน่ง &middot; กลุ่มสาระ</p>
               </div>
             </div>
           </div>
@@ -513,20 +524,20 @@ button{ font-family:inherit; }
     <section class="view app-content" id="view-home">
       <div class="home-hero">
         <div>
-          <p class="hi">Hi, <span id="home-username">there</span> &#128075;</p>
-          <p class="school">Ban Khok Muay School</p>
+          <p class="hi">สวัสดี <span id="home-username">ครับ</span> &#128075;</p>
+          <p class="school">โรงเรียนบ้านโคกม่วย</p>
         </div>
       </div>
 
       <div class="card card-pad home-clock-card">
         <div>
-          <div class="date" id="home-date">Loading date&hellip;</div>
-          <div class="text-faint" style="font-size:12px;">Term 1 &middot; Week 12</div>
+          <div class="date" id="home-date">กำลังโหลดวันที่&hellip;</div>
+          <div class="text-faint" style="font-size:12px;">ภาคเรียนที่ 1 &middot; สัปดาห์ที่ 12</div>
         </div>
         <div class="time tabular" id="home-time">--:--</div>
       </div>
 
-      <p class="section-label">Your modules</p>
+      <p class="section-label">โมดูลของคุณ</p>
       <div class="module-grid" id="module-grid-mount"></div>
     </section>
 
@@ -547,13 +558,13 @@ button{ font-family:inherit; }
       </div>
 
       <div class="card card-pad" style="margin-top:14px;">
-        <p class="card-title"><span class="material-symbols-outlined">my_location</span>Location verification</p>
+        <p class="card-title"><span class="material-symbols-outlined">my_location</span>ตรวจสอบตำแหน่ง</p>
         <div class="gps-grid">
-          <div class="gps-mini"><p class="l">Distance from school</p><p class="v" id="gps-distance">Locating&hellip;</p></div>
-          <div class="gps-mini"><p class="l">Geofence radius</p><p class="v" id="gps-radius">200 m</p></div>
+          <div class="gps-mini"><p class="l">ระยะห่างจากโรงเรียน</p><p class="v" id="gps-distance">กำลังค้นหา&hellip;</p></div>
+          <div class="gps-mini"><p class="l">รัศมีพื้นที่ที่กำหนด</p><p class="v" id="gps-radius">200 ม.</p></div>
         </div>
         <div class="gps-status" id="gps-status-box">
-          <div class="gs-left"><span class="material-symbols-outlined icon-fill" id="gps-icon" style="color:var(--cyan);">verified</span><span id="gps-text">Checking signal&hellip;</span></div>
+          <div class="gs-left"><span class="material-symbols-outlined icon-fill" id="gps-icon" style="color:var(--cyan);">verified</span><span id="gps-text">กำลังตรวจสอบสัญญาณ&hellip;</span></div>
           <span class="pulse"></span>
         </div>
       </div>
@@ -561,17 +572,17 @@ button{ font-family:inherit; }
       <div class="camera-frame">
         <div class="cam-fallback"><span class="material-symbols-outlined" style="font-size:48px;">photo_camera</span></div>
         <div class="cam-guide"><div class="cam-guide-box"></div></div>
-        <div class="cam-hint">Position your face within the frame</div>
+        <div class="cam-hint">จัดใบหน้าให้อยู่ในกรอบ</div>
       </div>
 
-      <p class="status-line" id="att-status-line">You haven't checked in today.</p>
+      <p class="status-line" id="att-status-line">คุณยังไม่ได้เช็คอินวันนี้</p>
 
       <div class="btn-stack">
         <button class="btn btn-primary" id="btn-checkin" onclick="doCheckIn()">
-          <span class="material-symbols-outlined icon-fill">login</span> Check in
+          <span class="material-symbols-outlined icon-fill">login</span> เช็คอิน
         </button>
         <button class="btn btn-secondary" id="btn-checkout" onclick="doCheckOut()" disabled>
-          <span class="material-symbols-outlined">logout</span> Check out
+          <span class="material-symbols-outlined">logout</span> เช็คเอาท์
         </button>
       </div>
     </section>
@@ -583,28 +594,28 @@ button{ font-family:inherit; }
       </div>
 
       <div class="stat-grid" style="margin-bottom:16px;">
-        <div class="stat-tile"><span class="material-symbols-outlined stat-icon" style="color:var(--success);">how_to_reg</span><p class="stat-label">Present</p><p class="stat-value" id="hist-stat-present">0</p></div>
-        <div class="stat-tile"><span class="material-symbols-outlined stat-icon" style="color:var(--warn);">schedule</span><p class="stat-label">Late</p><p class="stat-value" id="hist-stat-late">0</p></div>
-        <div class="stat-tile"><span class="material-symbols-outlined stat-icon" style="color:var(--danger);">person_off</span><p class="stat-label">Absent</p><p class="stat-value" id="hist-stat-absent">0</p></div>
-        <div class="stat-tile"><span class="material-symbols-outlined stat-icon" style="color:var(--primary);">insights</span><p class="stat-label">Attendance rate</p><p class="stat-value" id="hist-stat-rate">0%</p></div>
+        <div class="stat-tile"><span class="material-symbols-outlined stat-icon" style="color:var(--success);">how_to_reg</span><p class="stat-label">มาทำงาน</p><p class="stat-value" id="hist-stat-present">0</p></div>
+        <div class="stat-tile"><span class="material-symbols-outlined stat-icon" style="color:var(--warn);">schedule</span><p class="stat-label">มาสาย</p><p class="stat-value" id="hist-stat-late">0</p></div>
+        <div class="stat-tile"><span class="material-symbols-outlined stat-icon" style="color:var(--danger);">person_off</span><p class="stat-label">ขาด</p><p class="stat-value" id="hist-stat-absent">0</p></div>
+        <div class="stat-tile"><span class="material-symbols-outlined stat-icon" style="color:var(--primary);">insights</span><p class="stat-label">อัตราการมาทำงาน</p><p class="stat-value" id="hist-stat-rate">0%</p></div>
       </div>
 
       <div class="card card-pad">
-        <div id="history-list"><p class="text-faint" style="text-align:center; padding:24px 0;">Loading&hellip;</p></div>
+        <div id="history-list"><p class="text-faint" style="text-align:center; padding:24px 0;">กำลังโหลด&hellip;</p></div>
       </div>
     </section>
 
     <!-- ============ ADMIN DASHBOARD ============ -->
     <section class="view app-content" id="view-dashboard">
       <div class="stat-grid" style="margin-bottom:16px;">
-        <div class="stat-tile"><span class="material-symbols-outlined stat-icon" style="color:var(--primary);">groups</span><p class="stat-label">Total staff</p><p class="stat-value" id="dash-total-staff">&ndash;</p></div>
-        <div class="stat-tile"><span class="material-symbols-outlined stat-icon" style="color:var(--success);">how_to_reg</span><p class="stat-label">Present today</p><p class="stat-value" id="dash-present">&ndash;</p></div>
-        <div class="stat-tile"><span class="material-symbols-outlined stat-icon" style="color:var(--warn);">schedule</span><p class="stat-label">Late today</p><p class="stat-value" id="dash-late">&ndash;</p></div>
-        <div class="stat-tile"><span class="material-symbols-outlined stat-icon" style="color:var(--danger);">person_off</span><p class="stat-label">Absent today</p><p class="stat-value" id="dash-absent">&ndash;</p></div>
+        <div class="stat-tile"><span class="material-symbols-outlined stat-icon" style="color:var(--primary);">groups</span><p class="stat-label">บุคลากรทั้งหมด</p><p class="stat-value" id="dash-total-staff">&ndash;</p></div>
+        <div class="stat-tile"><span class="material-symbols-outlined stat-icon" style="color:var(--success);">how_to_reg</span><p class="stat-label">มาทำงานวันนี้</p><p class="stat-value" id="dash-present">&ndash;</p></div>
+        <div class="stat-tile"><span class="material-symbols-outlined stat-icon" style="color:var(--warn);">schedule</span><p class="stat-label">มาสายวันนี้</p><p class="stat-value" id="dash-late">&ndash;</p></div>
+        <div class="stat-tile"><span class="material-symbols-outlined stat-icon" style="color:var(--danger);">person_off</span><p class="stat-label">ขาดวันนี้</p><p class="stat-value" id="dash-absent">&ndash;</p></div>
       </div>
 
       <div class="card card-pad chart-card">
-        <p class="card-title"><span class="material-symbols-outlined">show_chart</span>Daily attendance &middot; this week</p>
+        <p class="card-title"><span class="material-symbols-outlined">show_chart</span>สถิติการเข้างานรายวัน &middot; สัปดาห์นี้</p>
         <svg viewBox="0 0 320 120" width="100%" height="120" preserveAspectRatio="none">
           <polyline id="trend-polyline" points="10,110 60,110 110,110 160,110 210,110 260,110 310,110" fill="none" stroke="#154FCE" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
           <g fill="#154FCE" id="trend-dots"></g>
@@ -613,23 +624,23 @@ button{ font-family:inherit; }
       </div>
 
       <div class="card card-pad chart-card center-col">
-        <p class="card-title" style="align-self:flex-start;"><span class="material-symbols-outlined">donut_large</span>Late statistics &middot; this month</p>
+        <p class="card-title" style="align-self:flex-start;"><span class="material-symbols-outlined">donut_large</span>สถิติการมาสาย &middot; เดือนนี้</p>
         <svg viewBox="0 0 120 120" width="120" height="120">
           <circle cx="60" cy="60" r="46" fill="none" stroke="var(--border)" stroke-width="14"/>
           <circle id="donut-progress" cx="60" cy="60" r="46" fill="none" stroke="#154FCE" stroke-width="14"
                   stroke-dasharray="0 289" stroke-linecap="round" transform="rotate(-90 60 60)"/>
           <text x="60" y="56" text-anchor="middle" font-size="20" font-weight="700" fill="var(--ink)" id="donut-pct">&ndash;</text>
-          <text x="60" y="72" text-anchor="middle" font-size="10" fill="var(--ink-soft)">on time</text>
+          <text x="60" y="72" text-anchor="middle" font-size="10" fill="var(--ink-soft)">ตรงเวลา</text>
         </svg>
         <div class="chart-legend">
-          <span><span class="dot" style="background:#154FCE;"></span>On time</span>
-          <span><span class="dot" style="background:var(--border);"></span>Late</span>
+          <span><span class="dot" style="background:#154FCE;"></span>ตรงเวลา</span>
+          <span><span class="dot" style="background:var(--border);"></span>มาสาย</span>
         </div>
       </div>
 
       <div class="card card-pad">
-        <p class="card-title"><span class="material-symbols-outlined">history_toggle_off</span>Recent check-ins</p>
-        <div id="recent-checkins-list"><p class="text-faint" style="font-size:13px;">Loading&hellip;</p></div>
+        <p class="card-title"><span class="material-symbols-outlined">history_toggle_off</span>การเช็คอินล่าสุด</p>
+        <div id="recent-checkins-list"><p class="text-faint" style="font-size:13px;">กำลังโหลด&hellip;</p></div>
       </div>
     </section>
 
@@ -637,8 +648,8 @@ button{ font-family:inherit; }
     <section class="view app-content" id="view-profile">
       <div class="pf-header">
         <div class="pf-avatar-wrap">
-          <img id="profile-avatar" src="" alt="Profile photo">
-          <button class="pf-edit-fab" aria-label="Change photo" onclick="uploadProfilePhoto()">
+          <img id="profile-avatar" src="" alt="รูปโปรไฟล์">
+          <button class="pf-edit-fab" aria-label="เปลี่ยนรูปโปรไฟล์" onclick="uploadProfilePhoto()">
             <span class="material-symbols-outlined" style="font-size:16px;">photo_camera</span>
           </button>
         </div>
@@ -648,96 +659,96 @@ button{ font-family:inherit; }
       </div>
 
       <div class="card card-pad">
-        <p class="card-title"><span class="material-symbols-outlined">badge</span>Professional details</p>
+        <p class="card-title"><span class="material-symbols-outlined">badge</span>ข้อมูลส่วนตัว</p>
         <div class="detail-row">
           <div class="di"><span class="material-symbols-outlined" style="font-size:18px;">mail</span></div>
-          <div><p class="dl">Email</p><p class="dv" id="profile-email">&ndash;</p></div>
+          <div><p class="dl">อีเมล</p><p class="dv" id="profile-email">&ndash;</p></div>
         </div>
         <div class="detail-row">
           <div class="di"><span class="material-symbols-outlined" style="font-size:18px;">call</span></div>
-          <div><p class="dl">Phone</p><p class="dv" id="profile-phone">&ndash;</p></div>
+          <div><p class="dl">เบอร์โทรศัพท์</p><p class="dv" id="profile-phone">&ndash;</p></div>
         </div>
         <div class="detail-row">
           <div class="di"><span class="material-symbols-outlined" style="font-size:18px;">domain</span></div>
-          <div><p class="dl">Department</p><p class="dv" id="profile-department">&ndash;</p></div>
+          <div><p class="dl">กลุ่มสาระ / แผนก</p><p class="dv" id="profile-department">&ndash;</p></div>
         </div>
         <div class="detail-row">
           <div class="di"><span class="material-symbols-outlined" style="font-size:18px;">calendar_month</span></div>
-          <div><p class="dl">Joined</p><p class="dv" id="profile-startdate">&ndash;</p></div>
+          <div><p class="dl">วันที่เข้าร่วม</p><p class="dv" id="profile-startdate">&ndash;</p></div>
         </div>
       </div>
 
       <div style="margin-top:16px; display:flex; flex-direction:column; gap:10px;">
         <button class="btn btn-primary" onclick="editProfile()">
-          <span class="material-symbols-outlined">edit</span> Edit profile
+          <span class="material-symbols-outlined">edit</span> แก้ไขโปรไฟล์
         </button>
         <button class="btn btn-danger-outline" onclick="logout()">
-          <span class="material-symbols-outlined">logout</span> Log out
+          <span class="material-symbols-outlined">logout</span> ออกจากระบบ
         </button>
       </div>
     </section>
 
     <!-- ============ SETTINGS ============ -->
     <section class="view app-content" id="view-settings">
-      <p class="settings-section-label"><span class="material-symbols-outlined" style="font-size:16px;">tune</span>General</p>
+      <p class="settings-section-label"><span class="material-symbols-outlined" style="font-size:16px;">tune</span>ทั่วไป</p>
       <div class="card card-pad">
         <div class="settings-row">
           <div class="settings-row-icon"><span class="material-symbols-outlined">dark_mode</span></div>
-          <div class="settings-row-text"><p class="t1">Dark mode</p><p class="t2">Easier on the eyes in low light</p></div>
+          <div class="settings-row-text"><p class="t1">โหมดมืด</p><p class="t2">ถนอมสายตาในที่แสงน้อย</p></div>
           <label class="switch"><input type="checkbox" data-theme-toggle><span class="track"></span></label>
         </div>
         <div class="settings-row">
           <div class="settings-row-icon"><span class="material-symbols-outlined">notifications_active</span></div>
-          <div class="settings-row-text"><p class="t1">Notifications</p><p class="t2">Check-in reminders and alerts</p></div>
+          <div class="settings-row-text"><p class="t1">การแจ้งเตือน</p><p class="t2">เตือนเช็คอินและการแจ้งเตือนต่างๆ</p></div>
           <label class="switch"><input type="checkbox" checked><span class="track"></span></label>
         </div>
         <div class="settings-row">
           <div class="settings-row-icon"><span class="material-symbols-outlined">language</span></div>
-          <div class="settings-row-text"><p class="t1">Language</p><p class="t2">Interface language</p></div>
+          <div class="settings-row-text"><p class="t1">ภาษา</p><p class="t2">ภาษาที่ใช้ในแอป</p></div>
           <select style="height:36px; border-radius:var(--radius-sm); border:1.5px solid var(--border); background:var(--surface-app); color:var(--ink); font-family:inherit; padding:0 8px;">
             <option>English</option>
-            <option selected>&#3616;&#3634;&#3625;&#3634;&#3652;&#3607;&#3618;</option>
+            <option selected>ภาษาไทย</option>
           </select>
         </div>
       </div>
 
       <p class="settings-section-label" id="admin-section-label" style="display:none;">
-        <span class="material-symbols-outlined" style="font-size:16px;">admin_panel_settings</span>School settings &middot; <span class="badge badge-warn">Admin only</span>
+        <span class="material-symbols-outlined" style="font-size:16px;">admin_panel_settings</span>ตั้งค่าโรงเรียน &middot; <span class="badge badge-warn">เฉพาะแอดมิน</span>
       </p>
       <div class="card card-pad" id="admin-section" style="display:none;">
         <div class="field">
-          <label for="set-schoolname">School name</label>
+          <label for="set-schoolname">ชื่อโรงเรียน</label>
           <div class="field-input"><span class="material-symbols-outlined">account_balance</span><input type="text" id="set-schoolname"></div>
         </div>
         <div class="field">
-          <label for="set-address">Address</label>
+          <label for="set-address">ที่อยู่</label>
           <div class="field-input"><span class="material-symbols-outlined">location_on</span><input type="text" id="set-address"></div>
         </div>
         <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
-          <div class="field"><label for="set-start">Work start</label><div class="field-input"><span class="material-symbols-outlined">schedule</span><input type="time" id="set-start"></div></div>
-          <div class="field"><label for="set-end">Work end</label><div class="field-input"><span class="material-symbols-outlined">schedule</span><input type="time" id="set-end"></div></div>
+          <div class="field"><label for="set-start">เวลาเข้างาน</label><div class="field-input"><span class="material-symbols-outlined">schedule</span><input type="time" id="set-start"></div></div>
+          <div class="field"><label for="set-end">เวลาเลิกงาน</label><div class="field-input"><span class="material-symbols-outlined">schedule</span><input type="time" id="set-end"></div></div>
         </div>
         <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
-          <div class="field"><label for="set-grace">Late grace (min)</label><div class="field-input"><span class="material-symbols-outlined">hourglass_bottom</span><input type="number" id="set-grace"></div></div>
-          <div class="field"><label for="set-radius">Geofence radius (m)</label><div class="field-input"><span class="material-symbols-outlined">my_location</span><input type="number" id="set-radius"></div></div>
+          <div class="field"><label for="set-grace">ผ่อนผันสาย (นาที)</label><div class="field-input"><span class="material-symbols-outlined">hourglass_bottom</span><input type="number" id="set-grace"></div></div>
+          <div class="field"><label for="set-radius">รัศมีพื้นที่ (เมตร)</label><div class="field-input"><span class="material-symbols-outlined">my_location</span><input type="number" id="set-radius"></div></div>
         </div>
         <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
-          <div class="field"><label for="set-lat">School latitude</label><div class="field-input"><span class="material-symbols-outlined">explore</span><input type="text" id="set-lat"></div></div>
-          <div class="field"><label for="set-lng">School longitude</label><div class="field-input"><span class="material-symbols-outlined">explore</span><input type="text" id="set-lng"></div></div>
+          <div class="field"><label for="set-lat">พิกัดละติจูดโรงเรียน</label><div class="field-input"><span class="material-symbols-outlined">explore</span><input type="text" id="set-lat"></div></div>
+          <div class="field"><label for="set-lng">พิกัดลองจิจูดโรงเรียน</label><div class="field-input"><span class="material-symbols-outlined">explore</span><input type="text" id="set-lng"></div></div>
         </div>
-        <button class="btn btn-primary" style="margin-top:4px;" onclick="saveSettings()">Save school settings</button>
+        <button class="btn btn-primary" style="margin-top:4px;" onclick="saveSettings()">บันทึกการตั้งค่าโรงเรียน</button>
       </div>
 
-      <p class="settings-section-label"><span class="material-symbols-outlined" style="font-size:16px;">info</span>About</p>
+      <p class="settings-section-label"><span class="material-symbols-outlined" style="font-size:16px;">info</span>เกี่ยวกับแอป</p>
       <div class="card card-pad">
-        <div class="settings-row"><div class="settings-row-text"><p class="t1">Version</p></div><span class="text-soft">1.0.0</span></div>
-        <div class="settings-row" style="cursor:pointer;" onclick="showToast('You are on the latest version','success')">
-          <div class="settings-row-text"><p class="t1" style="color:var(--primary);">Check for updates</p></div>
+        <div class="settings-row"><div class="settings-row-text"><p class="t1">เวอร์ชัน</p></div><span class="text-soft">1.0.0</span></div>
+        <div class="settings-row" style="cursor:pointer;" onclick="showToast('ใช้งานเวอร์ชันล่าสุดอยู่แล้ว','success')">
+          <div class="settings-row-text"><p class="t1" style="color:var(--primary);">ตรวจสอบการอัปเดต</p></div>
         </div>
       </div>
 
       <button class="btn btn-danger-outline" style="margin-top:18px;" onclick="logout()">
-        <span class="material-symbols-outlined">logout</span> Log out
+        <span class="material-symbols-outlined">logout</span> ออกจากระบบ
       </button>
     </section>
 
@@ -813,27 +824,27 @@ function showFirebaseLoadError(){
 
 /* ---------------- MODULE REGISTRY ---------------- */
 const MODULE_REGISTRY = [
-  { id:'attendance', name:'Attendance',         icon:'alarm',         status:'active', route:'attendance' },
-  { id:'dashboard',   name:'Dashboard',          icon:'bar_chart',     status:'active', route:'dashboard', adminOnly:true },
-  { id:'profile',     name:'Profile',            icon:'person',        status:'active', route:'profile' },
-  { id:'settings',    name:'Settings',           icon:'settings',      status:'active', route:'settings' },
-  { id:'document',    name:'Document',           icon:'description',  status:'soon' },
-  { id:'homevisit',   name:'Home Visit',         icon:'home_work',    status:'soon' },
-  { id:'robot',       name:'Robot Learning',     icon:'smart_toy',    status:'soon' },
-  { id:'media',       name:'Learning Media',     icon:'menu_book',    status:'soon' },
-  { id:'library',     name:'Library',            icon:'local_library',status:'planned' },
-  { id:'qa',          name:'Quality Assurance',  icon:'verified',     status:'planned' },
-  { id:'exec',        name:'Executive Dashboard',icon:'insights',     status:'planned' },
-  { id:'leave',       name:'Leave Management',   icon:'event_busy',   status:'planned' },
-  { id:'asset',       name:'Asset Management',   icon:'inventory_2',  status:'planned' }
+  { id:'attendance', name:'เช็คชื่อ',           icon:'alarm',         status:'active', route:'attendance' },
+  { id:'dashboard',   name:'แดชบอร์ด',          icon:'bar_chart',     status:'active', route:'dashboard', adminOnly:true },
+  { id:'profile',     name:'โปรไฟล์',           icon:'person',        status:'active', route:'profile' },
+  { id:'settings',    name:'ตั้งค่า',            icon:'settings',      status:'active', route:'settings' },
+  { id:'document',    name:'เอกสาร',            icon:'description',  status:'soon' },
+  { id:'homevisit',   name:'เยี่ยมบ้าน',         icon:'home_work',    status:'soon' },
+  { id:'robot',       name:'การเรียนรู้หุ่นยนต์', icon:'smart_toy',    status:'soon' },
+  { id:'media',       name:'สื่อการเรียนรู้',     icon:'menu_book',    status:'soon' },
+  { id:'library',     name:'ห้องสมุด',           icon:'local_library',status:'planned' },
+  { id:'qa',          name:'ประกันคุณภาพ',       icon:'verified',     status:'planned' },
+  { id:'exec',        name:'แดชบอร์ดผู้บริหาร',  icon:'insights',     status:'planned' },
+  { id:'leave',       name:'ระบบลา',             icon:'event_busy',   status:'planned' },
+  { id:'asset',       name:'ทรัพย์สิน',          icon:'inventory_2',  status:'planned' }
 ];
 
 const BottomNavItems = [
-  { id:'home',       icon:'home',       label:'Home',       route:'home' },
-  { id:'attendance', icon:'fact_check', label:'Attendance', route:'attendance' },
-  { id:'dashboard',  icon:'dashboard',  label:'Dashboard',  route:'dashboard', adminOnly:true },
-  { id:'profile',    icon:'person',     label:'Profile',    route:'profile' },
-  { id:'settings',   icon:'settings',  label:'Settings',    route:'settings' }
+  { id:'home',       icon:'home',       label:'หน้าหลัก',   route:'home' },
+  { id:'attendance', icon:'fact_check', label:'เช็คชื่อ',    route:'attendance' },
+  { id:'dashboard',  icon:'dashboard',  label:'แดชบอร์ด',   route:'dashboard', adminOnly:true },
+  { id:'profile',    icon:'person',     label:'โปรไฟล์',    route:'profile' },
+  { id:'settings',   icon:'settings',  label:'ตั้งค่า',      route:'settings' }
 ];
 
 const ROUTES = {
@@ -841,11 +852,11 @@ const ROUTES = {
   login:      { chrome:false },
   register:   { chrome:false },
   home:       { chrome:true,  nav:'home',       topbar:{ left:'brand' } },
-  attendance: { chrome:true,  nav:'attendance', topbar:{ left:'back', back:'home', title:'Attendance', right:'icon', rightIcon:'history', rightRoute:'history' } },
-  history:    { chrome:true,  nav:'attendance', topbar:{ left:'back', back:'attendance', title:'Attendance history' } },
-  dashboard:  { chrome:true,  nav:'dashboard',  adminOnly:true, topbar:{ left:'back', back:'home', title:'Dashboard', right:'badge', rightText:'Admin' } },
-  profile:    { chrome:true,  nav:'profile',    topbar:{ left:'back', back:'home', title:'Profile' } },
-  settings:   { chrome:true,  nav:'settings',   topbar:{ left:'back', back:'home', title:'Settings' } }
+  attendance: { chrome:true,  nav:'attendance', topbar:{ left:'back', back:'home', title:'เช็คชื่อ', right:'icon', rightIcon:'history', rightRoute:'history' } },
+  history:    { chrome:true,  nav:'attendance', topbar:{ left:'back', back:'attendance', title:'ประวัติการเช็คชื่อ' } },
+  dashboard:  { chrome:true,  nav:'dashboard',  adminOnly:true, topbar:{ left:'back', back:'home', title:'แดชบอร์ด', right:'badge', rightText:'แอดมิน' } },
+  profile:    { chrome:true,  nav:'profile',    topbar:{ left:'back', back:'home', title:'โปรไฟล์' } },
+  settings:   { chrome:true,  nav:'settings',   topbar:{ left:'back', back:'home', title:'ตั้งค่า' } }
 };
 
 /* ---------------- SESSION STATE (no Firebase Auth — plain registration) ---------------- */
@@ -866,6 +877,10 @@ function avatarUrl(){
 function dateKey(d){
   d = d || new Date();
   return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+}
+
+function statusLabel(status){
+  return status === 'Late' ? 'มาสาย' : 'ตรงเวลา';
 }
 
 function distanceMeters(lat1, lng1, lat2, lng2){
@@ -921,7 +936,7 @@ function render(){
     bottomnav.style.display = 'none';
   }
 
-  document.title = (cfg.topbar && cfg.topbar.title ? cfg.topbar.title + ' \u00b7 ' : '') + 'BKM Smart School Platform';
+  document.title = (cfg.topbar && cfg.topbar.title ? cfg.topbar.title + ' \u00b7 ' : '') + 'BKM Smart School';
   window.scrollTo(0, 0);
 
   populateUserChrome();
@@ -947,7 +962,7 @@ function renderTopbar(t){
     </div>`;
   } else {
     left = `<div class="topbar-left">
-      <button class="icon-btn" aria-label="Back" onclick="navigate('${t.back}')"><span class="material-symbols-outlined">arrow_back</span></button>
+      <button class="icon-btn" aria-label="กลับ" onclick="navigate('${t.back}')"><span class="material-symbols-outlined">arrow_back</span></button>
       <span class="topbar-title">${t.title || ''}</span>
     </div>`;
   }
@@ -957,7 +972,7 @@ function renderTopbar(t){
   } else if (t.right === 'badge'){
     right = `<span class="badge badge-neutral">${t.rightText}</span>`;
   } else if (t.left === 'brand'){
-    right = `<button class="icon-btn" aria-label="Notifications"><span class="material-symbols-outlined">notifications</span></button>`;
+    right = `<button class="icon-btn" aria-label="การแจ้งเตือน"><span class="material-symbols-outlined">notifications</span></button>`;
   }
   el.innerHTML = left + right;
 }
@@ -988,16 +1003,16 @@ function renderModuleGrid(){
     </a>`).join('');
 
   html += soon.map(m => `
-    <div class="module-tile is-soon" onclick="showToast('${m.name} is coming in a future update','info')">
+    <div class="module-tile is-soon" onclick="showToast('${m.name} จะเปิดให้ใช้งานในอนาคต','info')">
       <div class="module-icon"><span class="material-symbols-outlined">${m.icon}</span></div>
       <p class="module-name">${m.name}</p>
-      <p class="module-soon-tag">COMING SOON</p>
+      <p class="module-soon-tag">เร็วๆนี้</p>
     </div>`).join('');
 
   if (plannedCount > 0){
-    html += `<div class="module-tile-more" style="grid-column:span 2;" onclick="showToast('${plannedCount} more modules are on the roadmap','info')">
+    html += `<div class="module-tile-more" style="grid-column:span 2;" onclick="showToast('มีอีก ${plannedCount} โมดูลในแผนพัฒนา','info')">
       <span class="material-symbols-outlined" style="font-size:22px;">add_circle</span>
-      <span>+${plannedCount} more modules on the roadmap — this grid grows automatically</span>
+      <span>+${plannedCount} โมดูลในแผนพัฒนา — ระบบนี้รองรับการเพิ่มโมดูลในอนาคตโดยอัตโนมัติ</span>
     </div>`;
   }
   mount.innerHTML = html;
@@ -1027,7 +1042,7 @@ function startClock(timeElId, dateElId){
     const t = document.getElementById(timeElId);
     const d = document.getElementById(dateElId);
     if (t) t.textContent = now.toLocaleTimeString('en-GB', { hour:'2-digit', minute:'2-digit' });
-    if (d) d.textContent = now.toLocaleDateString('en-US', { weekday:'short', day:'numeric', month:'short' });
+    if (d) d.textContent = now.toLocaleDateString('th-TH', { weekday:'short', day:'numeric', month:'short' });
   }
   tick();
   setInterval(tick, 1000);
@@ -1170,7 +1185,7 @@ async function submitRegistration(e){
 function populateUserChrome(){
   const name = (userProfile && userProfile.name) || '';
   const homeName = document.getElementById('home-username');
-  if (homeName) homeName.textContent = name.split(' ')[0] || 'there';
+  if (homeName) homeName.textContent = name.split(' ')[0] || '';
 
   const attAvatar = document.getElementById('att-user-avatar');
   const attName = document.getElementById('att-user-name');
@@ -1186,31 +1201,45 @@ async function enterAttendance(){
   await refreshAttendanceToday();
 }
 
+/* Single source of truth for "is this device currently inside the school zone".
+   Used both for the GPS status card AND to gate check-in/check-out — fixes the
+   earlier bug where the card showed "outside school zone" but check-in still worked. */
+async function verifyLocation(){
+  const coords = await getCoordsSafe();
+  if (!coords) return { ok:false, reason:'no-coords', coords:null };
+  if (!appSettings.schoolLat) return { ok:true, reason:'not-configured', coords };
+  const distance = distanceMeters(coords.lat, coords.lng, Number(appSettings.schoolLat), Number(appSettings.schoolLng));
+  const radius = Number(appSettings.geofenceRadiusM || 200);
+  const within = distance <= radius;
+  return { ok: within, reason: within ? 'verified' : 'outside', coords, distance, radius };
+}
+
 async function refreshGeoCard(){
   const distEl = document.getElementById('gps-distance');
   const textEl = document.getElementById('gps-text');
   const iconEl = document.getElementById('gps-icon');
   const radiusEl = document.getElementById('gps-radius');
-  if (radiusEl) radiusEl.textContent = (appSettings.geofenceRadiusM || 200) + ' m';
+  if (radiusEl) radiusEl.textContent = (appSettings.geofenceRadiusM || 200) + ' ม.';
   if (textEl) textEl.textContent = 'กำลังค้นหาตำแหน่ง…';
-  const coords = await getCoordsSafe();
-  geoCoords = coords;
-  if (!coords){
+
+  const result = await verifyLocation();
+  geoCoords = result.coords;
+
+  if (result.reason === 'no-coords'){
     if (textEl) textEl.textContent = 'ไม่สามารถระบุตำแหน่งได้';
-    if (distEl) distEl.textContent = 'N/A';
+    if (distEl) distEl.textContent = 'ไม่พบข้อมูล';
+    if (iconEl){ iconEl.textContent = 'error'; iconEl.style.color = 'var(--danger)'; }
     return;
   }
-  if (!appSettings.schoolLat){
-    if (distEl) distEl.textContent = 'N/A';
+  if (result.reason === 'not-configured'){
+    if (distEl) distEl.textContent = 'ไม่พบข้อมูล';
     if (textEl) textEl.textContent = 'ยังไม่ได้ตั้งค่าตำแหน่งโรงเรียน';
+    if (iconEl){ iconEl.textContent = 'info'; iconEl.style.color = 'var(--ink-faint)'; }
     return;
   }
-  const dist = distanceMeters(coords.lat, coords.lng, Number(appSettings.schoolLat), Number(appSettings.schoolLng));
-  const radius = Number(appSettings.geofenceRadiusM || 200);
-  const within = dist <= radius;
-  if (distEl) distEl.textContent = dist + ' m';
-  if (textEl) textEl.textContent = within ? 'Status: verified \u00b7 inside school zone' : 'Status: outside school zone';
-  if (iconEl){ iconEl.textContent = within ? 'verified' : 'error'; iconEl.style.color = within ? 'var(--cyan)' : 'var(--danger)'; }
+  if (distEl) distEl.textContent = result.distance + ' ม.';
+  if (textEl) textEl.textContent = result.ok ? 'สถานะ: ยืนยันแล้ว \u00b7 อยู่ในพื้นที่โรงเรียน' : 'สถานะ: อยู่นอกพื้นที่โรงเรียน';
+  if (iconEl){ iconEl.textContent = result.ok ? 'verified' : 'error'; iconEl.style.color = result.ok ? 'var(--cyan)' : 'var(--danger)'; }
 }
 
 async function refreshAttendanceToday(){
@@ -1224,11 +1253,11 @@ async function refreshAttendanceToday(){
     if (rec){
       const inTime = rec.checkInTimeLocal ? new Date(rec.checkInTimeLocal).toLocaleTimeString('en-GB', { hour:'2-digit', minute:'2-digit' }) : '-';
       const outTime = rec.checkOutTimeLocal ? new Date(rec.checkOutTimeLocal).toLocaleTimeString('en-GB', { hour:'2-digit', minute:'2-digit' }) : null;
-      line.textContent = 'Checked in at ' + inTime + ' \u00b7 ' + rec.status + (outTime ? (' \u00b7 Checked out at ' + outTime) : '');
+      line.textContent = 'เช็คอินเมื่อ ' + inTime + ' \u00b7 ' + statusLabel(rec.status) + (outTime ? (' \u00b7 เช็คเอาท์เมื่อ ' + outTime) : '');
       inBtn.disabled = true; inBtn.style.opacity = .5;
       outBtn.disabled = !!outTime; outBtn.style.opacity = outTime ? .5 : 1;
     } else {
-      line.textContent = "You haven't checked in today.";
+      line.textContent = 'คุณยังไม่ได้เช็คอินวันนี้';
       inBtn.disabled = false; inBtn.style.opacity = 1;
       outBtn.disabled = true; outBtn.style.opacity = .5;
     }
@@ -1241,6 +1270,20 @@ async function doCheckIn(){
   if (!currentUserId) return;
   const btn = document.getElementById('btn-checkin');
   btn.disabled = true;
+
+  const result = await verifyLocation();
+  if (result.reason === 'no-coords'){
+    showToast('ไม่สามารถระบุตำแหน่ง GPS ได้ กรุณาเปิดสิทธิ์การเข้าถึงตำแหน่งแล้วลองใหม่', 'error');
+    btn.disabled = false;
+    return;
+  }
+  if (result.reason === 'outside'){
+    showToast('คุณอยู่นอกพื้นที่โรงเรียน (ระยะ ' + result.distance + ' ม. เกินรัศมี ' + result.radius + ' ม.) ไม่สามารถเช็คอินได้', 'error');
+    btn.disabled = false;
+    return;
+  }
+  geoCoords = result.coords;
+
   const key = dateKey();
   try {
     const existing = await db.ref('attendance/' + currentUserId + '/' + key).once('value');
@@ -1258,7 +1301,7 @@ async function doCheckIn(){
       lng: geoCoords ? geoCoords.lng : null,
       status: status
     });
-    showToast('เช็คอินสำเร็จ \u00b7 ' + status, 'success');
+    showToast('เช็คอินสำเร็จ \u00b7 ' + statusLabel(status), 'success');
     await refreshAttendanceToday();
   } catch (err){
     showToast('เช็คอินไม่สำเร็จ: ' + err.message, 'error');
@@ -1270,6 +1313,20 @@ async function doCheckOut(){
   if (!currentUserId) return;
   const btn = document.getElementById('btn-checkout');
   btn.disabled = true;
+
+  const result = await verifyLocation();
+  if (result.reason === 'no-coords'){
+    showToast('ไม่สามารถระบุตำแหน่ง GPS ได้ กรุณาเปิดสิทธิ์การเข้าถึงตำแหน่งแล้วลองใหม่', 'error');
+    btn.disabled = false;
+    return;
+  }
+  if (result.reason === 'outside'){
+    showToast('คุณอยู่นอกพื้นที่โรงเรียน (ระยะ ' + result.distance + ' ม. เกินรัศมี ' + result.radius + ' ม.) ไม่สามารถเช็คเอาท์ได้', 'error');
+    btn.disabled = false;
+    return;
+  }
+  geoCoords = result.coords;
+
   const key = dateKey();
   try {
     const now = new Date();
@@ -1297,7 +1354,7 @@ function ensureMonthOptions(){
     const ym = d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0');
     const opt = document.createElement('option');
     opt.value = ym;
-    opt.textContent = d.toLocaleDateString('en-US', { month:'long', year:'numeric' });
+    opt.textContent = d.toLocaleDateString('th-TH', { month:'long', year:'numeric' });
     sel.appendChild(opt);
   }
   sel.addEventListener('change', () => loadHistory(sel.value));
@@ -1329,7 +1386,7 @@ async function loadHistory(monthStr){
     document.getElementById('hist-stat-rate').textContent = rate + '%';
 
     if (!entries.length){
-      list.innerHTML = '<p class="text-faint" style="text-align:center; padding:24px 0;">No attendance records for this month yet.</p>';
+      list.innerHTML = '<p class="text-faint" style="text-align:center; padding:24px 0;">ยังไม่มีข้อมูลการเช็คชื่อในเดือนนี้</p>';
       return;
     }
     list.innerHTML = entries.map(e => {
@@ -1338,16 +1395,16 @@ async function loadHistory(monthStr){
       const icon = isLate ? 'schedule' : 'check_circle';
       const badgeClass = isLate ? 'badge-warn' : 'badge-success';
       const d = new Date(e.date);
-      const dayLabel = d.toLocaleDateString('en-US', { month:'short', day:'numeric' });
-      const weekday = d.toLocaleDateString('en-US', { weekday:'short' });
+      const dayLabel = d.toLocaleDateString('th-TH', { month:'short', day:'numeric' });
+      const weekday = d.toLocaleDateString('th-TH', { weekday:'short' });
       const inT = e.checkInTimeLocal ? new Date(e.checkInTimeLocal).toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'}) : '-';
       const outT = e.checkOutTimeLocal ? new Date(e.checkOutTimeLocal).toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'}) : '-';
       return `<div class="hist-row">
         <div class="hist-icon ${iconClass}"><span class="material-symbols-outlined icon-fill">${icon}</span></div>
         <div class="hist-main"><p class="d">${dayLabel}</p><p class="w">${weekday}</p></div>
-        <div class="hist-times"><div class="tt">${inT}</div><div>In</div></div>
-        <div class="hist-times"><div class="tt">${outT}</div><div>Out</div></div>
-        <span class="badge ${badgeClass}">${e.status}</span>
+        <div class="hist-times"><div class="tt">${inT}</div><div>เข้า</div></div>
+        <div class="hist-times"><div class="tt">${outT}</div><div>ออก</div></div>
+        <span class="badge ${badgeClass}">${statusLabel(e.status)}</span>
       </div>`;
     }).join('');
   } catch (err){
@@ -1396,7 +1453,7 @@ async function enterDashboard(){
 
 function renderRecentCheckins(list){
   const ul = document.getElementById('recent-checkins-list');
-  if (!list.length){ ul.innerHTML = '<p class="text-faint" style="font-size:13px;">No check-ins yet today.</p>'; return; }
+  if (!list.length){ ul.innerHTML = '<p class="text-faint" style="font-size:13px;">ยังไม่มีการเช็คอินวันนี้</p>'; return; }
   ul.innerHTML = list.map(item => {
     const badgeClass = item.status === 'Late' ? 'badge-warn' : 'badge-success';
     const time = item.checkInTimeLocal ? new Date(item.checkInTimeLocal).toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'}) : '-';
@@ -1404,14 +1461,14 @@ function renderRecentCheckins(list){
     return `<div class="recent-row">
       <img src="${img}" alt="">
       <div style="flex:1;"><p class="nm">${item.name}</p><p class="dp">${item.department}</p></div>
-      <div class="tm">${time}<br><span class="badge ${badgeClass}" style="margin-top:2px;">${item.status}</span></div>
+      <div class="tm">${time}<br><span class="badge ${badgeClass}" style="margin-top:2px;">${statusLabel(item.status)}</span></div>
     </div>`;
   }).join('');
 }
 
 function renderWeeklyTrend(attendance){
   const days = [];
-  for (let i = 6; i >= 0; i--){ const d = new Date(); d.setDate(d.getDate() - i); days.push({ key:dateKey(d), label:d.toLocaleDateString('en-US',{weekday:'short'}) }); }
+  for (let i = 6; i >= 0; i--){ const d = new Date(); d.setDate(d.getDate() - i); days.push({ key:dateKey(d), label:d.toLocaleDateString('th-TH',{weekday:'short'}) }); }
   const counts = days.map(d => Object.keys(attendance).filter(uid => attendance[uid] && attendance[uid][d.key]).length);
   const max = Math.max(...counts, 1);
   const xs = [10, 60, 110, 160, 210, 260, 310];
@@ -1449,19 +1506,19 @@ function populateProfile(){
   document.getElementById('profile-avatar').src = avatarUrl();
   document.getElementById('profile-name').textContent = userProfile.name || '';
   document.getElementById('profile-position').textContent = userProfile.position || '';
-  document.getElementById('profile-id').textContent = currentUserId ? ('ID ' + currentUserId.slice(-6).toUpperCase()) : '';
+  document.getElementById('profile-id').textContent = currentUserId ? ('รหัส ' + currentUserId.slice(-6).toUpperCase()) : '';
   document.getElementById('profile-email').textContent = userProfile.email || '';
   document.getElementById('profile-phone').textContent = userProfile.phone || '-';
   document.getElementById('profile-department').textContent = userProfile.department || '-';
-  document.getElementById('profile-startdate').textContent = userProfile.createdAt ? new Date(userProfile.createdAt).toLocaleDateString('en-US', { day:'numeric', month:'long', year:'numeric' }) : '-';
+  document.getElementById('profile-startdate').textContent = userProfile.createdAt ? new Date(userProfile.createdAt).toLocaleDateString('th-TH', { day:'numeric', month:'long', year:'numeric' }) : '-';
 }
 
 async function editProfile(){
   if (!userProfile || !currentUserId) return;
-  const name = prompt('Full name', userProfile.name || '');
+  const name = prompt('ชื่อ-นามสกุล', userProfile.name || '');
   if (name === null) return;
-  const phone = prompt('Phone number', userProfile.phone || '');
-  const department = prompt('Department', userProfile.department || '');
+  const phone = prompt('เบอร์โทรศัพท์', userProfile.phone || '');
+  const department = prompt('กลุ่มสาระ / แผนก', userProfile.department || '');
   try {
     await db.ref('users/' + currentUserId).update({ name, phone, department });
     userProfile = { ...userProfile, name, phone, department };

@@ -448,6 +448,109 @@ button{ font-family:inherit; }
 .sb-bar-total{ font-size:11.5px; font-weight:700; color:var(--ink); min-width:22px; text-align:right; }
 .sb-month-breakdown{ font-size:10.5px; color:var(--ink-faint); margin:-3px 0 9px 80px; }
 
+/* =========================================================
+   RESPONSIVE / DESKTOP LAYOUT
+   < 880px  : มือถือ — bottom nav, การ์ด/ตารางแคบ (พฤติกรรมเดิมทั้งหมด)
+   >= 880px : เดสก์ท็อป — sidebar ซ้าย, เนื้อหากว้างขึ้น, กริดหลายคอลัมน์
+   ========================================================= */
+.sidebar-brand{ display:none; }
+
+@media (min-width: 880px){
+  :root{ --sidebar-w:236px; --desktop-content-max:1080px; }
+
+  body{ background:var(--surface-app); }
+  .viewport{ max-width:none; }
+
+  /* ---- Sidebar (แปลงจาก bottom-nav เดิม ใช้ logic/JS เดิมทั้งหมด) ---- */
+  .bottom-nav{
+    top:0; bottom:0; left:0; right:auto;
+    width:var(--sidebar-w); height:100vh; max-width:none;
+    flex-direction:column; align-items:stretch; justify-content:flex-start;
+    padding:calc(var(--topbar-h) + 16px) 12px 20px; gap:2px;
+    border-top:none; border-right:1px solid var(--border);
+    border-radius:0; box-shadow:var(--shadow-sm);
+    transform:none;
+  }
+  .sidebar-brand{
+    display:flex; align-items:center; gap:10px;
+    position:fixed; top:0; left:0; width:var(--sidebar-w); height:var(--topbar-h);
+    padding:0 18px; z-index:61; background:var(--surface-card);
+    border-right:1px solid var(--border); border-bottom:1px solid var(--border);
+  }
+  .sidebar-brand .material-symbols-outlined{ font-size:24px; color:var(--primary); }
+  .sidebar-brand-text{ font-size:15px; font-weight:700; color:var(--primary); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+
+  .nav-item{
+    flex-direction:row; justify-content:flex-start; align-items:center; gap:12px;
+    width:100%; padding:11px 14px; border-radius:var(--radius-sm);
+  }
+  .nav-item .nav-label{ font-size:14px; font-weight:500; }
+  .nav-item.active{ background:var(--primary-tint); }
+  .nav-item.active::before{ display:none; }
+  .nav-item:hover:not(.active){ background:var(--surface-app); }
+
+  /* ---- Topbar เลื่อนขวาให้พ้น sidebar ---- */
+  .topbar{
+    left:var(--sidebar-w); transform:none;
+    width:calc(100% - var(--sidebar-w)); max-width:none;
+    padding:0 28px;
+  }
+
+  /* ---- เนื้อหาหลัก: เว้นที่ sidebar, กว้างขึ้น, จัดกึ่งกลางในพื้นที่ที่เหลือ ---- */
+  .app-content, .screen-padded{
+    margin-left:var(--sidebar-w);
+    max-width:var(--desktop-content-max);
+    padding-left:32px; padding-right:32px;
+    padding-bottom:40px;
+  }
+
+  /* ---- Toast มุมล่างขวา แทนกึ่งกลางล่าง (จะได้ไม่ทับ sidebar) ---- */
+  .toast-host{
+    left:auto; right:24px; bottom:24px; transform:none;
+    width:340px; max-width:340px;
+  }
+
+  /* ---- กริดการ์ดโมดูลหน้าแรก: ขยายเป็นหลายคอลัมน์ ---- */
+  .module-grid{ grid-template-columns:repeat(5, 1fr); gap:16px; }
+
+  /* ---- สถิติ (หน้าประวัติ / แดชบอร์ด) เรียงแถวเดียว ---- */
+  .stat-grid{ grid-template-columns:repeat(4, 1fr); gap:16px; }
+
+  /* ---- Dashboard: กราฟกับรายการล่าสุด วางเคียงกัน ---- */
+  #view-dashboard{ display:grid; grid-template-columns:1.6fr 1fr; gap:16px; align-items:start; }
+  #view-dashboard .stat-grid{ grid-column:1 / -1; }
+  #view-dashboard > .card:last-child{ grid-column:2; grid-row:2 / span 2; }
+
+  /* ---- ฟอร์มต่างๆ: ไม่ยืดเต็มความกว้าง จำกัดไว้ให้อ่าน/กรอกง่าย ---- */
+  .sb-form-box, #view-profile .card-pad, #view-settings .card{ max-width:560px; }
+
+  /* ---- Saraban: ฟอร์มกับตาราง วางเคียงกันบนจอกว้างมาก ---- */
+  #view-saraban .sb-sub-view.active{ display:grid; grid-template-columns:380px 1fr; gap:20px; align-items:start; }
+  #view-saraban .sb-counter-cards{ grid-column:1 / -1; }
+  #view-saraban .sb-search-box{ grid-column:2; }
+  #view-saraban .sb-table-wrap{ grid-column:2; }
+  #view-saraban #sbview-stats.sb-sub-view.active{ display:block; }
+
+  /* ---- โปรไฟล์: รูป + รายละเอียด วางเคียงกัน ---- */
+  #view-profile{ display:grid; grid-template-columns:260px 1fr; gap:20px; align-items:start; }
+  #view-profile .pf-header{ grid-row:1 / span 2; }
+
+  /* ---- Modal แก้ไข saraban: ลอยกลางจอแทนเลื่อนขึ้นจากล่าง ---- */
+  .sb-modal-overlay{ align-items:center; }
+  .sb-modal-box{ max-width:480px; border-radius:var(--radius-lg); max-height:80vh; }
+
+  /* ---- หน้าเช็คชื่อ: จำกัดความกว้าง ไม่งั้นกรอบกล้อง selfie จะขยายใหญ่เกินจริง ---- */
+  #view-attendance{ max-width:480px; }
+
+  /* ---- หน้า login/register/splash: จำกัดความกว้างไม่ให้กว้างเวอร์ ---- */
+  .login-wrap, .reg-wrap{ max-width:480px; margin:0 auto; }
+}
+
+@media (min-width: 1180px){
+  .module-grid{ grid-template-columns:repeat(5, 1fr); }
+  :root{ --desktop-content-max:1180px; }
+}
+
 </style>
 </head>
 <body>
@@ -1013,6 +1116,10 @@ button{ font-family:inherit; }
     </div>
   </div>
 
+  <div class="sidebar-brand">
+    <span class="material-symbols-outlined icon-fill">school</span>
+    <span class="sidebar-brand-text">BKM Smart School</span>
+  </div>
   <nav class="bottom-nav" id="bottom-nav-mount" style="display:none;"></nav>
 </div>
 
@@ -1121,16 +1228,7 @@ const MODULE_REGISTRY = [
   { id:'dashboard',   name:'แดชบอร์ด',          icon:'bar_chart',     status:'active', route:'dashboard', adminOnly:true },
   { id:'profile',     name:'โปรไฟล์',           icon:'person',        status:'active', route:'profile' },
   { id:'settings',    name:'ตั้งค่า',            icon:'settings',      status:'active', route:'settings' },
-  { id:'saraban',     name:'สารบรรณ',            icon:'mail',          status:'active', route:'saraban' },
-  { id:'document',    name:'เอกสาร',            icon:'description',  status:'soon' },
-  { id:'homevisit',   name:'เยี่ยมบ้าน',         icon:'home_work',    status:'soon' },
-  { id:'robot',       name:'การเรียนรู้หุ่นยนต์', icon:'smart_toy',    status:'soon' },
-  { id:'media',       name:'สื่อการเรียนรู้',     icon:'menu_book',    status:'soon' },
-  { id:'library',     name:'ห้องสมุด',           icon:'local_library',status:'planned' },
-  { id:'qa',          name:'ประกันคุณภาพ',       icon:'verified',     status:'planned' },
-  { id:'exec',        name:'แดชบอร์ดผู้บริหาร',  icon:'insights',     status:'planned' },
-  { id:'leave',       name:'ระบบลา',             icon:'event_busy',   status:'planned' },
-  { id:'asset',       name:'ทรัพย์สิน',          icon:'inventory_2',  status:'planned' }
+  { id:'document',    name:'เอกสาร',            icon:'description',  status:'active', route:'saraban' }
 ];
 
 const BottomNavItems = [
@@ -1151,7 +1249,7 @@ const ROUTES = {
   dashboard:  { chrome:true,  nav:'dashboard',  adminOnly:true, topbar:{ left:'back', back:'home', title:'แดชบอร์ด', right:'badge', rightText:'แอดมิน' } },
   profile:    { chrome:true,  nav:'profile',    topbar:{ left:'back', back:'home', title:'โปรไฟล์' } },
   settings:   { chrome:true,  nav:'settings',   topbar:{ left:'back', back:'home', title:'ตั้งค่า' } },
-  saraban:    { chrome:true,  nav:'home',        topbar:{ left:'back', back:'home', title:'ระบบสารบรรณ' } }
+  saraban:    { chrome:true,  nav:'home',        topbar:{ left:'back', back:'home', title:'เอกสาร (ระบบสารบรรณ)' } }
 };
 
 /* ---------------- SESSION STATE (no Firebase Auth — plain registration) ---------------- */
@@ -1221,14 +1319,17 @@ function render(){
 
   const topbar = document.getElementById('app-topbar');
   const bottomnav = document.getElementById('bottom-nav-mount');
+  const sidebarBrand = document.querySelector('.sidebar-brand');
   if (cfg.chrome){
     topbar.style.display = 'flex';
     bottomnav.style.display = 'flex';
+    if (sidebarBrand) sidebarBrand.style.display = '';
     renderTopbar(cfg.topbar);
     renderBottomNav(cfg.nav);
   } else {
     topbar.style.display = 'none';
     bottomnav.style.display = 'none';
+    if (sidebarBrand) sidebarBrand.style.display = 'none';
   }
 
   document.title = (cfg.topbar && cfg.topbar.title ? cfg.topbar.title + ' \u00b7 ' : '') + 'BKM Smart School';

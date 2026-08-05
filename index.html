@@ -8,6 +8,7 @@
 <link rel="manifest" href="data:application/manifest+json;base64,eyJuYW1lIjogIkJLTSBTbWFydCBTY2hvb2wiLCAic2hvcnRfbmFtZSI6ICJCS00gU21hcnQgU2Nob29sIiwgImRlc2NyaXB0aW9uIjogIuC4o+C4sOC4muC4muC4muC4o+C4tOC4q+C4suC4o+C4iOC4seC4lOC4geC4suC4o+C4quC4luC4suC4meC4qOC4tuC4geC4qeC4suC4reC4seC4iOC4ieC4o+C4tOC4ouC4sCDigJQg4LmC4Lij4LiH4LmA4Lij4Li14Lii4LiZ4Lia4LmJ4Liy4LiZ4LmC4LiE4LiB4Lih4LmI4Lin4LiiIiwgInN0YXJ0X3VybCI6ICIuIiwgInNjb3BlIjogIi4iLCAiZGlzcGxheSI6ICJzdGFuZGFsb25lIiwgIm9yaWVudGF0aW9uIjogInBvcnRyYWl0IiwgImJhY2tncm91bmRfY29sb3IiOiAiI0Y1RjhGQyIsICJ0aGVtZV9jb2xvciI6ICIjMTU0RkNFIiwgImljb25zIjogW3sic3JjIjogImRhdGE6aW1hZ2Uvc3ZnK3htbDtiYXNlNjQsUEhOMlp5QjRiV3h1Y3owaWFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNQzl6ZG1jaUlIWnBaWGRDYjNnOUlqQWdNQ0ExTVRJZ05URXlJajRLUEhKbFkzUWdkMmxrZEdnOUlqVXhNaUlnYUdWcFoyaDBQU0kxTVRJaUlISjRQU0k1TmlJZ1ptbHNiRDBpSXpFMU5FWkRSU0l2UGdvOGNHRjBhQ0JrUFNKTk1qVTJJREUwTUNBNU5pQXlNVEJzTVRZd0lEY3dJREUyTUMwM01DMHhOakF0TnpCYUlpQm1hV3hzUFNJalJrWkdSa1pHSWk4K0NqeHdZWFJvSUdROUlrMHlOVFlnTWprd0lERTBNQ0F5TkRCMk5qWmpNQ0F6T0NBMU1pQTJPQ0F4TVRZZ05qaHpNVEUyTFRNd0lERXhOaTAyT0hZdE5qWnNMVEV4TmlBMU1Gb2lJR1pwYkd3OUlpTkdSa1pHUmtZaUlHOXdZV05wZEhrOUlqQXVPVElpTHo0S1BDOXpkbWMrIiwgInNpemVzIjogIjUxMng1MTIiLCAidHlwZSI6ICJpbWFnZS9zdmcreG1sIiwgInB1cnBvc2UiOiAiYW55IG1hc2thYmxlIn1dfQ==">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap">
 <style>
+
 /* =========================================================
    BKM SMART SCHOOL PLATFORM — DESIGN SYSTEM
    Shared tokens + reusable components for every screen.
@@ -392,6 +393,61 @@ button{ font-family:inherit; }
 .detail-row .dl{ font-size:11.5px; color:var(--ink-soft); margin:0; }
 .detail-row .dv{ font-size:14px; font-weight:500; margin:1px 0 0; }
 
+
+/* =========================================================
+   SARABAN MODULE — ระบบสารบรรณ
+   ========================================================= */
+.saraban-tabs{ display:flex; gap:4px; background:var(--surface-app); border-radius:var(--radius-sm); padding:4px; margin-bottom:16px; }
+.saraban-tab-btn{ flex:1; padding:7px 4px 5px; border:none; background:transparent; border-radius:var(--radius-sm); font-size:11px; font-weight:600; color:var(--ink-soft); cursor:pointer; font-family:inherit; transition:all .15s; text-align:center; line-height:1.3; }
+.saraban-tab-btn .material-symbols-outlined{ font-size:17px; display:block; margin-bottom:2px; }
+.saraban-tab-btn.active{ background:var(--surface-card); color:var(--primary); box-shadow:var(--shadow-sm); }
+.sb-sub-view{ display:none; }
+.sb-sub-view.active{ display:block; animation:viewIn .18s ease-out; }
+.sb-counter-cards{ display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:14px; }
+.sb-counter-card{ background:var(--surface-card); border:1px solid var(--border); border-radius:var(--radius-md); padding:14px 12px; text-align:center; }
+.sb-counter-card .cc-label{ font-size:10.5px; font-weight:700; color:var(--ink-soft); margin:0 0 6px; text-transform:uppercase; letter-spacing:.03em; }
+.sb-counter-card .cc-value{ font-size:22px; font-weight:700; color:var(--primary); margin:0; line-height:1; word-break:break-all; }
+.sb-counter-card.cc-next .cc-value{ color:var(--cyan); }
+.sb-form-box{ background:var(--surface-card); border:1px solid var(--border); border-radius:var(--radius-md); padding:16px; margin-bottom:14px; }
+.sb-form-title{ font-size:12px; font-weight:700; color:var(--ink-soft); text-transform:uppercase; letter-spacing:.04em; margin:0 0 12px; display:flex; align-items:center; gap:6px; }
+.sb-auto-chip{ background:var(--primary-tint); border:1.5px solid var(--primary-light); border-radius:var(--radius-sm); padding:10px 14px; display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; }
+.sb-auto-chip .sac-label{ font-size:11.5px; color:var(--ink-soft); font-weight:500; }
+.sb-auto-chip .sac-value{ font-size:16px; font-weight:700; color:var(--primary); text-align:right; max-width:60%; word-break:break-all; }
+.sb-search-box{ position:relative; margin-bottom:12px; }
+.sb-search-box .material-symbols-outlined{ position:absolute; left:10px; top:50%; transform:translateY(-50%); color:var(--ink-faint); font-size:18px; }
+.sb-search-box input{ width:100%; height:40px; border:1.5px solid var(--border); border-radius:var(--radius-sm); background:var(--surface-card); padding:0 12px 0 36px; font-size:13px; font-family:inherit; color:var(--ink); }
+.sb-search-box input:focus{ outline:none; border-color:var(--primary); }
+.sb-table-wrap{ overflow-x:auto; border-radius:var(--radius-sm); border:1px solid var(--border); }
+.sb-table{ width:100%; border-collapse:collapse; font-size:12.5px; min-width:340px; }
+.sb-table th{ background:var(--surface-app); color:var(--ink-soft); font-weight:700; font-size:11px; padding:9px 8px; text-align:left; border-bottom:1px solid var(--border); white-space:nowrap; }
+.sb-table td{ padding:8px 8px; border-bottom:1px solid var(--border); color:var(--ink); vertical-align:middle; }
+.sb-table tr:last-child td{ border-bottom:none; }
+.sb-table tbody tr:hover td{ background:var(--surface-app); cursor:pointer; }
+.td-no{ width:64px; font-weight:700; color:var(--primary); white-space:nowrap; }
+.td-date{ width:90px; white-space:nowrap; font-size:11.5px; color:var(--ink-soft); }
+.td-agency{ max-width:130px; font-size:11.5px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.td-title{ max-width:180px; }
+.td-action{ width:52px; text-align:center; }
+.btn-sb-edit{ background:var(--primary-tint); color:var(--primary); border:none; border-radius:var(--radius-sm); padding:4px 9px; font-size:11px; font-weight:600; cursor:pointer; font-family:inherit; }
+.btn-sb-edit:hover{ background:var(--primary-light); }
+.sb-no-data{ text-align:center; padding:20px 0; color:var(--ink-faint); font-size:13px; }
+/* Edit modal */
+.sb-modal-overlay{ position:fixed; inset:0; background:rgba(16,24,40,.5); z-index:300; display:flex; align-items:flex-end; justify-content:center; }
+.sb-modal-box{ background:var(--surface-card); border-radius:var(--radius-lg) var(--radius-lg) 0 0; width:100%; max-width:var(--max-w); padding:20px 20px 36px; max-height:88dvh; overflow-y:auto; }
+.sb-modal-header{ display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; }
+.sb-modal-header h3{ font-size:16px; font-weight:700; margin:0; }
+.btn-sb-close{ background:var(--surface-app); border:none; border-radius:50%; width:32px; height:32px; display:flex; align-items:center; justify-content:center; cursor:pointer; color:var(--ink-soft); }
+.sb-modal-no-badge{ background:var(--primary-tint); border-radius:var(--radius-sm); padding:10px 14px; margin-bottom:14px; display:flex; align-items:center; gap:10px; }
+.sb-modal-no-badge .material-symbols-outlined{ color:var(--primary); font-size:20px; }
+.sb-modal-no-badge span{ font-size:15px; font-weight:700; color:var(--primary); }
+/* Stats bars */
+.sb-month-bar{ display:flex; align-items:center; gap:8px; margin-bottom:7px; }
+.sb-month-label{ font-size:11.5px; width:72px; flex-shrink:0; color:var(--ink-soft); }
+.sb-bar-track{ flex:1; height:10px; background:var(--surface-app); border-radius:var(--radius-full); overflow:hidden; }
+.sb-bar-fill{ height:100%; border-radius:var(--radius-full); background:var(--primary); transition:width .6s ease; }
+.sb-bar-total{ font-size:11.5px; font-weight:700; color:var(--ink); min-width:22px; text-align:right; }
+.sb-month-breakdown{ font-size:10.5px; color:var(--ink-faint); margin:-3px 0 9px 80px; }
+
 </style>
 </head>
 <body>
@@ -752,11 +808,213 @@ button{ font-family:inherit; }
       </button>
     </section>
 
+    <!-- ============ SARABAN MODULE ============ -->
+    <section class="view app-content" id="view-saraban">
+
+      <!-- Tab bar -->
+      <div class="saraban-tabs">
+        <button class="saraban-tab-btn active" id="sbtab-inbox"  onclick="sarabanTab('inbox')">
+          <span class="material-symbols-outlined">move_to_inbox</span>รับหนังสือ
+        </button>
+        <button class="saraban-tab-btn" id="sbtab-outbox" onclick="sarabanTab('outbox')">
+          <span class="material-symbols-outlined">outbox</span>ส่งหนังสือ
+        </button>
+        <button class="saraban-tab-btn" id="sbtab-orders" onclick="sarabanTab('orders')">
+          <span class="material-symbols-outlined">gavel</span>คำสั่ง
+        </button>
+        <button class="saraban-tab-btn" id="sbtab-stats"  onclick="sarabanTab('stats')">
+          <span class="material-symbols-outlined">bar_chart</span>สถิติ
+        </button>
+      </div>
+
+      <!-- ─── TAB: รับหนังสือ ─── -->
+      <div class="sb-sub-view active" id="sbview-inbox">
+        <div class="sb-counter-cards">
+          <div class="sb-counter-card">
+            <p class="cc-label">เลขที่หนังสือปัจจุบัน</p>
+            <p class="cc-value" id="sb-inbox-current">—</p>
+          </div>
+          <div class="sb-counter-card cc-next">
+            <p class="cc-label">เลขที่หนังสือต่อไป</p>
+            <p class="cc-value" id="sb-inbox-next">—</p>
+          </div>
+        </div>
+
+        <div class="sb-form-box">
+          <p class="sb-form-title"><span class="material-symbols-outlined">add_circle</span>ลงทะเบียนรับหนังสือ</p>
+          <div class="sb-auto-chip">
+            <span class="sac-label">เลขที่หนังสือรับ (อัตโนมัติ)</span>
+            <span class="sac-value" id="sb-inbox-autonumber">—</span>
+          </div>
+          <div class="field" style="margin-bottom:10px;">
+            <label for="sb-inbox-date">วันที่รับ</label>
+            <div class="field-input"><span class="material-symbols-outlined">calendar_today</span><input type="date" id="sb-inbox-date"></div>
+          </div>
+          <div class="field" style="margin-bottom:10px;">
+            <label for="sb-inbox-time">เวลา</label>
+            <div class="field-input"><span class="material-symbols-outlined">schedule</span><input type="time" id="sb-inbox-time"></div>
+          </div>
+          <div class="field" style="margin-bottom:12px;">
+            <label for="sb-inbox-title">ชื่อเรื่อง</label>
+            <div class="field-input"><span class="material-symbols-outlined">description</span><input type="text" id="sb-inbox-title" placeholder="ชื่อเรื่องหนังสือราชการ"></div>
+          </div>
+          <button class="btn btn-primary" onclick="submitSarabanInbox()"><span class="material-symbols-outlined icon-fill">save</span> บันทึก</button>
+        </div>
+
+        <div class="sb-search-box">
+          <span class="material-symbols-outlined">search</span>
+          <input type="text" id="sb-inbox-search" placeholder="ค้นหาเลขที่หรือชื่อเรื่อง…" oninput="renderSarabanTable('inbox')">
+        </div>
+        <div class="sb-table-wrap">
+          <table class="sb-table">
+            <thead><tr><th class="td-no">เลขที่</th><th class="td-date">วันที่รับ</th><th class="td-date">เวลา</th><th class="td-title">ชื่อเรื่อง</th><th class="td-action">แก้ไข</th></tr></thead>
+            <tbody id="sb-inbox-tbody"><tr><td colspan="5" class="sb-no-data">กำลังโหลด…</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ─── TAB: ส่งหนังสือ ─── -->
+      <div class="sb-sub-view" id="sbview-outbox">
+        <div class="sb-counter-cards">
+          <div class="sb-counter-card">
+            <p class="cc-label">เลขที่หนังสือปัจจุบัน</p>
+            <p class="cc-value" id="sb-outbox-current">—</p>
+          </div>
+          <div class="sb-counter-card cc-next">
+            <p class="cc-label">เลขที่หนังสือต่อไป</p>
+            <p class="cc-value" id="sb-outbox-next">—</p>
+          </div>
+        </div>
+
+        <div class="sb-form-box">
+          <p class="sb-form-title"><span class="material-symbols-outlined">add_circle</span>ลงทะเบียนส่งหนังสือ</p>
+          <div class="sb-auto-chip">
+            <span class="sac-label">เลขที่หนังสือออก (อัตโนมัติ)</span>
+            <span class="sac-value" id="sb-outbox-autonumber">04172.038/—</span>
+          </div>
+          <div class="field" style="margin-bottom:10px;">
+            <label for="sb-outbox-date">วันที่ส่ง</label>
+            <div class="field-input"><span class="material-symbols-outlined">calendar_today</span><input type="date" id="sb-outbox-date"></div>
+          </div>
+          <div class="field" style="margin-bottom:10px;">
+            <label for="sb-outbox-agency">หน่วยงานที่ส่งถึง</label>
+            <div class="field-input">
+              <span class="material-symbols-outlined">business</span>
+              <select id="sb-outbox-agency" onchange="toggleOutboxOther()">
+                <option value="" disabled selected>เลือกหน่วยงาน</option>
+                <option value="สำนักงานเขตพื้นที่การศึกษาประถมศึกษาหนองบัวลำภู เขต 1">สพป.หนองบัวลำภู เขต 1</option>
+                <option value="องค์การบริหารส่วนตำบลบ้านพร้าว">อบต.บ้านพร้าว</option>
+                <option value="other">อื่น ๆ</option>
+              </select>
+            </div>
+          </div>
+          <div class="field" id="sb-outbox-other-wrap" style="display:none; margin-bottom:10px;">
+            <label for="sb-outbox-other-input">ระบุหน่วยงานอื่น ๆ</label>
+            <div class="field-input"><span class="material-symbols-outlined">edit_note</span><input type="text" id="sb-outbox-other-input" placeholder="ชื่อหน่วยงาน"></div>
+          </div>
+          <div class="field" style="margin-bottom:12px;">
+            <label for="sb-outbox-title">ชื่อเรื่อง</label>
+            <div class="field-input"><span class="material-symbols-outlined">description</span><input type="text" id="sb-outbox-title" placeholder="ชื่อเรื่องหนังสือราชการ"></div>
+          </div>
+          <button class="btn btn-primary" onclick="submitSarabanOutbox()"><span class="material-symbols-outlined icon-fill">save</span> บันทึก</button>
+        </div>
+
+        <div class="sb-search-box">
+          <span class="material-symbols-outlined">search</span>
+          <input type="text" id="sb-outbox-search" placeholder="ค้นหาเลขที่หนังสือออกหรือชื่อเรื่อง…" oninput="renderSarabanTable('outbox')">
+        </div>
+        <div class="sb-table-wrap">
+          <table class="sb-table">
+            <thead><tr><th class="td-no">เลขที่หนังสือออก</th><th class="td-date">วันที่ส่ง</th><th class="td-agency">หน่วยงาน</th><th class="td-title">ชื่อเรื่อง</th><th class="td-action">แก้ไข</th></tr></thead>
+            <tbody id="sb-outbox-tbody"><tr><td colspan="5" class="sb-no-data">กำลังโหลด…</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ─── TAB: ทะเบียนคำสั่ง ─── -->
+      <div class="sb-sub-view" id="sbview-orders">
+        <div class="sb-counter-cards">
+          <div class="sb-counter-card">
+            <p class="cc-label">เลขที่คำสั่งปัจจุบัน</p>
+            <p class="cc-value" id="sb-orders-current">—</p>
+          </div>
+          <div class="sb-counter-card cc-next">
+            <p class="cc-label">เลขที่คำสั่งต่อไป</p>
+            <p class="cc-value" id="sb-orders-next">—</p>
+          </div>
+        </div>
+
+        <div class="sb-form-box">
+          <p class="sb-form-title"><span class="material-symbols-outlined">add_circle</span>ลงทะเบียนคำสั่ง</p>
+          <div class="sb-auto-chip">
+            <span class="sac-label">เลขที่คำสั่ง (อัตโนมัติ)</span>
+            <span class="sac-value" id="sb-orders-autonumber">—</span>
+          </div>
+          <div class="field" style="margin-bottom:10px;">
+            <label for="sb-orders-date">วันที่ออกคำสั่ง</label>
+            <div class="field-input"><span class="material-symbols-outlined">calendar_today</span><input type="date" id="sb-orders-date"></div>
+          </div>
+          <div class="field" style="margin-bottom:12px;">
+            <label for="sb-orders-title">ชื่อคำสั่ง</label>
+            <div class="field-input"><span class="material-symbols-outlined">gavel</span><input type="text" id="sb-orders-title" placeholder="ชื่อคำสั่ง"></div>
+          </div>
+          <button class="btn btn-primary" onclick="submitSarabanOrder()"><span class="material-symbols-outlined icon-fill">save</span> บันทึก</button>
+        </div>
+
+        <div class="sb-search-box">
+          <span class="material-symbols-outlined">search</span>
+          <input type="text" id="sb-orders-search" placeholder="ค้นหาเลขที่คำสั่งหรือชื่อคำสั่ง…" oninput="renderSarabanTable('orders')">
+        </div>
+        <div class="sb-table-wrap">
+          <table class="sb-table">
+            <thead><tr><th class="td-no">เลขที่คำสั่ง</th><th class="td-date">วันที่</th><th class="td-title">ชื่อคำสั่ง</th><th class="td-action">แก้ไข</th></tr></thead>
+            <tbody id="sb-orders-tbody"><tr><td colspan="4" class="sb-no-data">กำลังโหลด…</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ─── TAB: สถิติ ─── -->
+      <div class="sb-sub-view" id="sbview-stats">
+        <div class="stat-grid" style="margin-bottom:14px;">
+          <div class="stat-tile"><span class="material-symbols-outlined stat-icon" style="color:var(--primary);">move_to_inbox</span><p class="stat-label">หนังสือรับทั้งหมด</p><p class="stat-value" id="sb-stat-inbox">—</p></div>
+          <div class="stat-tile"><span class="material-symbols-outlined stat-icon" style="color:var(--cyan);">outbox</span><p class="stat-label">หนังสือส่งทั้งหมด</p><p class="stat-value" id="sb-stat-outbox">—</p></div>
+          <div class="stat-tile"><span class="material-symbols-outlined stat-icon" style="color:#B8780E;">gavel</span><p class="stat-label">คำสั่งทั้งหมด</p><p class="stat-value" id="sb-stat-orders">—</p></div>
+          <div class="stat-tile"><span class="material-symbols-outlined stat-icon" style="color:var(--success);">summarize</span><p class="stat-label">รวมทั้งหมด</p><p class="stat-value" id="sb-stat-total">—</p></div>
+        </div>
+        <div class="card card-pad" style="margin-bottom:14px;">
+          <p class="card-title"><span class="material-symbols-outlined">calendar_month</span>รายเดือน (6 เดือนล่าสุด)</p>
+          <div id="sb-stats-bars"><p class="text-faint" style="font-size:13px; text-align:center; padding:16px 0;">กำลังโหลด…</p></div>
+        </div>
+        <div class="card card-pad">
+          <p class="card-title"><span class="material-symbols-outlined">history</span>รายการล่าสุด</p>
+          <div id="sb-stats-recent"><p class="text-faint" style="font-size:13px; text-align:center; padding:16px 0;">กำลังโหลด…</p></div>
+        </div>
+      </div>
+
+    </section>
+
   </main>
+
+  <!-- SARABAN: Edit modal (position:fixed — can live outside <main>) -->
+  <div class="sb-modal-overlay" id="sb-modal" style="display:none;" onclick="closeSarabanModal(event)">
+    <div class="sb-modal-box" onclick="event.stopPropagation()">
+      <div class="sb-modal-header">
+        <h3 id="sb-modal-title">แก้ไขรายการ</h3>
+        <button class="btn-sb-close" onclick="closeSarabanModal()"><span class="material-symbols-outlined">close</span></button>
+      </div>
+      <div class="sb-modal-no-badge">
+        <span class="material-symbols-outlined icon-fill">tag</span>
+        <span id="sb-modal-docno">—</span>
+      </div>
+      <div id="sb-modal-fields"></div>
+      <button class="btn btn-primary" style="margin-top:16px;" onclick="saveSarabanEdit()">
+        <span class="material-symbols-outlined icon-fill">save</span> บันทึกการแก้ไข
+      </button>
+    </div>
+  </div>
 
   <nav class="bottom-nav" id="bottom-nav-mount" style="display:none;"></nav>
 </div>
-
 
 <script src="https://www.gstatic.com/firebasejs/12.15.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/12.15.0/firebase-database-compat.js"></script>
@@ -785,18 +1043,52 @@ const firebaseConfig = {
 };
 
 const FIREBASE_SDK_URL = "https://www.gstatic.com/firebasejs/12.15.0/firebase-app-compat.js";
+const FB_VERSION = "12.15.0";
+/* ลำดับ CDN สำรอง — ถ้า gstatic ถูกบล็อก (ไฟร์วอลล์โรงเรียน/ad blocker)
+   ระบบจะลอง jsdelivr และ unpkg ต่อให้อัตโนมัติ */
+const FB_CDNS = [
+  "https://www.gstatic.com/firebasejs/" + FB_VERSION + "/",
+  "https://cdn.jsdelivr.net/npm/firebase@" + FB_VERSION + "/",
+  "https://unpkg.com/firebase@" + FB_VERSION + "/"
+];
+
 let db = null;
 let FIREBASE_READY = false;
 
-try {
-  if (typeof firebase === 'undefined') {
-    throw new Error('Firebase SDK scripts did not load from gstatic.com');
+function loadScriptOnce(src){
+  return new Promise(function(resolve, reject){
+    var s = document.createElement('script');
+    s.src = src;
+    s.onload = function(){ resolve(); };
+    s.onerror = function(){ reject(new Error('โหลดไม่สำเร็จ: ' + src)); };
+    document.head.appendChild(s);
+  });
+}
+
+function sdkPresent(){
+  return typeof firebase !== 'undefined' && typeof firebase.database === 'function';
+}
+
+/* พยายามโหลด SDK จาก CDN แรกที่ใช้ได้ (ตัวแรกโหลดมาแล้วจาก <script src> ด้านล่างหน้า) */
+async function ensureFirebaseSdk(){
+  if (sdkPresent()) return true;
+  for (var i = 1; i < FB_CDNS.length; i++){
+    try {
+      if (typeof firebase === 'undefined'){
+        await loadScriptOnce(FB_CDNS[i] + 'firebase-app-compat.js');
+      }
+      if (!sdkPresent()){
+        await loadScriptOnce(FB_CDNS[i] + 'firebase-database-compat.js');
+      }
+      if (sdkPresent()){
+        console.info('Firebase SDK โหลดสำเร็จจาก CDN สำรอง:', FB_CDNS[i]);
+        return true;
+      }
+    } catch (err){
+      console.warn('CDN ใช้ไม่ได้:', FB_CDNS[i], err.message);
+    }
   }
-  firebase.initializeApp(firebaseConfig);
-  db = firebase.database();
-  FIREBASE_READY = true;
-} catch (initErr) {
-  console.error('Firebase init failed:', initErr);
+  return false;
 }
 
 function showFirebaseLoadError(){
@@ -816,8 +1108,9 @@ function showFirebaseLoadError(){
           <li>เครือข่าย/ไฟร์วอลล์ของโรงเรียนบล็อกการเข้าถึง gstatic.com</li>
           <li>โปรแกรมบล็อกโฆษณา (ad blocker) บล็อกสคริปต์นี้</li>
         </ul>
+        <button onclick="location.reload()" style="width:100%;height:46px;border:none;border-radius:999px;background:#154FCE;color:#fff;font-size:15px;font-weight:600;font-family:inherit;cursor:pointer;margin-bottom:12px;">ลองใหม่อีกครั้ง</button>
         <a href="${FIREBASE_SDK_URL}" target="_blank" style="display:inline-block;font-size:13px;color:#154FCE;">ทดสอบเปิดลิงก์นี้ในแท็บใหม่ &raquo;</a>
-        <p style="font-size:12px;color:#8995A8;margin-top:16px;">ถ้าเปิดลิงก์นี้ไม่ได้เลย แปลว่าเครือข่ายบล็อกอยู่ — ลองเปลี่ยนเครือข่าย (เช่น ใช้ 4G มือถือ) แล้วโหลดหน้านี้ใหม่อีกครั้ง</p>
+        <p style="font-size:12px;color:#8995A8;margin-top:16px;">ระบบได้ลองโหลดจาก CDN สำรอง (jsdelivr, unpkg) แล้วแต่ไม่สำเร็จทั้งหมด — แสดงว่าเครือข่ายนี้บล็อกอยู่ ลองเปลี่ยนเครือข่าย (เช่น ใช้ 4G มือถือ) หรือปิด ad blocker แล้วกด "ลองใหม่อีกครั้ง"</p>
       </div>
     </div>`;
 }
@@ -828,6 +1121,7 @@ const MODULE_REGISTRY = [
   { id:'dashboard',   name:'แดชบอร์ด',          icon:'bar_chart',     status:'active', route:'dashboard', adminOnly:true },
   { id:'profile',     name:'โปรไฟล์',           icon:'person',        status:'active', route:'profile' },
   { id:'settings',    name:'ตั้งค่า',            icon:'settings',      status:'active', route:'settings' },
+  { id:'saraban',     name:'สารบรรณ',            icon:'mail',          status:'active', route:'saraban' },
   { id:'document',    name:'เอกสาร',            icon:'description',  status:'soon' },
   { id:'homevisit',   name:'เยี่ยมบ้าน',         icon:'home_work',    status:'soon' },
   { id:'robot',       name:'การเรียนรู้หุ่นยนต์', icon:'smart_toy',    status:'soon' },
@@ -856,7 +1150,8 @@ const ROUTES = {
   history:    { chrome:true,  nav:'attendance', topbar:{ left:'back', back:'attendance', title:'ประวัติการเช็คชื่อ' } },
   dashboard:  { chrome:true,  nav:'dashboard',  adminOnly:true, topbar:{ left:'back', back:'home', title:'แดชบอร์ด', right:'badge', rightText:'แอดมิน' } },
   profile:    { chrome:true,  nav:'profile',    topbar:{ left:'back', back:'home', title:'โปรไฟล์' } },
-  settings:   { chrome:true,  nav:'settings',   topbar:{ left:'back', back:'home', title:'ตั้งค่า' } }
+  settings:   { chrome:true,  nav:'settings',   topbar:{ left:'back', back:'home', title:'ตั้งค่า' } },
+  saraban:    { chrome:true,  nav:'home',        topbar:{ left:'back', back:'home', title:'ระบบสารบรรณ' } }
 };
 
 /* ---------------- SESSION STATE (no Firebase Auth — plain registration) ---------------- */
@@ -942,6 +1237,7 @@ function render(){
   populateUserChrome();
   if (route === 'splash') trySettleSplash();
   if (route === 'home') renderModuleGrid();
+  if (route === 'saraban') enterSaraban();
   if (route === 'attendance') enterAttendance();
   if (route === 'history') enterHistory();
   if (route === 'dashboard') enterDashboard();
@@ -1578,15 +1874,8 @@ async function saveSettings(){
 }
 
 /* ---------------- GLOBAL INIT ---------------- */
-if (FIREBASE_READY){
+function startApp(){
   db.ref('settings').on('value', snap => { appSettings = snap.val() || appSettings; });
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-  if (!FIREBASE_READY){
-    showFirebaseLoadError();
-    return;
-  }
 
   initTheme();
   startClock('home-time', 'home-date');
@@ -1602,7 +1891,469 @@ document.addEventListener('DOMContentLoaded', () => {
   setTimeout(() => { domTimerDone = true; trySettleSplash(); }, 1200);
   resumeSession();
   render();
-});
+}
+
+/* รอทั้ง DOM พร้อม และ Firebase SDK โหลดได้ (ลอง CDN สำรองอัตโนมัติ) ก่อนเริ่มแอป */
+async function bootApp(){
+  const ok = await ensureFirebaseSdk();
+  if (!ok){
+    console.error('Firebase SDK โหลดไม่ได้จากทุก CDN');
+    showFirebaseLoadError();
+    return;
+  }
+  try {
+    firebase.initializeApp(firebaseConfig);
+    db = firebase.database();
+    FIREBASE_READY = true;
+  } catch (initErr){
+    console.error('Firebase init failed:', initErr);
+    showFirebaseLoadError();
+    return;
+  }
+  startApp();
+}
+
+if (document.readyState === 'loading'){
+  document.addEventListener('DOMContentLoaded', bootApp);
+} else {
+  bootApp();
+}
+
+/* =========================================================
+   SARABAN MODULE — ระบบสารบรรณ โรงเรียนบ้านโคกม่วย
+   สพป.หนองบัวลำภู เขต 1
+   Firebase paths:
+     saraban/inbox/{key}  -> { no, date, time, title, createdAt, createdBy }
+     saraban/outbox/{key} -> { no, date, agency, agencyOther, title, createdAt, createdBy }
+     saraban/orders/{key} -> { no, year, date, title, createdAt, createdBy }
+   ========================================================= */
+
+var sbData = { inbox:{}, outbox:{}, orders:{} };
+var sbCurrentTab = 'inbox';
+var sbEditKey  = null;
+var sbEditType = null;
+
+function thaiYear(){ return new Date().getFullYear() + 543; }
+
+function todayISO(){
+  var d = new Date();
+  return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+}
+function nowTime(){
+  var d = new Date();
+  return String(d.getHours()).padStart(2,'0') + ':' + String(d.getMinutes()).padStart(2,'0');
+}
+
+var THAI_MONTHS = ['ม.ค.','ก.พ.','มี.ค.','เม.ย.','พ.ค.','มิ.ย.','ก.ค.','ส.ค.','ก.ย.','ต.ค.','พ.ย.','ธ.ค.'];
+function formatThaiDate(iso){
+  if (!iso) return '-';
+  try {
+    var parts = iso.split('-').map(Number);
+    return parts[2] + ' ' + THAI_MONTHS[parts[1]-1] + ' ' + (parts[0] + 543);
+  } catch(e){ return iso; }
+}
+
+function sbEsc(s){
+  return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+/* Compute max 'no' in a records object, optionally filtered by year */
+function sbMaxNo(records, yr){
+  var arr = Object.values(records || {});
+  if (yr !== undefined) arr = arr.filter(function(r){ return r.year === yr; });
+  if (!arr.length) return 0;
+  return Math.max.apply(null, arr.map(function(r){ return r.no || 0; }));
+}
+
+/* ──── LOAD ──── */
+async function loadSbData(){
+  try {
+    var snaps = await Promise.all([
+      db.ref('saraban/inbox').once('value'),
+      db.ref('saraban/outbox').once('value'),
+      db.ref('saraban/orders').once('value')
+    ]);
+    sbData.inbox  = snaps[0].val() || {};
+    sbData.outbox = snaps[1].val() || {};
+    sbData.orders = snaps[2].val() || {};
+  } catch(err){
+    showToast('โหลดข้อมูลสารบรรณไม่สำเร็จ: ' + err.message, 'error');
+  }
+}
+
+/* ──── COUNTERS ──── */
+function updateSbCounters(){
+  var g = function(id){ return document.getElementById(id); };
+  var inCurr  = sbMaxNo(sbData.inbox);
+  var outCurr = sbMaxNo(sbData.outbox);
+  var ordCurr = sbMaxNo(sbData.orders, thaiYear());
+  var yr = thaiYear();
+
+  /* inbox */
+  if (g('sb-inbox-current'))    g('sb-inbox-current').textContent    = inCurr || '—';
+  if (g('sb-inbox-next'))       g('sb-inbox-next').textContent       = inCurr + 1;
+  if (g('sb-inbox-autonumber')) g('sb-inbox-autonumber').textContent  = inCurr + 1;
+
+  /* outbox */
+  if (g('sb-outbox-current'))    g('sb-outbox-current').textContent    = outCurr ? '04172.038/' + outCurr : '—';
+  if (g('sb-outbox-next'))       g('sb-outbox-next').textContent       = '04172.038/' + (outCurr + 1);
+  if (g('sb-outbox-autonumber')) g('sb-outbox-autonumber').textContent  = '04172.038/' + (outCurr + 1);
+
+  /* orders */
+  if (g('sb-orders-current'))    g('sb-orders-current').textContent    = ordCurr ? ordCurr + '/' + yr : '—';
+  if (g('sb-orders-next'))       g('sb-orders-next').textContent       = (ordCurr + 1) + '/' + yr;
+  if (g('sb-orders-autonumber')) g('sb-orders-autonumber').textContent  = (ordCurr + 1) + '/' + yr;
+}
+
+/* ──── ENTRY ──── */
+async function enterSaraban(){
+  /* pre-fill date/time in forms */
+  var today = todayISO(), t = nowTime();
+  var preset = function(id, val){ var e = document.getElementById(id); if(e && !e.value) e.value = val; };
+  preset('sb-inbox-date', today); preset('sb-inbox-time', t);
+  preset('sb-outbox-date', today);
+  preset('sb-orders-date', today);
+
+  await loadSbData();
+  updateSbCounters();
+  renderSarabanTable(sbCurrentTab);
+  if (sbCurrentTab === 'stats') loadSbStats();
+}
+
+/* ──── TAB SWITCH ──── */
+function sarabanTab(tab){
+  sbCurrentTab = tab;
+  document.querySelectorAll('.saraban-tab-btn').forEach(function(b){ b.classList.remove('active'); });
+  document.querySelectorAll('.sb-sub-view').forEach(function(v){ v.classList.remove('active'); });
+  var btn  = document.getElementById('sbtab-'  + tab);
+  var view = document.getElementById('sbview-' + tab);
+  if (btn)  btn.classList.add('active');
+  if (view) view.classList.add('active');
+  if (tab === 'stats'){ loadSbStats(); return; }
+  renderSarabanTable(tab);
+  updateSbCounters();
+}
+
+/* ──── TABLE RENDER ──── */
+function renderSarabanTable(type){
+  var q = (function(){
+    var el = document.getElementById('sb-' + type + '-search');
+    return el ? el.value.toLowerCase().trim() : '';
+  })();
+
+  var rows = Object.keys(sbData[type] || {}).map(function(k){
+    return Object.assign({ _key: k }, sbData[type][k]);
+  }).sort(function(a,b){ return (b.no||0) - (a.no||0); });
+
+  if (q){
+    rows = rows.filter(function(r){
+      var noStr = type === 'outbox'  ? '04172.038/' + r.no
+                : type === 'orders'  ? r.no + '/' + (r.year || thaiYear())
+                : String(r.no || '');
+      return noStr.toLowerCase().includes(q) || (r.title||'').toLowerCase().includes(q);
+    });
+  }
+
+  var tbody = document.getElementById('sb-' + type + '-tbody');
+  if (!tbody) return;
+
+  if (!rows.length){
+    var cols = (type === 'orders') ? 4 : 5;
+    tbody.innerHTML = '<tr><td colspan="' + cols + '" class="sb-no-data">' + (q ? 'ไม่พบรายการที่ค้นหา' : 'ยังไม่มีรายการ') + '</td></tr>';
+    return;
+  }
+
+  if (type === 'inbox'){
+    tbody.innerHTML = rows.map(function(r){
+      return '<tr onclick="openSbEdit(\'inbox\',\'' + r._key + '\')" style="cursor:pointer;">' +
+        '<td class="td-no">' + (r.no||'') + '</td>' +
+        '<td class="td-date">' + sbEsc(formatThaiDate(r.date)) + '</td>' +
+        '<td class="td-date">' + sbEsc(r.time||'-') + '</td>' +
+        '<td class="td-title">' + sbEsc(r.title||'-') + '</td>' +
+        '<td class="td-action"><button class="btn-sb-edit" onclick="event.stopPropagation();openSbEdit(\'inbox\',\'' + r._key + '\')">แก้ไข</button></td>' +
+        '</tr>';
+    }).join('');
+  } else if (type === 'outbox'){
+    tbody.innerHTML = rows.map(function(r){
+      var agencyDisplay = r.agency === 'other' ? (r.agencyOther||'อื่น ๆ') : sbEsc(r.agency||'-');
+      /* shorten agency label for table display */
+      var agencyShort = agencyDisplay.replace('สำนักงานเขตพื้นที่การศึกษาประถมศึกษาหนองบัวลำภู เขต 1','สพป.นภ.1').replace('องค์การบริหารส่วนตำบลบ้านพร้าว','อบต.บ้านพร้าว');
+      return '<tr onclick="openSbEdit(\'outbox\',\'' + r._key + '\')" style="cursor:pointer;">' +
+        '<td class="td-no">04172.038/' + (r.no||'') + '</td>' +
+        '<td class="td-date">' + sbEsc(formatThaiDate(r.date)) + '</td>' +
+        '<td class="td-agency" title="' + sbEsc(agencyDisplay) + '">' + sbEsc(agencyShort) + '</td>' +
+        '<td class="td-title">' + sbEsc(r.title||'-') + '</td>' +
+        '<td class="td-action"><button class="btn-sb-edit" onclick="event.stopPropagation();openSbEdit(\'outbox\',\'' + r._key + '\')">แก้ไข</button></td>' +
+        '</tr>';
+    }).join('');
+  } else if (type === 'orders'){
+    tbody.innerHTML = rows.map(function(r){
+      return '<tr onclick="openSbEdit(\'orders\',\'' + r._key + '\')" style="cursor:pointer;">' +
+        '<td class="td-no">' + (r.no||'') + '/' + (r.year||thaiYear()) + '</td>' +
+        '<td class="td-date">' + sbEsc(formatThaiDate(r.date)) + '</td>' +
+        '<td class="td-title">' + sbEsc(r.title||'-') + '</td>' +
+        '<td class="td-action"><button class="btn-sb-edit" onclick="event.stopPropagation();openSbEdit(\'orders\',\'' + r._key + '\')">แก้ไข</button></td>' +
+        '</tr>';
+    }).join('');
+  }
+}
+
+/* ──── SUBMIT INBOX ──── */
+async function submitSarabanInbox(){
+  var date  = document.getElementById('sb-inbox-date').value;
+  var time  = document.getElementById('sb-inbox-time').value;
+  var title = document.getElementById('sb-inbox-title').value.trim();
+  if (!date || !title){ showToast('กรุณากรอกวันที่และชื่อเรื่องให้ครบ', 'error'); return; }
+
+  var nextNo = sbMaxNo(sbData.inbox) + 1;
+  var record = { no:nextNo, date:date, time:time, title:title,
+    createdAt: firebase.database.ServerValue.TIMESTAMP, createdBy: currentUserId };
+  try {
+    var ref = db.ref('saraban/inbox').push();
+    await ref.set(record);
+    sbData.inbox[ref.key] = Object.assign({}, record, { createdAt: Date.now() });
+    updateSbCounters();
+    renderSarabanTable('inbox');
+    document.getElementById('sb-inbox-title').value = '';
+    showToast('บันทึกหนังสือรับเลขที่ ' + nextNo + ' เรียบร้อยแล้ว', 'success');
+  } catch(err){ showToast('บันทึกไม่สำเร็จ: ' + err.message, 'error'); }
+}
+
+/* ──── OUTBOX agency toggle ──── */
+function toggleOutboxOther(){
+  var v = document.getElementById('sb-outbox-agency').value;
+  document.getElementById('sb-outbox-other-wrap').style.display = v === 'other' ? '' : 'none';
+}
+
+/* ──── SUBMIT OUTBOX ──── */
+async function submitSarabanOutbox(){
+  var date   = document.getElementById('sb-outbox-date').value;
+  var agency = document.getElementById('sb-outbox-agency').value;
+  var agencyOther = agency === 'other' ? document.getElementById('sb-outbox-other-input').value.trim() : '';
+  var title  = document.getElementById('sb-outbox-title').value.trim();
+  if (!date || !agency){ showToast('กรุณาเลือกวันที่และหน่วยงาน', 'error'); return; }
+  if (!title){ showToast('กรุณากรอกชื่อเรื่อง', 'error'); return; }
+  if (agency === 'other' && !agencyOther){ showToast('กรุณาระบุชื่อหน่วยงาน', 'error'); return; }
+
+  var nextNo = sbMaxNo(sbData.outbox) + 1;
+  var record = { no:nextNo, date:date, agency:agency, agencyOther:agencyOther, title:title,
+    createdAt: firebase.database.ServerValue.TIMESTAMP, createdBy: currentUserId };
+  try {
+    var ref = db.ref('saraban/outbox').push();
+    await ref.set(record);
+    sbData.outbox[ref.key] = Object.assign({}, record, { createdAt: Date.now() });
+    updateSbCounters();
+    renderSarabanTable('outbox');
+    document.getElementById('sb-outbox-title').value = '';
+    document.getElementById('sb-outbox-agency').value = '';
+    document.getElementById('sb-outbox-other-wrap').style.display = 'none';
+    document.getElementById('sb-outbox-other-input').value = '';
+    showToast('บันทึกหนังสือส่ง 04172.038/' + nextNo + ' เรียบร้อยแล้ว', 'success');
+  } catch(err){ showToast('บันทึกไม่สำเร็จ: ' + err.message, 'error'); }
+}
+
+/* ──── SUBMIT ORDER ──── */
+async function submitSarabanOrder(){
+  var date  = document.getElementById('sb-orders-date').value;
+  var title = document.getElementById('sb-orders-title').value.trim();
+  if (!date || !title){ showToast('กรุณากรอกวันที่และชื่อคำสั่งให้ครบ', 'error'); return; }
+
+  var yr = thaiYear();
+  var nextNo = sbMaxNo(sbData.orders, yr) + 1;
+  var record = { no:nextNo, year:yr, date:date, title:title,
+    createdAt: firebase.database.ServerValue.TIMESTAMP, createdBy: currentUserId };
+  try {
+    var ref = db.ref('saraban/orders').push();
+    await ref.set(record);
+    sbData.orders[ref.key] = Object.assign({}, record, { createdAt: Date.now() });
+    updateSbCounters();
+    renderSarabanTable('orders');
+    document.getElementById('sb-orders-title').value = '';
+    showToast('บันทึกคำสั่งที่ ' + nextNo + '/' + yr + ' เรียบร้อยแล้ว', 'success');
+  } catch(err){ showToast('บันทึกไม่สำเร็จ: ' + err.message, 'error'); }
+}
+
+/* ──── EDIT MODAL ──── */
+function openSbEdit(type, key){
+  var data = sbData[type] && sbData[type][key];
+  if (!data) return;
+  sbEditKey  = key;
+  sbEditType = type;
+
+  var g = function(id){ return document.getElementById(id); };
+  var labels = { inbox:'แก้ไขหนังสือรับ', outbox:'แก้ไขหนังสือส่ง', orders:'แก้ไขคำสั่ง' };
+  g('sb-modal-title').textContent = labels[type] || 'แก้ไข';
+
+  var docno = '';
+  if (type === 'inbox')  docno = 'หนังสือรับเลขที่ ' + data.no;
+  if (type === 'outbox') docno = '04172.038/' + data.no;
+  if (type === 'orders') docno = 'คำสั่งที่ ' + data.no + '/' + (data.year || thaiYear());
+  g('sb-modal-docno').textContent = docno;
+
+  var html = '';
+  var knownAgencies = ['สำนักงานเขตพื้นที่การศึกษาประถมศึกษาหนองบัวลำภู เขต 1','องค์การบริหารส่วนตำบลบ้านพร้าว'];
+
+  if (type === 'inbox'){
+    html = '<div class="field" style="margin-bottom:10px;"><label>วันที่รับ</label>' +
+      '<div class="field-input"><span class="material-symbols-outlined">calendar_today</span>' +
+      '<input type="date" id="sb-edit-date" value="' + sbEsc(data.date||'') + '"></div></div>' +
+      '<div class="field" style="margin-bottom:10px;"><label>เวลา</label>' +
+      '<div class="field-input"><span class="material-symbols-outlined">schedule</span>' +
+      '<input type="time" id="sb-edit-time" value="' + sbEsc(data.time||'') + '"></div></div>' +
+      '<div class="field"><label>ชื่อเรื่อง</label>' +
+      '<div class="field-input"><span class="material-symbols-outlined">description</span>' +
+      '<input type="text" id="sb-edit-title" value="' + sbEsc(data.title||'') + '"></div></div>';
+  } else if (type === 'outbox'){
+    var isOther  = !knownAgencies.includes(data.agency);
+    var selAgency = isOther ? 'other' : (data.agency||'');
+    html = '<div class="field" style="margin-bottom:10px;"><label>วันที่ส่ง</label>' +
+      '<div class="field-input"><span class="material-symbols-outlined">calendar_today</span>' +
+      '<input type="date" id="sb-edit-date" value="' + sbEsc(data.date||'') + '"></div></div>' +
+      '<div class="field" style="margin-bottom:10px;"><label>หน่วยงาน</label>' +
+      '<div class="field-input"><span class="material-symbols-outlined">business</span>' +
+      '<select id="sb-edit-agency" onchange="toggleEditOther()">' +
+      '<option value="สำนักงานเขตพื้นที่การศึกษาประถมศึกษาหนองบัวลำภู เขต 1"' + (selAgency===knownAgencies[0]?' selected':'') + '>สพป.หนองบัวลำภู เขต 1</option>' +
+      '<option value="องค์การบริหารส่วนตำบลบ้านพร้าว"' + (selAgency===knownAgencies[1]?' selected':'') + '>อบต.บ้านพร้าว</option>' +
+      '<option value="other"' + (isOther?' selected':'') + '>อื่น ๆ</option>' +
+      '</select></div></div>' +
+      '<div class="field" id="sb-edit-other-wrap" style="' + (isOther?'':'display:none;') + 'margin-bottom:10px;">' +
+      '<label>ระบุหน่วยงานอื่น ๆ</label>' +
+      '<div class="field-input"><span class="material-symbols-outlined">edit_note</span>' +
+      '<input type="text" id="sb-edit-other" value="' + sbEsc(data.agencyOther||'') + '"></div></div>' +
+      '<div class="field"><label>ชื่อเรื่อง</label>' +
+      '<div class="field-input"><span class="material-symbols-outlined">description</span>' +
+      '<input type="text" id="sb-edit-title" value="' + sbEsc(data.title||'') + '"></div></div>';
+  } else if (type === 'orders'){
+    html = '<div class="field" style="margin-bottom:10px;"><label>วันที่ออกคำสั่ง</label>' +
+      '<div class="field-input"><span class="material-symbols-outlined">calendar_today</span>' +
+      '<input type="date" id="sb-edit-date" value="' + sbEsc(data.date||'') + '"></div></div>' +
+      '<div class="field"><label>ชื่อคำสั่ง</label>' +
+      '<div class="field-input"><span class="material-symbols-outlined">gavel</span>' +
+      '<input type="text" id="sb-edit-title" value="' + sbEsc(data.title||'') + '"></div></div>';
+  }
+
+  g('sb-modal-fields').innerHTML = html;
+  g('sb-modal').style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+}
+
+function toggleEditOther(){
+  var el = document.getElementById('sb-edit-agency');
+  var wrap = document.getElementById('sb-edit-other-wrap');
+  if (el && wrap) wrap.style.display = el.value === 'other' ? '' : 'none';
+}
+
+function closeSarabanModal(event){
+  /* close when clicking the dark overlay, or when called directly (close button) */
+  if (event && event.target !== document.getElementById('sb-modal')) return;
+  document.getElementById('sb-modal').style.display = 'none';
+  document.body.style.overflow = '';
+  sbEditKey = null; sbEditType = null;
+}
+
+async function saveSarabanEdit(){
+  if (!sbEditKey || !sbEditType) return;
+  var type = sbEditType, key = sbEditKey;
+  var g = function(id){ var e = document.getElementById(id); return e ? e.value : ''; };
+
+  var updates = {};
+  if (type === 'inbox'){
+    updates = { date:g('sb-edit-date'), time:g('sb-edit-time'), title:g('sb-edit-title').trim() };
+    if (!updates.date || !updates.title){ showToast('กรุณากรอกวันที่และชื่อเรื่องให้ครบ','error'); return; }
+  } else if (type === 'outbox'){
+    var agency = g('sb-edit-agency');
+    var agencyOther = agency === 'other' ? g('sb-edit-other').trim() : '';
+    if (agency === 'other' && !agencyOther){ showToast('กรุณาระบุชื่อหน่วยงาน','error'); return; }
+    updates = { date:g('sb-edit-date'), agency:agency, agencyOther:agencyOther, title:g('sb-edit-title').trim() };
+    if (!updates.date || !updates.title){ showToast('กรุณากรอกข้อมูลให้ครบ','error'); return; }
+  } else if (type === 'orders'){
+    updates = { date:g('sb-edit-date'), title:g('sb-edit-title').trim() };
+    if (!updates.date || !updates.title){ showToast('กรุณากรอกวันที่และชื่อคำสั่งให้ครบ','error'); return; }
+  }
+
+  updates.updatedAt = firebase.database.ServerValue.TIMESTAMP;
+  updates.updatedBy = currentUserId;
+
+  try {
+    await db.ref('saraban/' + type + '/' + key).update(updates);
+    sbData[type][key] = Object.assign({}, sbData[type][key], updates);
+    renderSarabanTable(type);
+    document.getElementById('sb-modal').style.display = 'none';
+    document.body.style.overflow = '';
+    sbEditKey = null; sbEditType = null;
+    showToast('บันทึกการแก้ไขเรียบร้อยแล้ว','success');
+  } catch(err){ showToast('บันทึกไม่สำเร็จ: ' + err.message,'error'); }
+}
+
+/* ──── STATISTICS ──── */
+function loadSbStats(){
+  var inbox  = Object.values(sbData.inbox  || {});
+  var outbox = Object.values(sbData.outbox || {});
+  var orders = Object.values(sbData.orders || {});
+  var g = function(id){ return document.getElementById(id); };
+
+  if (g('sb-stat-inbox'))  g('sb-stat-inbox').textContent  = inbox.length;
+  if (g('sb-stat-outbox')) g('sb-stat-outbox').textContent = outbox.length;
+  if (g('sb-stat-orders')) g('sb-stat-orders').textContent = orders.length;
+  if (g('sb-stat-total'))  g('sb-stat-total').textContent  = inbox.length + outbox.length + orders.length;
+
+  /* 6-month bar chart */
+  var barsEl = g('sb-stats-bars');
+  if (barsEl){
+    var now = new Date();
+    var months = [];
+    for (var i = 5; i >= 0; i--){
+      var d = new Date(now.getFullYear(), now.getMonth() - i, 1);
+      var key = d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0');
+      var label = d.toLocaleDateString('th-TH', { month:'short', year:'2-digit' });
+      months.push({ key:key, label:label });
+    }
+    var countInMonth = function(arr, mk){ return arr.filter(function(r){ return (r.date||'').startsWith(mk); }).length; };
+    var maxVal = Math.max.apply(null, [1].concat(months.map(function(m){
+      return countInMonth(inbox,m.key) + countInMonth(outbox,m.key) + countInMonth(orders,m.key);
+    })));
+
+    barsEl.innerHTML = months.map(function(m){
+      var ic = countInMonth(inbox, m.key);
+      var oc = countInMonth(outbox, m.key);
+      var cc = countInMonth(orders, m.key);
+      var total = ic + oc + cc;
+      var pct = Math.round((total / maxVal) * 100);
+      return '<div class="sb-month-bar">' +
+        '<span class="sb-month-label">' + sbEsc(m.label) + '</span>' +
+        '<div class="sb-bar-track"><div class="sb-bar-fill" style="width:' + pct + '%"></div></div>' +
+        '<span class="sb-bar-total">' + total + '</span></div>' +
+        '<div class="sb-month-breakdown">รับ ' + ic + ' &middot; ส่ง ' + oc + ' &middot; คำสั่ง ' + cc + '</div>';
+    }).join('');
+  }
+
+  /* Recent 8 items across all types */
+  var recentEl = g('sb-stats-recent');
+  if (recentEl){
+    var all = []
+      .concat(inbox.map(function(r){ return { icon:'move_to_inbox', color:'var(--primary)', label:'รับ ' + r.no, title:r.title, date:r.date }; }))
+      .concat(outbox.map(function(r){ return { icon:'outbox', color:'var(--cyan)', label:'04172.038/' + r.no, title:r.title, date:r.date }; }))
+      .concat(orders.map(function(r){ return { icon:'gavel', color:'#B8780E', label:r.no + '/' + (r.year||thaiYear()), title:r.title, date:r.date }; }));
+    all = all.filter(function(r){ return r.date; }).sort(function(a,b){ return b.date.localeCompare(a.date); }).slice(0,8);
+
+    if (!all.length){
+      recentEl.innerHTML = '<p class="text-faint" style="font-size:13px; text-align:center; padding:12px 0;">ยังไม่มีรายการ</p>';
+    } else {
+      recentEl.innerHTML = all.map(function(item){
+        return '<div class="recent-row">' +
+          '<div style="width:34px;height:34px;border-radius:50%;background:' + item.color + '22;display:flex;align-items:center;justify-content:center;flex-shrink:0;">' +
+            '<span class="material-symbols-outlined icon-fill" style="color:' + item.color + ';font-size:18px;">' + item.icon + '</span>' +
+          '</div>' +
+          '<div style="flex:1;min-width:0;">' +
+            '<p class="nm">' + sbEsc(item.label) + '</p>' +
+            '<p class="dp" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">' + sbEsc(item.title||'-') + '</p>' +
+          '</div>' +
+          '<div class="tm">' + sbEsc(formatThaiDate(item.date)) + '</div>' +
+        '</div>';
+      }).join('');
+    }
+  }
+}
 
 </script>
 </body>

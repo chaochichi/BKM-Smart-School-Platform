@@ -335,8 +335,10 @@ function compressImageToDataUrl(file, maxWidth, quality){
 function reporterInfoHtml(){
   const name = (userProfile && userProfile.name) || '';
   const position = (userProfile && userProfile.position) || '';
+  const schoolName = (appSettings && appSettings.schoolName) || 'โรงเรียนบ้านโคกม่วย สพป.หนองบัวลำภู เขต 1';
+  const line = sbEsc(name) + (position ? ' ตำแหน่ง ' + sbEsc(position) : '') + ' ' + sbEsc(schoolName);
   return `<div class="sv-detail-section" style="background:var(--surface-app);padding:12px 14px;border-radius:var(--radius-sm);margin-bottom:16px;border:1px solid var(--border);">
     <p class="sv-detail-label">ผู้กรอกรายงาน</p>
-    <p class="sv-detail-value">${sbEsc(name)}${position ? ' (' + sbEsc(position) + ')' : ''}</p>
+    <p class="sv-detail-value">${line}</p>
   </div>`;
 }

@@ -252,6 +252,7 @@ function svPlanReadonlyHtml(r){
 function openSvCreate(){
   document.getElementById('sv-modal-title').textContent = 'สร้างแผนการจัดการเรียนรู้ใหม่';
   document.getElementById('sv-modal-body').innerHTML =
+    reporterInfoHtml() +
     '<form onsubmit="return submitSvPlan(event)">' +
       svPlanFormHtml({}) +
       '<button type="submit" class="btn btn-primary" style="margin-top:8px;"><span class="material-symbols-outlined icon-fill">send</span> ส่งให้ผู้อำนวยการตรวจสอบ</button>' +
@@ -444,27 +445,7 @@ function svPreviewPhoto(input){
   reader.readAsDataURL(input.files[0]);
 }
 
-function compressImageToDataUrl(file, maxWidth, quality){
-  return new Promise(function(resolve, reject){
-    if (!file.type || file.type.indexOf('image/') !== 0){ reject(new Error('ไฟล์ที่เลือกไม่ใช่รูปภาพ')); return; }
-    var reader = new FileReader();
-    reader.onerror = function(){ reject(new Error('อ่านไฟล์ไม่สำเร็จ')); };
-    reader.onload = function(e){
-      var img = new Image();
-      img.onerror = function(){ reject(new Error('โหลดรูปภาพไม่สำเร็จ')); };
-      img.onload = function(){
-        var w = img.width, h = img.height;
-        if (w > maxWidth){ h = Math.round(h * (maxWidth / w)); w = maxWidth; }
-        var canvas = document.createElement('canvas');
-        canvas.width = w; canvas.height = h;
-        canvas.getContext('2d').drawImage(img, 0, 0, w, h);
-        resolve(canvas.toDataURL('image/jpeg', quality));
-      };
-      img.src = e.target.result;
-    };
-    reader.readAsDataURL(file);
-  });
-}
+/* compressImageToDataUrl(file, maxWidth, quality) now lives in app-core.js — shared with other modules that attach a photo (e.g. selfdev.html) */
 
 async function submitSvPostTeach(key){
   var notesEl = document.getElementById('sv-f-postTeachNotes');

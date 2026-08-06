@@ -301,3 +301,42 @@ function onCoreDomReady(fn){
     fn();
   }
 }
+
+/* ---------------- SHARED FILE HANDLING ----------------
+   Compresses an uploaded image client-side (resize + JPEG) and
+   returns it as a base64 data URL. Used by any module that lets
+   people attach one photo without needing Firebase Storage. */
+function compressImageToDataUrl(file, maxWidth, quality){
+  return new Promise(function(resolve, reject){
+    if (!file.type || file.type.indexOf('image/') !== 0){ reject(new Error('ไฟล์ที่เลือกไม่ใช่รูปภาพ')); return; }
+    var reader = new FileReader();
+    reader.onerror = function(){ reject(new Error('อ่านไฟล์ไม่สำเร็จ')); };
+    reader.onload = function(e){
+      var img = new Image();
+      img.onerror = function(){ reject(new Error('โหลดรูปภาพไม่สำเร็จ')); };
+      img.onload = function(){
+        var w = img.width, h = img.height;
+        if (w > maxWidth){ h = Math.round(h * (maxWidth / w)); w = maxWidth; }
+        var canvas = document.createElement('canvas');
+        canvas.width = w; canvas.height = h;
+        canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+        resolve(canvas.toDataURL('image/jpeg', quality));
+      };
+      img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
+/* ---------------- REPORTER INFO BLOCK (shared) ----------------
+   Read-only display of the logged-in user's name + position,
+   shown at the top of any "create new record" form so the person
+   filling it out can see whose name it will be saved under. */
+function reporterInfoHtml(){
+  const name = (userProfile && userProfile.name) || '';
+  const position = (userProfile && userProfile.position) || '';
+  return `<div class="sv-detail-section" style="background:var(--surface-app);padding:12px 14px;border-radius:var(--radius-sm);margin-bottom:16px;border:1px solid var(--border);">
+    <p class="sv-detail-label">ผู้กรอกรายงาน</p>
+    <p class="sv-detail-value">${sbEsc(name)}${position ? ' (' + sbEsc(position) + ')' : ''}</p>
+  </div>`;
+}

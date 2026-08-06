@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>พัฒนาตนเอง &middot; BKM Smart School</title>
+<meta name="theme-color" content="#154FCE">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap">
+<link rel="stylesheet" href="design-system.css">
+</head>
+<body>
+<div class="viewport">
+
+  <header class="topbar" id="app-topbar" ></header>
+
+  <main id="app-main">
+
+    <!-- ============ SPLASH ============ -->
+    <!-- ============ SELF-DEVELOPMENT REPORT MODULE (รายงานการพัฒนาตนเอง) ============ -->
+    <section class="app-content" id="view-selfdev">
+
+      <div class="saraban-tabs">
+        <button class="saraban-tab-btn active" id="sdtab-list" onclick="sdTab('list')">
+          <span class="material-symbols-outlined">list_alt</span>รายการรายงาน
+        </button>
+        <button class="saraban-tab-btn" id="sdtab-dashboard" onclick="sdTab('dashboard')" style="display:none;">
+          <span class="material-symbols-outlined">bar_chart</span>แดชบอร์ด
+        </button>
+      </div>
+
+      <!-- ─── TAB: รายการรายงาน ─── -->
+      <div class="sb-sub-view active" id="sdview-list">
+        <button class="btn btn-primary" style="margin-bottom:12px;" onclick="openSdCreate()">
+          <span class="material-symbols-outlined icon-fill">add_circle</span> สร้างรายงานการพัฒนาตนเองใหม่
+        </button>
+
+        <div class="sv-filter-row" id="sd-filter-row">
+          <button class="sv-chip active" data-status="" onclick="sdSetFilter('')">ทั้งหมด</button>
+          <button class="sv-chip" data-status="submitted" onclick="sdSetFilter('submitted')">รอพิจารณา</button>
+          <button class="sv-chip" data-status="acknowledged" onclick="sdSetFilter('acknowledged')">ทราบแล้ว</button>
+        </div>
+
+        <div class="sb-search-box">
+          <span class="material-symbols-outlined">search</span>
+          <input type="text" id="sd-search" placeholder="ค้นหาชื่อหลักสูตร/โครงการ หรือชื่อครู…" oninput="renderSdTable()">
+        </div>
+
+        <div class="sb-table-wrap">
+          <table class="sb-table">
+            <thead>
+              <tr>
+                <th class="td-title">ชื่อหลักสูตร/โครงการ</th>
+                <th class="td-agency" id="sd-th-teacher">ครู</th>
+                <th>สถานะ</th>
+                <th class="td-action">ดู</th>
+              </tr>
+            </thead>
+            <tbody id="sd-list-tbody"><tr><td colspan="4" class="sb-no-data">กำลังโหลด…</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ─── TAB: แดชบอร์ด (admin) ─── -->
+      <div class="sb-sub-view" id="sdview-dashboard">
+        <div class="stat-grid" style="margin-bottom:14px;">
+          <div class="stat-tile"><span class="material-symbols-outlined stat-icon" style="color:var(--primary);">school</span><p class="stat-label">รายงานทั้งหมด</p><p class="stat-value" id="sd-dash-total">—</p></div>
+          <div class="stat-tile"><span class="material-symbols-outlined stat-icon" style="color:var(--warn);">hourglass_top</span><p class="stat-label">รอพิจารณา</p><p class="stat-value" id="sd-dash-pending">—</p></div>
+          <div class="stat-tile"><span class="material-symbols-outlined stat-icon" style="color:var(--success);">verified</span><p class="stat-label">ทราบแล้ว</p><p class="stat-value" id="sd-dash-acked">—</p></div>
+        </div>
+        <div class="card card-pad">
+          <p class="card-title"><span class="material-symbols-outlined">groups</span>จำนวนรายงานการพัฒนาตนเองรายบุคคล</p>
+          <p class="text-faint" style="font-size:11.5px; margin:-6px 0 12px;">ใช้ประกอบการประเมินการปฏิบัติงานและติดตามการพัฒนาตนเองของครูได้</p>
+          <div id="sd-teacher-list"><p class="text-faint" style="font-size:13px; text-align:center; padding:16px 0;">กำลังโหลด…</p></div>
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <div class="sidebar-brand">
+    <span class="material-symbols-outlined icon-fill">school</span>
+    <span class="sidebar-brand-text">BKM Smart School</span>
+  </div>
+  <nav class="bottom-nav" id="bottom-nav-mount" ></nav>
+
+</div>
+
+<!-- SELF-DEVELOPMENT: view/action modal -->
+<div class="sb-modal-overlay" id="sd-modal" style="display:none;" onclick="closeSdModal(event)">
+  <div class="sb-modal-box" style="max-width:640px;" onclick="event.stopPropagation()">
+    <div class="sb-modal-header">
+      <h3 id="sd-modal-title">รายงานการพัฒนาตนเอง</h3>
+      <button class="btn-sb-close" onclick="closeSdModal()"><span class="material-symbols-outlined">close</span></button>
+    </div>
+    <div id="sd-modal-body"></div>
+  </div>
+</div>
+
+<!-- SELF-DEVELOPMENT: hidden printable area (populated by JS, shown only via window.print()) -->
+<div id="sd-print-area" class="doc-print-area"></div>
+
+
+<script src="https://www.gstatic.com/firebasejs/12.15.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/12.15.0/firebase-database-compat.js"></script>
+<script src="app-core.js"></script>
+<script>
+/* =========================================================
+   SELF-DEVELOPMENT REPORT MODULE — ระบบรายงานการพัฒนาตนเอง
+   Firebase path: selfdev/reports/{pushKey}
+   Workflow: submitted -> acknowledged
+   Depends on app-core.js (sbEsc, compressImageToDataUrl, db,
+   currentUserId, userProfile, isAdmin, showToast).
+   ========================================================= */
+
+var sdData = {};
+var sdCurrentTab = 'list';
+var sdFilterStatus = '';
+
+function sdStatusMeta(status){
+  var map = {
+    submitted:    { label:'รอผู้อำนวยการพิจารณา', badge:'badge-warn',    banner:'st-submitted' },
+    acknowledged: { label:'ผู้อำนวยการทราบแล้ว',    badge:'badge-success', banner:'st-completed' }
+  };
+  return map[status] || { label: status || 'ไม่ทราบสถานะ', badge:'badge-neutral', banner:'' };
+}
+
+/* ──── LOAD / ENTRY ──── */
+async function loadSdData(){
+  try {
+    var snap = await db.ref('selfdev/reports').once('value');
+    sdData = snap.val() || {};
+  } catch(err){
+    showToast('โหลดข้อมูลไม่สำเร็จ: ' + err.message, 'error');
+  }
+}
+
+async function enterSelfDev(){
+  var admin = isAdmin();
+  var dashTab = document.getElementById('sdtab-dashboard');
+  var teacherTh = document.getElementById('sd-th-teacher');
+  if (dashTab) dashTab.style.display = admin ? '' : 'none';
+  if (teacherTh) teacherTh.style.display = admin ? '' : 'none';
+
+  sdTab('list');
+  await loadSdData();
+  renderSdTable();
+}
+
+function sdTab(tab){
+  sdCurrentTab = tab;
+  document.querySelectorAll('#view-selfdev .saraban-tab-btn').forEach(function(b){ b.classList.remove('active'); });
+  document.querySelectorAll('#view-selfdev .sb-sub-view').forEach(function(v){ v.classList.remove('active'); });
+  var btn = document.getElementById('sdtab-' + tab);
+  var view = document.getElementById('sdview-' + tab);
+  if (btn) btn.classList.add('active');
+  if (view) view.classList.add('active');
+  if (tab === 'dashboard') loadSdDashboard();
+}
+
+function sdSetFilter(status){
+  sdFilterStatus = status;
+  document.querySelectorAll('#sd-filter-row .sv-chip').forEach(function(c){ c.classList.toggle('active', c.getAttribute('data-status') === status); });
+  renderSdTable();
+}
+
+/* ──── TABLE ──── */
+function renderSdTable(){
+  var admin = isAdmin();
+  var searchEl = document.getElementById('sd-search');
+  var q = searchEl ? searchEl.value.toLowerCase().trim() : '';
+
+  var rows = Object.keys(sdData).map(function(k){ return Object.assign({ _key:k }, sdData[k]); });
+  if (!admin) rows = rows.filter(function(r){ return r.teacherId === currentUserId; });
+  if (sdFilterStatus) rows = rows.filter(function(r){ return r.status === sdFilterStatus; });
+  if (q){
+    rows = rows.filter(function(r){
+      return (r.courseName||'').toLowerCase().includes(q) || (r.teacherName||'').toLowerCase().includes(q);
+    });
+  }
+  rows.sort(function(a,b){ return (b.createdAt||0) - (a.createdAt||0); });
+
+  var tbody = document.getElementById('sd-list-tbody');
+  if (!tbody) return;
+
+  if (!rows.length){
+    tbody.innerHTML = '<tr><td colspan="4" class="sb-no-data">' + ((q || sdFilterStatus) ? 'ไม่พบรายการที่ค้นหา' : 'ยังไม่มีรายงานการพัฒนาตนเอง') + '</td></tr>';
+    return;
+  }
+
+  tbody.innerHTML = rows.map(function(r){
+    var meta = sdStatusMeta(r.status);
+    var teacherCell = '<td class="td-agency"' + (admin ? '' : ' style="display:none;"') + '>' + sbEsc(r.teacherName) + '</td>';
+    return '<tr onclick="openSdView(\'' + r._key + '\')" style="cursor:pointer;">' +
+      '<td class="td-title">' + sbEsc(r.courseName) + '</td>' +
+      teacherCell +
+      '<td><span class="badge ' + meta.badge + '">' + meta.label + '</span></td>' +
+      '<td class="td-action"><button class="btn-sb-edit" onclick="event.stopPropagation();openSdView(\'' + r._key + '\')">ดู</button></td>' +
+      '</tr>';
+  }).join('');
+}
+
+/* ──── CREATE FORM ──── */
+function sdReportFormHtml(){
+  return '' +
+    '<div class="field"><label>ชื่อหลักสูตร/โครงการ</label><div class="field-input"><span class="material-symbols-outlined">school</span><input type="text" id="sd-f-courseName" placeholder="เช่น การอบรมเชิงปฏิบัติการ..."></div></div>' +
+    '<div class="field"><label>วัตถุประสงค์</label><textarea id="sd-f-objective" rows="3" placeholder="วัตถุประสงค์ของการเข้าร่วม..."></textarea></div>' +
+    '<div class="field"><label>สิ่งที่ได้เรียนรู้และพัฒนา</label><textarea id="sd-f-learning" rows="4" placeholder="ความรู้ ทักษะ หรือแนวคิดที่ได้รับ..."></textarea></div>' +
+    '<div class="field"><label>สิ่งที่ได้รับ</label><textarea id="sd-f-benefit" rows="3" placeholder="ประโยชน์ที่นำมาปรับใช้กับงาน/นักเรียน..."></textarea></div>' +
+    '<div class="field sv-photo-input-wrap">' +
+      '<label>รูปภาพการอบรม/เกียรติบัตร (1 รูป)</label>' +
+      '<input type="file" accept="image/*" id="sd-f-photo" onchange="sdPreviewPhoto(this)">' +
+      '<img id="sd-photo-preview-img" class="sv-photo-preview" style="display:none;">' +
+    '</div>';
+}
+
+function openSdCreate(){
+  document.getElementById('sd-modal-title').textContent = 'สร้างรายงานการพัฒนาตนเองใหม่';
+  document.getElementById('sd-modal-body').innerHTML =
+    reporterInfoHtml() +
+    '<form onsubmit="return submitSdReport(event)">' +
+      sdReportFormHtml() +
+      '<button type="submit" class="btn btn-primary" style="margin-top:8px;"><span class="material-symbols-outlined icon-fill">send</span> เสนอผู้อำนวยการ</button>' +
+    '</form>';
+  document.getElementById('sd-modal').style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+}
+
+function sdPreviewPhoto(input){
+  if (!input.files || !input.files[0]) return;
+  var reader = new FileReader();
+  reader.onload = function(e){
+    var img = document.getElementById('sd-photo-preview-img');
+    if (img){ img.src = e.target.result; img.style.display = 'block'; }
+  };
+  reader.readAsDataURL(input.files[0]);
+}
+
+async function submitSdReport(e){
+  e.preventDefault();
+  var g = function(id){ var el = document.getElementById(id); return el ? el.value.trim() : ''; };
+  var courseName = g('sd-f-courseName'), objective = g('sd-f-objective'),
+      learning = g('sd-f-learning'), benefit = g('sd-f-benefit');
+
+  if (!courseName || !objective || !learning || !benefit){
+    showToast('กรุณากรอกข้อมูลให้ครบทุกช่อง', 'error');
+    return false;
+  }
+
+  var fileInput = document.getElementById('sd-f-photo');
+  var photoDataUrl = '';
+  if (fileInput && fileInput.files && fileInput.files[0]){
+    try {
+      photoDataUrl = await compressImageToDataUrl(fileInput.files[0], 900, 0.6);
+    } catch(err){
+      showToast('ประมวลผลรูปภาพไม่สำเร็จ: ' + err.message, 'error');
+      return false;
+    }
+  } else {
+    showToast('กรุณาแนบรูปภาพการอบรม/เกียรติบัตร', 'error');
+    return false;
+  }
+
+  var record = {
+    teacherId: currentUserId,
+    teacherName: (userProfile && userProfile.name) || '',
+    teacherPosition: (userProfile && userProfile.position) || '',
+    courseName: courseName, objective: objective, learning: learning, benefit: benefit,
+    photoDataUrl: photoDataUrl,
+    status: 'submitted',
+    createdAt: firebase.database.ServerValue.TIMESTAMP
+  };
+
+  try {
+    var ref = db.ref('selfdev/reports').push();
+    await ref.set(record);
+    sdData[ref.key] = Object.assign({}, record, { createdAt: Date.now() });
+    showToast('เสนอรายงานการพัฒนาตนเองให้ผู้อำนวยการแล้ว', 'success');
+    closeSdModal();
+    renderSdTable();
+  } catch(err){ showToast('บันทึกไม่สำเร็จ: ' + err.message, 'error'); }
+  return false;
+}
+
+/* ──── VIEW / ACTION MODAL ──── */
+function sdReadonlyHtml(r){
+  return '' +
+    '<div class="sv-detail-section"><p class="sv-detail-label">ชื่อหลักสูตร/โครงการ</p><p class="sv-detail-value">' + sbEsc(r.courseName) + '</p></div>' +
+    '<div class="sv-detail-section"><p class="sv-detail-label">วัตถุประสงค์</p><p class="sv-detail-value">' + sbEsc(r.objective) + '</p></div>' +
+    '<div class="sv-detail-section"><p class="sv-detail-label">สิ่งที่ได้เรียนรู้และพัฒนา</p><p class="sv-detail-value">' + sbEsc(r.learning) + '</p></div>' +
+    '<div class="sv-detail-section"><p class="sv-detail-label">สิ่งที่ได้รับ</p><p class="sv-detail-value">' + sbEsc(r.benefit) + '</p></div>' +
+    (r.photoDataUrl ? '<img src="' + r.photoDataUrl + '" class="sv-photo-preview" alt="รูปภาพการอบรม/เกียรติบัตร">' : '');
+}
+
+function openSdView(key){
+  var r = sdData[key];
+  if (!r) return;
+  var meta = sdStatusMeta(r.status);
+  var admin = isAdmin();
+
+  document.getElementById('sd-modal-title').textContent = r.courseName || 'รายงานการพัฒนาตนเอง';
+
+  var html = '<div class="sv-status-banner ' + meta.banner + '"><span class="material-symbols-outlined icon-fill">info</span>' + meta.label + '</div>';
+
+  if (r.teacherName){
+    html += '<div class="sv-detail-section"><p class="sv-detail-label">ครู</p><p class="sv-detail-value">' + sbEsc(r.teacherName) + (r.teacherPosition ? ' (' + sbEsc(r.teacherPosition) + ')' : '') + '</p></div>';
+  }
+
+  html += sdReadonlyHtml(r);
+
+  if (r.status === 'submitted' && admin){
+    html += '' +
+      '<div class="field"><label>ข้อเสนอแนะ (ถ้ามี)</label><textarea id="sd-f-directorFeedback" rows="3" placeholder="ข้อเสนอแนะจากผู้อำนวยการ..."></textarea></div>' +
+      '<div class="sv-action-row"><button class="btn btn-primary" onclick="acknowledgeSdReport(\'' + key + '\')"><span class="material-symbols-outlined icon-fill">task_alt</span> รับทราบ</button></div>';
+  }
+
+  if (r.status === 'acknowledged'){
+    if (r.directorFeedback){
+      html += '<div class="sv-advice-box"><p class="cb-label">ข้อเสนอแนะจากผู้อำนวยการ</p><p class="cb-text">' + sbEsc(r.directorFeedback) + '</p></div>';
+    }
+    html += '<div class="sv-action-row"><button class="btn btn-secondary" onclick="printSdReport(\'' + key + '\')"><span class="material-symbols-outlined">print</span> พิมพ์ / ดาวน์โหลด PDF</button></div>';
+  }
+
+  document.getElementById('sd-modal-body').innerHTML = html;
+  document.getElementById('sd-modal').style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+}
+
+function closeSdModal(event){
+  if (event && event.target !== document.getElementById('sd-modal')) return;
+  document.getElementById('sd-modal').style.display = 'none';
+  document.body.style.overflow = '';
+}
+
+/* ──── DIRECTOR ACTION ──── */
+async function acknowledgeSdReport(key){
+  var el = document.getElementById('sd-f-directorFeedback');
+  var feedback = el ? el.value.trim() : '';
+  try {
+    var updates = {
+      status: 'acknowledged', directorFeedback: feedback,
+      acknowledgedAt: firebase.database.ServerValue.TIMESTAMP, acknowledgedBy: currentUserId
+    };
+    await db.ref('selfdev/reports/' + key).update(updates);
+    sdData[key] = Object.assign({}, sdData[key], updates);
+    showToast('รับทราบรายงานการพัฒนาตนเองแล้ว', 'success');
+    closeSdModal(); renderSdTable();
+  } catch(err){ showToast('ดำเนินการไม่สำเร็จ: ' + err.message, 'error'); }
+}
+
+/* ──── DASHBOARD (admin only) ──── */
+function loadSdDashboard(){
+  var rows = Object.values(sdData || {});
+  var total = rows.length;
+  var pending = rows.filter(function(r){ return r.status === 'submitted'; }).length;
+  var acked = rows.filter(function(r){ return r.status === 'acknowledged'; }).length;
+
+  var g = function(id){ return document.getElementById(id); };
+  if (g('sd-dash-total')) g('sd-dash-total').textContent = total;
+  if (g('sd-dash-pending')) g('sd-dash-pending').textContent = pending;
+  if (g('sd-dash-acked')) g('sd-dash-acked').textContent = acked;
+
+  var byTeacher = {};
+  rows.forEach(function(r){
+    var name = r.teacherName || 'ไม่ทราบชื่อ';
+    if (!byTeacher[name]) byTeacher[name] = { total:0, acked:0 };
+    byTeacher[name].total++;
+    if (r.status === 'acknowledged') byTeacher[name].acked++;
+  });
+  var names = Object.keys(byTeacher).sort();
+  var el = document.getElementById('sd-teacher-list');
+  if (!el) return;
+  if (!names.length){
+    el.innerHTML = '<p class="text-faint" style="font-size:13px;text-align:center;padding:16px 0;">ยังไม่มีข้อมูล</p>';
+    return;
+  }
+  el.innerHTML = names.map(function(name){
+    var t = byTeacher[name];
+    return '<div class="recent-row">' +
+      '<div style="width:34px;height:34px;border-radius:50%;background:var(--primary-tint);display:flex;align-items:center;justify-content:center;flex-shrink:0;">' +
+        '<span class="material-symbols-outlined icon-fill" style="color:var(--primary);font-size:18px;">school</span>' +
+      '</div>' +
+      '<div style="flex:1;min-width:0;">' +
+        '<p class="nm">' + sbEsc(name) + '</p>' +
+        '<p class="dp">รายงานทั้งหมด ' + t.total + ' รายการ &middot; ทราบแล้ว ' + t.acked + ' รายการ</p>' +
+      '</div>' +
+      '</div>';
+  }).join('');
+}
+
+/* ──── PRINT / PDF ──── */
+function printSdReport(key){
+  var r = sdData[key];
+  if (!r) return;
+  var el = document.getElementById('sd-print-area');
+  var schoolName = (appSettings && appSettings.schoolName) || 'โรงเรียนบ้านโคกม่วย สพป.หนองบัวลำภู เขต 1';
+
+  el.innerHTML = '' +
+    '<h1>รายงานการพัฒนาตนเอง</h1>' +
+    '<h2>' + sbEsc(schoolName) + '</h2>' +
+    '<div class="pr-row"><span class="pr-label">ชื่อหลักสูตร/โครงการ</span><span>' + sbEsc(r.courseName) + '</span></div>' +
+    '<div class="pr-row"><span class="pr-label">ครู</span><span>' + sbEsc(r.teacherName) + (r.teacherPosition ? ' (' + sbEsc(r.teacherPosition) + ')' : '') + '</span></div>' +
+    '<div class="pr-section"><p class="pr-section-title">วัตถุประสงค์</p><p class="pr-text">' + sbEsc(r.objective) + '</p></div>' +
+    '<div class="pr-section"><p class="pr-section-title">สิ่งที่ได้เรียนรู้และพัฒนา</p><p class="pr-text">' + sbEsc(r.learning) + '</p></div>' +
+    '<div class="pr-section"><p class="pr-section-title">สิ่งที่ได้รับ</p><p class="pr-text">' + sbEsc(r.benefit) + '</p></div>' +
+    (r.photoDataUrl ? '<div class="pr-section"><p class="pr-section-title">รูปภาพการอบรม/เกียรติบัตร</p><img src="' + r.photoDataUrl + '" class="pr-photo"></div>' : '') +
+    '<div class="pr-section"><p class="pr-section-title">ข้อเสนอแนะจากผู้อำนวยการ</p><p class="pr-text">' + sbEsc(r.directorFeedback || '-') + '</p></div>' +
+    '<div class="pr-sign-row">' +
+      '<div class="pr-sign-box"><div class="pr-sign-line">( ' + sbEsc(r.teacherName) + ' )<br>ครูผู้รายงาน</div></div>' +
+      '<div class="pr-sign-box"><div class="pr-sign-line">ผู้อำนวยการโรงเรียน</div></div>' +
+    '</div>';
+
+  setTimeout(function(){ window.print(); }, 120);
+}
+
+
+/* ---------------- BOOT ---------------- */
+onCoreDomReady(async () => {
+  const ok = await bootCore();
+  if (!ok) return;
+  if (!currentUserId){ location.href = 'index.html#login'; return; }
+
+  renderTopbar({ left:'back', back:'index.html#home', title:'พัฒนาตนเอง' });
+  renderBottomNav('home');
+  await enterSelfDev();
+});
+</script>
+</body>
+</html>

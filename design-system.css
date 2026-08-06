@@ -582,22 +582,22 @@ button{ font-family:inherit; }
 .sv-progress-pct{ font-size:12px; font-weight:700; color:var(--ink); width:66px; flex-shrink:0; text-align:right; }
 
 /* ---- Print area: hidden on screen, only visible during window.print() ---- */
-#sv-print-area{ display:none; }
+#sv-print-area, .doc-print-area{ display:none; }
 @media print{
   body *{ visibility:hidden; }
-  #sv-print-area, #sv-print-area *{ visibility:visible; }
-  #sv-print-area{ display:block; position:absolute; top:0; left:0; width:100%; padding:24px; font-family:'Noto Sans Thai',sans-serif; color:#000; }
-  #sv-print-area h1{ font-size:18px; text-align:center; margin:0 0 4px; }
-  #sv-print-area h2{ font-size:14px; text-align:center; margin:0 0 20px; font-weight:500; color:#333; }
-  #sv-print-area .pr-row{ display:flex; gap:16px; margin-bottom:6px; font-size:12.5px; }
-  #sv-print-area .pr-label{ font-weight:700; min-width:130px; }
-  #sv-print-area .pr-section{ margin:14px 0; }
-  #sv-print-area .pr-section-title{ font-weight:700; font-size:13px; border-bottom:1.5px solid #000; padding-bottom:3px; margin-bottom:6px; }
-  #sv-print-area .pr-text{ font-size:12.5px; white-space:pre-wrap; line-height:1.7; }
-  #sv-print-area .pr-photo{ max-width:320px; display:block; margin:10px auto; border:1px solid #999; }
-  #sv-print-area .pr-sign-row{ display:flex; justify-content:space-between; margin-top:50px; }
-  #sv-print-area .pr-sign-box{ text-align:center; width:45%; font-size:12px; }
-  #sv-print-area .pr-sign-line{ border-top:1px solid #000; margin-top:40px; padding-top:6px; }
+  #sv-print-area, #sv-print-area *, .doc-print-area, .doc-print-area *{ visibility:visible; }
+  #sv-print-area, .doc-print-area{ display:block; position:absolute; top:0; left:0; width:100%; padding:24px; font-family:'Noto Sans Thai',sans-serif; color:#000; }
+  #sv-print-area h1, .doc-print-area h1{ font-size:18px; text-align:center; margin:0 0 4px; }
+  #sv-print-area h2, .doc-print-area h2{ font-size:14px; text-align:center; margin:0 0 20px; font-weight:500; color:#333; }
+  #sv-print-area .pr-row, .doc-print-area .pr-row{ display:flex; gap:16px; margin-bottom:6px; font-size:12.5px; }
+  #sv-print-area .pr-label, .doc-print-area .pr-label{ font-weight:700; min-width:130px; }
+  #sv-print-area .pr-section, .doc-print-area .pr-section{ margin:14px 0; }
+  #sv-print-area .pr-section-title, .doc-print-area .pr-section-title{ font-weight:700; font-size:13px; border-bottom:1.5px solid #000; padding-bottom:3px; margin-bottom:6px; }
+  #sv-print-area .pr-text, .doc-print-area .pr-text{ font-size:12.5px; white-space:pre-wrap; line-height:1.7; }
+  #sv-print-area .pr-photo, .doc-print-area .pr-photo{ max-width:320px; display:block; margin:10px auto; border:1px solid #999; }
+  #sv-print-area .pr-sign-row, .doc-print-area .pr-sign-row{ display:flex; justify-content:space-between; margin-top:50px; }
+  #sv-print-area .pr-sign-box, .doc-print-area .pr-sign-box{ text-align:center; width:45%; font-size:12px; }
+  #sv-print-area .pr-sign-line, .doc-print-area .pr-sign-line{ border-top:1px solid #000; margin-top:40px; padding-top:6px; }
 }
 
 @media (min-width: 880px){

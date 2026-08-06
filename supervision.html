@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>นิเทศชั้นเรียน &middot; BKM Smart School</title>
+<meta name="theme-color" content="#154FCE">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap">
+<link rel="stylesheet" href="design-system.css">
+</head>
+<body>
+<div class="viewport">
+
+  <header class="topbar" id="app-topbar" ></header>
+
+  <main id="app-main">
+
+    <!-- ============ SPLASH ============ -->
+    <!-- ============ SUPERVISION MODULE (นิเทศชั้นเรียน) ============ -->
+    <section class="app-content" id="view-supervision">
+
+      <div class="saraban-tabs">
+        <button class="saraban-tab-btn active" id="svtab-list" onclick="svTab('list')">
+          <span class="material-symbols-outlined">list_alt</span>รายการแผน
+        </button>
+        <button class="saraban-tab-btn" id="svtab-dashboard" onclick="svTab('dashboard')" style="display:none;">
+          <span class="material-symbols-outlined">bar_chart</span>แดชบอร์ด
+        </button>
+      </div>
+
+      <!-- ─── TAB: รายการแผนการสอน ─── -->
+      <div class="sb-sub-view active" id="svview-list">
+        <button class="btn btn-primary" style="margin-bottom:12px;" onclick="openSvCreate()">
+          <span class="material-symbols-outlined icon-fill">add_circle</span> สร้างแผนการจัดการเรียนรู้ใหม่
+        </button>
+
+        <div class="sv-filter-row" id="sv-filter-row">
+          <button class="sv-chip active" data-status="" onclick="svSetFilter('')">ทั้งหมด</button>
+          <button class="sv-chip" data-status="submitted" onclick="svSetFilter('submitted')">รอตรวจ</button>
+          <button class="sv-chip" data-status="revision" onclick="svSetFilter('revision')">ต้องแก้ไข</button>
+          <button class="sv-chip" data-status="approved_plan" onclick="svSetFilter('approved_plan')">อนุมัติแผนแล้ว</button>
+          <button class="sv-chip" data-status="taught_submitted" onclick="svSetFilter('taught_submitted')">รอตรวจการสอน</button>
+          <button class="sv-chip" data-status="completed" onclick="svSetFilter('completed')">เสร็จสมบูรณ์</button>
+        </div>
+
+        <div class="sb-search-box">
+          <span class="material-symbols-outlined">search</span>
+          <input type="text" id="sv-search" placeholder="ค้นหาเลขที่แผน ชื่อหน่วย หรือชื่อครู…" oninput="renderSvTable()">
+        </div>
+
+        <div class="sb-table-wrap">
+          <table class="sb-table">
+            <thead>
+              <tr>
+                <th class="td-no">แผนที่</th>
+                <th class="td-title">หน่วยการเรียนรู้</th>
+                <th class="td-agency" id="sv-th-teacher">ครูผู้สอน</th>
+                <th>สถานะ</th>
+                <th class="td-action">ดู</th>
+              </tr>
+            </thead>
+            <tbody id="sv-list-tbody"><tr><td colspan="5" class="sb-no-data">กำลังโหลด…</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ─── TAB: แดชบอร์ด (admin) ─── -->
+      <div class="sb-sub-view" id="svview-dashboard">
+        <div class="stat-grid" style="margin-bottom:14px;">
+          <div class="stat-tile"><span class="material-symbols-outlined stat-icon" style="color:var(--primary);">description</span><p class="stat-label">แผนทั้งหมด</p><p class="stat-value" id="sv-dash-total">—</p></div>
+          <div class="stat-tile"><span class="material-symbols-outlined stat-icon" style="color:var(--warn);">hourglass_top</span><p class="stat-label">รอตรวจ</p><p class="stat-value" id="sv-dash-pending">—</p></div>
+          <div class="stat-tile"><span class="material-symbols-outlined stat-icon" style="color:var(--danger);">edit_note</span><p class="stat-label">ต้องแก้ไข</p><p class="stat-value" id="sv-dash-revision">—</p></div>
+          <div class="stat-tile"><span class="material-symbols-outlined stat-icon" style="color:var(--success);">verified</span><p class="stat-label">เสร็จสมบูรณ์</p><p class="stat-value" id="sv-dash-completed">—</p></div>
+        </div>
+        <div class="card card-pad">
+          <p class="card-title"><span class="material-symbols-outlined">groups</span>ความก้าวหน้าการนิเทศรายบุคคล</p>
+          <p class="text-faint" style="font-size:11.5px; margin:-6px 0 12px;">ใช้ประกอบการประเมินการปฏิบัติงานของครูได้</p>
+          <div id="sv-teacher-progress"><p class="text-faint" style="font-size:13px; text-align:center; padding:16px 0;">กำลังโหลด…</p></div>
+        </div>
+      </div>
+
+    </section>
+
+
+  </main>
+
+  <div class="sidebar-brand">
+    <span class="material-symbols-outlined icon-fill">school</span>
+    <span class="sidebar-brand-text">BKM Smart School</span>
+  </div>
+  <nav class="bottom-nav" id="bottom-nav-mount" ></nav>
+
+</div>
+
+<!-- SUPERVISION: view/action modal -->
+<div class="sb-modal-overlay" id="sv-modal" style="display:none;" onclick="closeSvModal(event)">
+  <div class="sb-modal-box" style="max-width:640px;" onclick="event.stopPropagation()">
+    <div class="sb-modal-header">
+      <h3 id="sv-modal-title">แผนการจัดการเรียนรู้</h3>
+      <button class="btn-sb-close" onclick="closeSvModal()"><span class="material-symbols-outlined">close</span></button>
+    </div>
+    <div id="sv-modal-body"></div>
+  </div>
+</div>
+
+<!-- SUPERVISION: hidden printable area (populated by JS, shown only via window.print()) -->
+<div id="sv-print-area"></div>
+
+<script src="https://www.gstatic.com/firebasejs/12.15.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/12.15.0/firebase-database-compat.js"></script>
+<script src="app-core.js"></script>
+<script>
+/* =========================================================
+   SUPERVISION MODULE — ระบบนิเทศชั้นเรียน
+   Firebase path: supervision/plans/{pushKey}
+   Workflow: submitted -> (revision <-> submitted) -> approved_plan
+             -> taught_submitted -> completed
+   No Firebase Storage configured — the single teaching photo is
+   compressed client-side (canvas, max 900px wide, JPEG q0.6) and
+   stored as a base64 data URL directly in Realtime Database.
+   ========================================================= */
+
+var svData = {};
+var svCurrentTab = 'list';
+var svFilterStatus = '';
+
+function svStatusMeta(status){
+  var map = {
+    submitted:        { label:'รอผู้อำนวยการตรวจสอบแผน',    badge:'badge-warn',    banner:'st-submitted' },
+    revision:          { label:'ต้องแก้ไข',                    badge:'badge-danger',  banner:'st-revision' },
+    approved_plan:     { label:'อนุมัติแผนแล้ว',               badge:'badge-success', banner:'st-approved_plan' },
+    taught_submitted:  { label:'รอผู้อำนวยการตรวจสอบการสอน', badge:'badge-warn',    banner:'st-taught_submitted' },
+    completed:         { label:'นิเทศสมบูรณ์',                 badge:'badge-success', banner:'st-completed' }
+  };
+  return map[status] || { label: status || 'ไม่ทราบสถานะ', badge:'badge-neutral', banner:'' };
+}
+
+/* ──── LOAD / ENTRY ──── */
+async function loadSvData(){
+  try {
+    var snap = await db.ref('supervision/plans').once('value');
+    svData = snap.val() || {};
+  } catch(err){
+    showToast('โหลดข้อมูลนิเทศไม่สำเร็จ: ' + err.message, 'error');
+  }
+}
+
+async function enterSupervision(){
+  var admin = isAdmin();
+  var dashTab = document.getElementById('svtab-dashboard');
+  var teacherTh = document.getElementById('sv-th-teacher');
+  if (dashTab) dashTab.style.display = admin ? '' : 'none';
+  if (teacherTh) teacherTh.style.display = admin ? '' : 'none';
+
+  svTab('list');
+  await loadSvData();
+  renderSvTable();
+}
+
+function svTab(tab){
+  svCurrentTab = tab;
+  document.querySelectorAll('#view-supervision .saraban-tab-btn').forEach(function(b){ b.classList.remove('active'); });
+  document.querySelectorAll('#view-supervision .sb-sub-view').forEach(function(v){ v.classList.remove('active'); });
+  var btn = document.getElementById('svtab-' + tab);
+  var view = document.getElementById('svview-' + tab);
+  if (btn) btn.classList.add('active');
+  if (view) view.classList.add('active');
+  if (tab === 'dashboard') loadSvDashboard();
+}
+
+function svSetFilter(status){
+  svFilterStatus = status;
+  document.querySelectorAll('.sv-chip').forEach(function(c){ c.classList.toggle('active', c.getAttribute('data-status') === status); });
+  renderSvTable();
+}
+
+/* ──── TABLE ──── */
+function renderSvTable(){
+  var admin = isAdmin();
+  var searchEl = document.getElementById('sv-search');
+  var q = searchEl ? searchEl.value.toLowerCase().trim() : '';
+
+  var rows = Object.keys(svData).map(function(k){ return Object.assign({ _key:k }, svData[k]); });
+  if (!admin) rows = rows.filter(function(r){ return r.teacherId === currentUserId; });
+  if (svFilterStatus) rows = rows.filter(function(r){ return r.status === svFilterStatus; });
+  if (q){
+    rows = rows.filter(function(r){
+      return String(r.planNo||'').toLowerCase().includes(q) ||
+             (r.unitName||'').toLowerCase().includes(q) ||
+             (r.teacherName||'').toLowerCase().includes(q);
+    });
+  }
+  rows.sort(function(a,b){ return (b.createdAt||0) - (a.createdAt||0); });
+
+  var tbody = document.getElementById('sv-list-tbody');
+  if (!tbody) return;
+
+  if (!rows.length){
+    tbody.innerHTML = '<tr><td colspan="5" class="sb-no-data">' + ((q || svFilterStatus) ? 'ไม่พบรายการที่ค้นหา' : 'ยังไม่มีแผนการจัดการเรียนรู้') + '</td></tr>';
+    return;
+  }
+
+  tbody.innerHTML = rows.map(function(r){
+    var meta = svStatusMeta(r.status);
+    var teacherCell = '<td class="td-agency"' + (admin ? '' : ' style="display:none;"') + '>' + sbEsc(r.teacherName) + '</td>';
+    return '<tr onclick="openSvView(\'' + r._key + '\')" style="cursor:pointer;">' +
+      '<td class="td-no">' + sbEsc(String(r.planNo||'')) + '</td>' +
+      '<td class="td-title">' + sbEsc(r.unitName) + '</td>' +
+      teacherCell +
+      '<td><span class="badge ' + meta.badge + '">' + meta.label + '</span></td>' +
+      '<td class="td-action"><button class="btn-sb-edit" onclick="event.stopPropagation();openSvView(\'' + r._key + '\')">ดู</button></td>' +
+      '</tr>';
+  }).join('');
+}
+
+/* ──── PLAN FORM (shared by create + revision-edit) ──── */
+function svPlanFormHtml(r){
+  r = r || {};
+  return '' +
+    '<div class="field"><label>แผนการจัดการเรียนรู้ที่</label><div class="field-input"><span class="material-symbols-outlined">tag</span><input type="text" id="sv-f-planNo" value="' + sbEsc(String(r.planNo||'')) + '" placeholder="เช่น 1"></div></div>' +
+    '<div class="field"><label>หน่วยการเรียนรู้ที่</label><div class="field-input"><span class="material-symbols-outlined">tag</span><input type="text" id="sv-f-unitNo" value="' + sbEsc(String(r.unitNo||'')) + '" placeholder="เช่น 3"></div></div>' +
+    '<div class="field"><label>ชื่อหน่วยการเรียนรู้</label><div class="field-input"><span class="material-symbols-outlined">menu_book</span><input type="text" id="sv-f-unitName" value="' + sbEsc(r.unitName) + '"></div></div>' +
+    '<div class="field"><label>ระดับชั้น</label><div class="field-input"><span class="material-symbols-outlined">school</span><input type="text" id="sv-f-gradeLevel" value="' + sbEsc(r.gradeLevel) + '" placeholder="เช่น ป.4"></div></div>' +
+    '<div class="field"><label>จำนวนชั่วโมง</label><div class="field-input"><span class="material-symbols-outlined">schedule</span><input type="number" id="sv-f-hours" value="' + sbEsc(String(r.hours||'')) + '" min="1"></div></div>' +
+    '<div class="field"><label>สาระสำคัญ</label><textarea id="sv-f-essence" rows="3" placeholder="สาระสำคัญของหน่วยการเรียนรู้...">' + sbEsc(r.essence) + '</textarea></div>' +
+    '<div class="field"><label>มาตรฐานและตัวชี้วัด</label><textarea id="sv-f-standards" rows="3">' + sbEsc(r.standards) + '</textarea></div>' +
+    '<div class="field"><label>จุดประสงค์การเรียนรู้</label><textarea id="sv-f-objectives" rows="3">' + sbEsc(r.objectives) + '</textarea></div>' +
+    '<div class="field"><label>กิจกรรมการเรียนรู้</label><textarea id="sv-f-activities" rows="4">' + sbEsc(r.activities) + '</textarea></div>' +
+    '<div class="field"><label>สื่อและแหล่งเรียนรู้</label><textarea id="sv-f-mediaResources" rows="2">' + sbEsc(r.mediaResources) + '</textarea></div>' +
+    '<div class="field"><label>การวัดและประเมินผล</label><textarea id="sv-f-assessment" rows="3">' + sbEsc(r.assessment) + '</textarea></div>';
+}
+
+function svPlanReadonlyHtml(r){
+  return '' +
+    '<div class="sv-detail-grid">' +
+      '<div class="sv-detail-section"><p class="sv-detail-label">แผนที่</p><p class="sv-detail-value">' + sbEsc(String(r.planNo||'-')) + '</p></div>' +
+      '<div class="sv-detail-section"><p class="sv-detail-label">หน่วยที่</p><p class="sv-detail-value">' + sbEsc(String(r.unitNo||'-')) + '</p></div>' +
+      '<div class="sv-detail-section"><p class="sv-detail-label">ระดับชั้น</p><p class="sv-detail-value">' + sbEsc(r.gradeLevel||'-') + '</p></div>' +
+    '</div>' +
+    '<div class="sv-detail-section"><p class="sv-detail-label">ชื่อหน่วยการเรียนรู้</p><p class="sv-detail-value">' + sbEsc(r.unitName) + '</p></div>' +
+    '<div class="sv-detail-section"><p class="sv-detail-label">จำนวนชั่วโมง</p><p class="sv-detail-value">' + sbEsc(String(r.hours||'-')) + ' ชั่วโมง</p></div>' +
+    '<div class="sv-detail-section"><p class="sv-detail-label">สาระสำคัญ</p><p class="sv-detail-value">' + sbEsc(r.essence) + '</p></div>' +
+    '<div class="sv-detail-section"><p class="sv-detail-label">มาตรฐานและตัวชี้วัด</p><p class="sv-detail-value">' + sbEsc(r.standards) + '</p></div>' +
+    '<div class="sv-detail-section"><p class="sv-detail-label">จุดประสงค์การเรียนรู้</p><p class="sv-detail-value">' + sbEsc(r.objectives) + '</p></div>' +
+    '<div class="sv-detail-section"><p class="sv-detail-label">กิจกรรมการเรียนรู้</p><p class="sv-detail-value">' + sbEsc(r.activities) + '</p></div>' +
+    '<div class="sv-detail-section"><p class="sv-detail-label">สื่อและแหล่งเรียนรู้</p><p class="sv-detail-value">' + sbEsc(r.mediaResources) + '</p></div>' +
+    '<div class="sv-detail-section"><p class="sv-detail-label">การวัดและประเมินผล</p><p class="sv-detail-value">' + sbEsc(r.assessment) + '</p></div>';
+}
+
+/* ──── CREATE ──── */
+function openSvCreate(){
+  document.getElementById('sv-modal-title').textContent = 'สร้างแผนการจัดการเรียนรู้ใหม่';
+  document.getElementById('sv-modal-body').innerHTML =
+    '<form onsubmit="return submitSvPlan(event)">' +
+      svPlanFormHtml({}) +
+      '<button type="submit" class="btn btn-primary" style="margin-top:8px;"><span class="material-symbols-outlined icon-fill">send</span> ส่งให้ผู้อำนวยการตรวจสอบ</button>' +
+    '</form>';
+  document.getElementById('sv-modal').style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+}
+
+function svReadPlanFields(){
+  var g = function(id){ var e = document.getElementById(id); return e ? e.value.trim() : ''; };
+  return {
+    planNo: g('sv-f-planNo'), unitNo: g('sv-f-unitNo'), unitName: g('sv-f-unitName'),
+    gradeLevel: g('sv-f-gradeLevel'), hours: g('sv-f-hours'),
+    essence: g('sv-f-essence'), standards: g('sv-f-standards'), objectives: g('sv-f-objectives'),
+    activities: g('sv-f-activities'), mediaResources: g('sv-f-mediaResources'), assessment: g('sv-f-assessment')
+  };
+}
+
+async function submitSvPlan(e){
+  e.preventDefault();
+  var fields = svReadPlanFields();
+  if (!fields.planNo || !fields.unitName || !fields.essence){
+    showToast('กรุณากรอกเลขที่แผน ชื่อหน่วยการเรียนรู้ และสาระสำคัญให้ครบ', 'error');
+    return false;
+  }
+  var record = Object.assign({}, fields, {
+    teacherId: currentUserId,
+    teacherName: (userProfile && userProfile.name) || '',
+    teacherPosition: (userProfile && userProfile.position) || '',
+    status: 'submitted',
+    createdAt: firebase.database.ServerValue.TIMESTAMP
+  });
+  try {
+    var ref = db.ref('supervision/plans').push();
+    await ref.set(record);
+    svData[ref.key] = Object.assign({}, record, { createdAt: Date.now() });
+    showToast('ส่งแผนการจัดการเรียนรู้ให้ผู้อำนวยการตรวจสอบแล้ว', 'success');
+    closeSvModal();
+    renderSvTable();
+  } catch(err){ showToast('บันทึกไม่สำเร็จ: ' + err.message, 'error'); }
+  return false;
+}
+
+/* ──── VIEW / ACTION MODAL (role + status aware) ──── */
+function openSvView(key){
+  var r = svData[key];
+  if (!r) return;
+  var meta = svStatusMeta(r.status);
+  var admin = isAdmin();
+  var isOwner = r.teacherId === currentUserId;
+
+  document.getElementById('sv-modal-title').textContent = 'แผนที่ ' + sbEsc(String(r.planNo||'')) + ' — ' + sbEsc(r.unitName);
+
+  var html = '<div class="sv-status-banner ' + meta.banner + '"><span class="material-symbols-outlined icon-fill">info</span>' + meta.label + '</div>';
+
+  if (r.teacherName){
+    html += '<div class="sv-detail-section"><p class="sv-detail-label">ครูผู้สอน</p><p class="sv-detail-value">' + sbEsc(r.teacherName) + (r.teacherPosition ? ' (' + sbEsc(r.teacherPosition) + ')' : '') + '</p></div>';
+  }
+
+  if (r.status === 'revision' && isOwner){
+    html += '<div class="sv-comment-box"><p class="cb-label">ความเห็นจากผู้อำนวยการ</p><p class="cb-text">' + sbEsc(r.directorComment) + '</p></div>';
+    html += svPlanFormHtml(r);
+    html += '<div class="sv-action-row"><button class="btn btn-primary" onclick="resubmitSvPlan(\'' + key + '\')"><span class="material-symbols-outlined icon-fill">send</span> ส่งแก้ไขอีกครั้ง</button></div>';
+  } else {
+    html += svPlanReadonlyHtml(r);
+    if (r.status === 'revision' && !isOwner){
+      html += '<div class="sv-comment-box"><p class="cb-label">ความเห็นจากผู้อำนวยการ</p><p class="cb-text">' + sbEsc(r.directorComment) + '</p></div>';
+    }
+  }
+
+  if (r.status === 'submitted' && admin){
+    html += '' +
+      '<div class="field"><label>ความเห็น (จำเป็นถ้าตีกลับให้แก้ไข)</label><textarea id="sv-f-directorComment" rows="3" placeholder="ระบุสิ่งที่ต้องแก้ไข..."></textarea></div>' +
+      '<div class="sv-action-row">' +
+        '<button class="btn btn-primary" onclick="approveSvPlan(\'' + key + '\')"><span class="material-symbols-outlined icon-fill">check_circle</span> อนุมัติแผน</button>' +
+        '<button class="btn btn-danger-outline" onclick="rejectSvPlan(\'' + key + '\')"><span class="material-symbols-outlined">reply</span> ตีกลับพร้อมความเห็น</button>' +
+      '</div>';
+  }
+
+  if (r.status === 'approved_plan' && isOwner){
+    html += '' +
+      '<hr class="divider">' +
+      '<p style="font-size:12px;font-weight:700;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.03em;margin:0 0 10px;">บันทึกหลังสอน</p>' +
+      '<div class="field"><label>บันทึกหลังสอน</label><textarea id="sv-f-postTeachNotes" rows="4" placeholder="ผลการจัดการเรียนการสอน ปัญหา/อุปสรรค ข้อเสนอแนะ..."></textarea></div>' +
+      '<div class="field sv-photo-input-wrap">' +
+        '<label>แนบรูปภาพการจัดการเรียนการสอน (1 รูป)</label>' +
+        '<input type="file" accept="image/*" id="sv-f-photo" onchange="svPreviewPhoto(this)">' +
+        '<img id="sv-photo-preview-img" class="sv-photo-preview" style="display:none;">' +
+      '</div>' +
+      '<div class="sv-action-row"><button class="btn btn-primary" onclick="submitSvPostTeach(\'' + key + '\')"><span class="material-symbols-outlined icon-fill">send</span> ส่งบันทึกหลังสอน</button></div>';
+  }
+
+  if ((r.status === 'taught_submitted' || r.status === 'completed') && r.postTeachNotes !== undefined){
+    html += '<hr class="divider"><div class="sv-detail-section"><p class="sv-detail-label">บันทึกหลังสอน</p><p class="sv-detail-value">' + sbEsc(r.postTeachNotes) + '</p></div>';
+    if (r.photoDataUrl){
+      html += '<img src="' + r.photoDataUrl + '" class="sv-photo-preview" alt="รูปการจัดการเรียนการสอน">';
+    }
+  }
+
+  if (r.status === 'taught_submitted' && admin){
+    html += '' +
+      '<div class="field"><label>คำแนะนำการสอน</label><textarea id="sv-f-directorAdvice" rows="3" placeholder="คำแนะนำจากผู้อำนวยการ..."></textarea></div>' +
+      '<div class="sv-action-row"><button class="btn btn-primary" onclick="completeSvSupervision(\'' + key + '\')"><span class="material-symbols-outlined icon-fill">verified</span> อนุมัติ นิเทศสมบูรณ์</button></div>';
+  }
+
+  if (r.status === 'completed'){
+    html += '<div class="sv-advice-box"><p class="cb-label">คำแนะนำการสอนจากผู้อำนวยการ</p><p class="cb-text">' + sbEsc(r.directorAdvice) + '</p></div>';
+    html += '<div class="sv-action-row"><button class="btn btn-secondary" onclick="printSvPlan(\'' + key + '\')"><span class="material-symbols-outlined">print</span> พิมพ์ / ดาวน์โหลด PDF</button></div>';
+  }
+
+  document.getElementById('sv-modal-body').innerHTML = html;
+  document.getElementById('sv-modal').style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+}
+
+function closeSvModal(event){
+  if (event && event.target !== document.getElementById('sv-modal')) return;
+  document.getElementById('sv-modal').style.display = 'none';
+  document.body.style.overflow = '';
+}
+
+/* ──── DIRECTOR ACTIONS ──── */
+async function approveSvPlan(key){
+  try {
+    await db.ref('supervision/plans/' + key).update({
+      status:'approved_plan', directorComment:'',
+      reviewedAt: firebase.database.ServerValue.TIMESTAMP, reviewedBy: currentUserId
+    });
+    svData[key] = Object.assign({}, svData[key], { status:'approved_plan', directorComment:'' });
+    showToast('อนุมัติแผนการจัดการเรียนรู้แล้ว', 'success');
+    closeSvModal(); renderSvTable();
+  } catch(err){ showToast('ดำเนินการไม่สำเร็จ: ' + err.message, 'error'); }
+}
+
+async function rejectSvPlan(key){
+  var el = document.getElementById('sv-f-directorComment');
+  var comment = el ? el.value.trim() : '';
+  if (!comment){ showToast('กรุณากรอกความเห็นก่อนตีกลับให้แก้ไข', 'error'); return; }
+  try {
+    await db.ref('supervision/plans/' + key).update({
+      status:'revision', directorComment:comment,
+      reviewedAt: firebase.database.ServerValue.TIMESTAMP, reviewedBy: currentUserId
+    });
+    svData[key] = Object.assign({}, svData[key], { status:'revision', directorComment:comment });
+    showToast('ส่งกลับให้ครูแก้ไขแล้ว', 'success');
+    closeSvModal(); renderSvTable();
+  } catch(err){ showToast('ดำเนินการไม่สำเร็จ: ' + err.message, 'error'); }
+}
+
+async function completeSvSupervision(key){
+  var el = document.getElementById('sv-f-directorAdvice');
+  var advice = el ? el.value.trim() : '';
+  if (!advice){ showToast('กรุณากรอกคำแนะนำการสอนก่อนอนุมัติ', 'error'); return; }
+  try {
+    await db.ref('supervision/plans/' + key).update({
+      status:'completed', directorAdvice:advice,
+      completedAt: firebase.database.ServerValue.TIMESTAMP, completedBy: currentUserId
+    });
+    svData[key] = Object.assign({}, svData[key], { status:'completed', directorAdvice:advice });
+    showToast('การนิเทศเสร็จสมบูรณ์แล้ว', 'success');
+    closeSvModal(); renderSvTable();
+  } catch(err){ showToast('ดำเนินการไม่สำเร็จ: ' + err.message, 'error'); }
+}
+
+/* ──── TEACHER ACTIONS ──── */
+async function resubmitSvPlan(key){
+  var fields = svReadPlanFields();
+  if (!fields.unitName || !fields.essence){
+    showToast('กรุณากรอกข้อมูลให้ครบถ้วน', 'error'); return;
+  }
+  var updates = Object.assign({}, fields, {
+    status:'submitted', directorComment:'',
+    resubmittedAt: firebase.database.ServerValue.TIMESTAMP
+  });
+  try {
+    await db.ref('supervision/plans/' + key).update(updates);
+    svData[key] = Object.assign({}, svData[key], updates);
+    showToast('ส่งแผนที่แก้ไขแล้วให้ผู้อำนวยการตรวจสอบอีกครั้ง', 'success');
+    closeSvModal(); renderSvTable();
+  } catch(err){ showToast('บันทึกไม่สำเร็จ: ' + err.message, 'error'); }
+}
+
+function svPreviewPhoto(input){
+  if (!input.files || !input.files[0]) return;
+  var reader = new FileReader();
+  reader.onload = function(e){
+    var img = document.getElementById('sv-photo-preview-img');
+    if (img){ img.src = e.target.result; img.style.display = 'block'; }
+  };
+  reader.readAsDataURL(input.files[0]);
+}
+
+function compressImageToDataUrl(file, maxWidth, quality){
+  return new Promise(function(resolve, reject){
+    if (!file.type || file.type.indexOf('image/') !== 0){ reject(new Error('ไฟล์ที่เลือกไม่ใช่รูปภาพ')); return; }
+    var reader = new FileReader();
+    reader.onerror = function(){ reject(new Error('อ่านไฟล์ไม่สำเร็จ')); };
+    reader.onload = function(e){
+      var img = new Image();
+      img.onerror = function(){ reject(new Error('โหลดรูปภาพไม่สำเร็จ')); };
+      img.onload = function(){
+        var w = img.width, h = img.height;
+        if (w > maxWidth){ h = Math.round(h * (maxWidth / w)); w = maxWidth; }
+        var canvas = document.createElement('canvas');
+        canvas.width = w; canvas.height = h;
+        canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+        resolve(canvas.toDataURL('image/jpeg', quality));
+      };
+      img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
+async function submitSvPostTeach(key){
+  var notesEl = document.getElementById('sv-f-postTeachNotes');
+  var notes = notesEl ? notesEl.value.trim() : '';
+  if (!notes){ showToast('กรุณากรอกบันทึกหลังสอน', 'error'); return; }
+
+  var fileInput = document.getElementById('sv-f-photo');
+  var photoDataUrl = (svData[key] && svData[key].photoDataUrl) || '';
+
+  if (fileInput && fileInput.files && fileInput.files[0]){
+    try {
+      photoDataUrl = await compressImageToDataUrl(fileInput.files[0], 900, 0.6);
+    } catch(err){
+      showToast('ประมวลผลรูปภาพไม่สำเร็จ: ' + err.message, 'error');
+      return;
+    }
+  } else if (!photoDataUrl){
+    showToast('กรุณาแนบรูปภาพการจัดการเรียนการสอน', 'error');
+    return;
+  }
+
+  try {
+    var updates = {
+      postTeachNotes: notes, photoDataUrl: photoDataUrl,
+      status: 'taught_submitted', taughtAt: firebase.database.ServerValue.TIMESTAMP
+    };
+    await db.ref('supervision/plans/' + key).update(updates);
+    svData[key] = Object.assign({}, svData[key], updates);
+    showToast('ส่งบันทึกหลังสอนให้ผู้อำนวยการตรวจสอบแล้ว', 'success');
+    closeSvModal(); renderSvTable();
+  } catch(err){ showToast('บันทึกไม่สำเร็จ: ' + err.message, 'error'); }
+}
+
+/* ──── DASHBOARD (admin only) ──── */
+function loadSvDashboard(){
+  var rows = Object.values(svData || {});
+  var total = rows.length;
+  var pending = rows.filter(function(r){ return r.status === 'submitted' || r.status === 'taught_submitted'; }).length;
+  var revision = rows.filter(function(r){ return r.status === 'revision'; }).length;
+  var completed = rows.filter(function(r){ return r.status === 'completed'; }).length;
+
+  var g = function(id){ return document.getElementById(id); };
+  if (g('sv-dash-total')) g('sv-dash-total').textContent = total;
+  if (g('sv-dash-pending')) g('sv-dash-pending').textContent = pending;
+  if (g('sv-dash-revision')) g('sv-dash-revision').textContent = revision;
+  if (g('sv-dash-completed')) g('sv-dash-completed').textContent = completed;
+
+  var byTeacher = {};
+  rows.forEach(function(r){
+    var name = r.teacherName || 'ไม่ทราบชื่อ';
+    if (!byTeacher[name]) byTeacher[name] = { total:0, completed:0 };
+    byTeacher[name].total++;
+    if (r.status === 'completed') byTeacher[name].completed++;
+  });
+  var names = Object.keys(byTeacher).sort();
+  var el = document.getElementById('sv-teacher-progress');
+  if (!el) return;
+  if (!names.length){
+    el.innerHTML = '<p class="text-faint" style="font-size:13px;text-align:center;padding:16px 0;">ยังไม่มีข้อมูล</p>';
+    return;
+  }
+  el.innerHTML = names.map(function(name){
+    var t = byTeacher[name];
+    var pct = t.total ? Math.round((t.completed / t.total) * 100) : 0;
+    return '<div class="sv-progress-row">' +
+      '<span class="sv-progress-name" title="' + sbEsc(name) + '">' + sbEsc(name) + '</span>' +
+      '<div class="sv-progress-track"><div class="sv-progress-fill" style="width:' + pct + '%"></div></div>' +
+      '<span class="sv-progress-pct">' + t.completed + '/' + t.total + ' (' + pct + '%)</span>' +
+      '</div>';
+  }).join('');
+}
+
+/* ──── PRINT / PDF ──── */
+function printSvPlan(key){
+  var r = svData[key];
+  if (!r) return;
+  var el = document.getElementById('sv-print-area');
+  var schoolName = (appSettings && appSettings.schoolName) || 'โรงเรียนบ้านโคกม่วย สพป.หนองบัวลำภู เขต 1';
+
+  el.innerHTML = '' +
+    '<h1>บันทึกการนิเทศการจัดการเรียนรู้</h1>' +
+    '<h2>' + sbEsc(schoolName) + '</h2>' +
+    '<div class="pr-row"><span class="pr-label">แผนการจัดการเรียนรู้ที่</span><span>' + sbEsc(String(r.planNo||'-')) + '</span></div>' +
+    '<div class="pr-row"><span class="pr-label">หน่วยการเรียนรู้ที่</span><span>' + sbEsc(String(r.unitNo||'-')) + ' — ' + sbEsc(r.unitName) + '</span></div>' +
+    '<div class="pr-row"><span class="pr-label">ระดับชั้น</span><span>' + sbEsc(r.gradeLevel) + '</span></div>' +
+    '<div class="pr-row"><span class="pr-label">จำนวนชั่วโมง</span><span>' + sbEsc(String(r.hours||'-')) + ' ชั่วโมง</span></div>' +
+    '<div class="pr-row"><span class="pr-label">ครูผู้สอน</span><span>' + sbEsc(r.teacherName) + (r.teacherPosition ? ' (' + sbEsc(r.teacherPosition) + ')' : '') + '</span></div>' +
+    '<div class="pr-section"><p class="pr-section-title">สาระสำคัญ</p><p class="pr-text">' + sbEsc(r.essence) + '</p></div>' +
+    '<div class="pr-section"><p class="pr-section-title">มาตรฐานและตัวชี้วัด</p><p class="pr-text">' + sbEsc(r.standards) + '</p></div>' +
+    '<div class="pr-section"><p class="pr-section-title">จุดประสงค์การเรียนรู้</p><p class="pr-text">' + sbEsc(r.objectives) + '</p></div>' +
+    '<div class="pr-section"><p class="pr-section-title">กิจกรรมการเรียนรู้</p><p class="pr-text">' + sbEsc(r.activities) + '</p></div>' +
+    '<div class="pr-section"><p class="pr-section-title">สื่อและแหล่งเรียนรู้</p><p class="pr-text">' + sbEsc(r.mediaResources) + '</p></div>' +
+    '<div class="pr-section"><p class="pr-section-title">การวัดและประเมินผล</p><p class="pr-text">' + sbEsc(r.assessment) + '</p></div>' +
+    '<div class="pr-section"><p class="pr-section-title">บันทึกหลังสอน</p><p class="pr-text">' + sbEsc(r.postTeachNotes) + '</p>' +
+      (r.photoDataUrl ? '<img src="' + r.photoDataUrl + '" class="pr-photo">' : '') +
+    '</div>' +
+    '<div class="pr-section"><p class="pr-section-title">คำแนะนำการสอนจากผู้อำนวยการ</p><p class="pr-text">' + sbEsc(r.directorAdvice) + '</p></div>' +
+    '<div class="pr-sign-row">' +
+      '<div class="pr-sign-box"><div class="pr-sign-line">( ' + sbEsc(r.teacherName) + ' )<br>ครูผู้สอน</div></div>' +
+      '<div class="pr-sign-box"><div class="pr-sign-line">ผู้อำนวยการโรงเรียน</div></div>' +
+    '</div>';
+
+  setTimeout(function(){ window.print(); }, 120);
+}
+
+
+/* ---------------- BOOT ---------------- */
+onCoreDomReady(async () => {
+  const ok = await bootCore();
+  if (!ok) return;
+  if (!currentUserId){ location.href = 'index.html#login'; return; }
+
+  renderTopbar({ left:'back', back:'index.html#home', title:'นิเทศชั้นเรียน' });
+  renderBottomNav('home');
+  await enterSupervision();
+});
+</script>
+</body>
+</html>

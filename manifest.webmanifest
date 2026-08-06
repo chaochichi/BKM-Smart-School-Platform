@@ -1,0 +1,19 @@
+{
+  "name": "BKM Smart School",
+  "short_name": "BKM Smart School",
+  "description": "ระบบบริหารจัดการสถานศึกษาอัจฉริยะ — โรงเรียนบ้านโคกม่วย",
+  "start_url": "index.html",
+  "scope": ".",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#F5F8FC",
+  "theme_color": "#154FCE",
+  "icons": [
+    {
+      "src": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj4KPHJlY3Qgd2lkdGg9IjUxMiIgaGVpZ2h0PSI1MTIiIHJ4PSI5NiIgZmlsbD0iIzE1NEZDRSIvPgo8cGF0aCBkPSJNMjU2IDE0MCA5NiAyMTBsMTYwIDcwIDE2MC03MC0xNjAtNzBaIiBmaWxsPSIjRkZGRkZGIi8+CjxwYXRoIGQ9Ik0yNTYgMjkwIDE0MCAyNDB2NjZjMCAzOCA1MiA2OCAxMTYgNjhzMTE2LTMwIDExNi02OHYtNjZsLTExNiA1MFoiIGZpbGw9IiNGRkZGRkYiIG9wYWNpdHk9IjAuOTIiLz4KPC9zdmc+",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

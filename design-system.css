@@ -338,6 +338,18 @@ button{ font-family:inherit; }
 .cam-guide{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center; }
 .cam-guide-box{ width:56%; aspect-ratio:3/4; border:2px dashed rgba(255,255,255,.45); border-radius:2rem; }
 .cam-hint{ position:absolute; bottom:14px; left:14px; right:14px; background:rgba(255,255,255,.92); color:var(--ink); font-size:12px; text-align:center; padding:8px; border-radius:var(--radius-sm); }
+/* Live camera feed + captured still. Both fill the frame; JS toggles which one shows.
+   The video is mirrored so it behaves like a mirror while you position yourself. */
+.camera-frame video, .camera-frame img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:none; }
+.camera-frame video{ transform:scaleX(-1); }
+.camera-frame.cam-live video{ display:block; }
+.camera-frame.cam-live .cam-fallback{ display:none; }
+.camera-frame.cam-captured img{ display:block; }
+.camera-frame.cam-captured video{ display:none; }
+.camera-frame.cam-captured .cam-fallback,
+.camera-frame.cam-captured .cam-guide{ display:none; }
+.cam-controls{ display:flex; gap:10px; margin:-6px 0 14px; }
+.cam-controls .btn{ height:42px; font-size:13.5px; }
 .status-line{ text-align:center; font-size:13px; color:var(--ink-soft); margin:14px 0; }
 .btn-stack{ display:flex; flex-direction:column; gap:10px; }
 

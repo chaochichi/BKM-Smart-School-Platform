@@ -5,13 +5,13 @@
 
 /* ---------- ตั้งค่า Firebase : แก้ค่าตรงนี้ให้ตรงกับโครงการของท่าน ---------- */
 const FIREBASE_CONFIG = {
-  apiKey:            "AIzaSyC3wIfLmTusbz1RD0g6JAJEXmwiiV4ZcC8",
-  authDomain:        "bkm-smart-school.firebaseapp.com",
-  databaseURL:       "https://bkm-smart-school-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId:         "bkm-smart-school",
-  storageBucket:     "bkm-smart-school.firebasestorage.app",
-  messagingSenderId: "279250652300",
-  appId:             "1:279250652300:web:07e55d4ac7cabbce0e3fa9"
+  apiKey:            "ใส่ค่า apiKey",
+  authDomain:        "ใส่ค่า authDomain",
+  databaseURL:       "ใส่ค่า databaseURL",
+  projectId:         "ใส่ค่า projectId",
+  storageBucket:     "ใส่ค่า storageBucket",
+  messagingSenderId: "ใส่ค่า messagingSenderId",
+  appId:             "ใส่ค่า appId"
 };
 
 const SDK_VER = '10.12.2';
@@ -30,6 +30,26 @@ const LEAVE_TYPES = [
   { id:'TRAINING',name:'อบรมสัมมนา',       quotaKey:null    }
 ];
 const LEAVE_NAME = {}; LEAVE_TYPES.forEach(t => LEAVE_NAME[t.id] = t.name);
+
+/** ประเภทบุคลากร ใช้สรุปจำนวนท้ายรายงานการลงเวลาประจำวัน */
+const STAFF_TYPES = ['ผู้บริหาร','ข้าราชการครู','พนักงานราชการ','ครูอัตราจ้าง',
+                     'เจ้าหน้าที่ธุรการ','นักการภารโรง','อื่น ๆ'];
+
+/** เดาประเภทจากชื่อตำแหน่ง ใช้กับข้อมูลเดิมที่ยังไม่ได้ระบุประเภท */
+function inferStaffType(position){
+  const p = String(position || '');
+  if (/ผู้อำนวยการ|รองผู้อำนวยการ|ผู้บริหาร/.test(p)) return 'ผู้บริหาร';
+  if (/ภารโรง/.test(p))        return 'นักการภารโรง';
+  if (/ธุรการ/.test(p))        return 'เจ้าหน้าที่ธุรการ';
+  if (/พนักงานราชการ/.test(p)) return 'พนักงานราชการ';
+  if (/อัตราจ้าง|จ้างสอน/.test(p)) return 'ครูอัตราจ้าง';
+  if (/ครู/.test(p))           return 'ข้าราชการครู';
+  return 'อื่น ๆ';
+}
+function staffTypeOf(u){
+  return (u && u.staffType && STAFF_TYPES.indexOf(u.staffType) >= 0)
+    ? u.staffType : inferStaffType(u && u.position);
+}
 
 const WEAK_PINS = ['0000','1111','2222','3333','4444','5555','6666','7777',
                    '8888','9999','1234','4321','1212','2580','0123','9876'];
@@ -240,6 +260,7 @@ async function doSetup(){
     const user = {
       uid, prefix:$('suPrefix').value.trim(), firstName:first, lastName:last,
       position:pos, role:'DIRECTOR', isAdmin:true, larkUserId:'',
+      staffType:'ผู้บริหาร',
       salt, pinHash:await hashPin(pin, salt), mustChangePin:false,
       status:'ACTIVE', createdAt:Date.now()
     };
@@ -358,7 +379,10 @@ function menuItems(){
     { k:'leave',   icon:'i-cal',   label:'การลา' },
     { k:'history', icon:'i-list',  label:'ประวัติ' }
   ];
-  if (ME.role === 'DIRECTOR' || ME.isAdmin) m.push({ k:'dash', icon:'i-chart', label:'แดชบอร์ด' });
+  if (ME.role === 'DIRECTOR' || ME.isAdmin){
+    m.push({ k:'dash',   icon:'i-chart', label:'แดชบอร์ด' });
+    m.push({ k:'report', icon:'i-list',  label:'รายงาน' });
+  }
   if (ME.isAdmin) m.push({ k:'admin', icon:'i-gear', label:'ตั้งค่า' });
   return m;
 }
@@ -384,13 +408,15 @@ function enterApp(){
 function nav(k){
   page = k;
   stopCamera();
-  ['pgHome','pgLeave','pgHistory','pgDash','pgAdmin'].forEach(p => $(p).classList.add('hide'));
-  const map = { home:'pgHome', leave:'pgLeave', history:'pgHistory', dash:'pgDash', admin:'pgAdmin' };
+  ['pgHome','pgLeave','pgHistory','pgDash','pgReport','pgAdmin']
+    .forEach(p => $(p).classList.add('hide'));
+  const map = { home:'pgHome', leave:'pgLeave', history:'pgHistory',
+                dash:'pgDash', report:'pgReport', admin:'pgAdmin' };
   $(map[k]).classList.remove('hide');
   document.querySelectorAll('.bn-i,.sn-i').forEach(n =>
     n.classList.toggle('on', n.getAttribute('data-k') === k));
   const titles = { home:'ลงเวลาปฏิบัติราชการ', leave:'การลา', history:'ประวัติการลงเวลา',
-                   dash:'แดชบอร์ด', admin:'ตั้งค่าระบบ' };
+                   dash:'แดชบอร์ด', report:'รายงาน', admin:'ตั้งค่าระบบ' };
   $('tbTitle').textContent = titles[k];
   window.scrollTo(0,0);
 
@@ -398,6 +424,7 @@ function nav(k){
   if (k === 'leave')   loadLeavePage();
   if (k === 'history') initHistory();
   if (k === 'dash')    initDash();
+  if (k === 'report')  initReport();
   if (k === 'admin')   initAdmin();
 }
 
@@ -961,6 +988,8 @@ async function viewStamp(key, uid){
 function initDash(){
   $('dbSub').textContent = CFG.schoolName + ' · ' + thaiDate(dateKey());
   if (!$('dbMonthPick').value) $('dbMonthPick').value = monthKey();
+  if (!$('dbDay').value) $('dbDay').value = dateKey();
+  $('dbDay').max = dateKey();            // เลือกวันในอนาคตไม่ได้
   dashTab('today');
 }
 function dashTab(t){
@@ -978,7 +1007,11 @@ function activeUsers(){
 }
 
 async function loadDashToday(){
-  const today = dateKey(), mk = monthKey();
+  const today = $('dbDay').value || dateKey();
+  const mk = today.slice(0, 7);
+  const isToday = today === dateKey();
+  $('dbDayLabel').textContent = isToday
+    ? 'สถานะรายบุคคลวันนี้' : 'สถานะรายบุคคล ' + thaiDateShort(today);
   $('dbRows').innerHTML = '<div class="empty">กำลังโหลด…</div>';
   const [attSnap, lvSnap] = await Promise.all([
     db.ref('attendance/' + mk).get(), db.ref('leaves').get()
@@ -990,7 +1023,8 @@ async function loadDashToday(){
   if (!isWorkday(today)){
     const why = HOLIDAYS[today] ? HOLIDAYS[today].name : 'วันหยุดประจำสัปดาห์';
     $('dbTiles').innerHTML = '';
-    $('dbRows').innerHTML = '<div class="empty">วันนี้ไม่ใช่วันทำการ<br>' + esc(why) + '</div>';
+    $('dbRows').innerHTML = '<div class="empty">' +
+      (isToday ? 'วันนี้' : thaiDateShort(today)) + 'ไม่ใช่วันทำการ<br>' + esc(why) + '</div>';
     return;
   }
 
@@ -1092,6 +1126,175 @@ async function loadPendingLeaves(){
 }
 
 /* ============================================================
+   ส่วนที่ 9.1 : รายงานการลงเวลาปฏิบัติราชการ
+   จัดทำเป็นรายวัน หนึ่งวันต่อหนึ่งแผ่น พร้อมช่องรับรอง
+   ============================================================ */
+let rpMode = 'day';
+
+function initReport(){
+  if (!$('rpDay').value) $('rpDay').value = dateKey();
+  if (!$('rpMonth').value) $('rpMonth').value = monthKey();
+  $('rpDay').max = dateKey();
+  reportMode('day');
+}
+
+function reportMode(m){
+  rpMode = m;
+  $('rpT1').classList.toggle('on', m === 'day');
+  $('rpT2').classList.toggle('on', m === 'month');
+  $('rpDayWrap').classList.toggle('hide', m !== 'day');
+  $('rpMonthWrap').classList.toggle('hide', m !== 'month');
+  buildReport();
+}
+
+/** รวบรวมข้อมูลของวันเดียว คืน null เมื่อไม่ใช่วันทำการ */
+function dayData(dateStr, att, leaves){
+  if (!isWorkday(dateStr)) return null;
+  return activeUsers().map(uid => {
+    const u = USERS[uid];
+    const r = (att[uid] || {})[dateStr];
+    const l = leaves.find(x => x.uid === uid && x.status === 'APPROVED'
+                               && x.dateFrom <= dateStr && dateStr <= x.dateTo);
+    const p = leaves.find(x => x.uid === uid && x.status === 'PENDING'
+                               && x.dateFrom <= dateStr && dateStr <= x.dateTo);
+    let inT = '—', outT = '—', st = '', note = '';
+    if (r && r.checkIn){
+      inT  = r.checkIn.time;
+      outT = r.checkOut ? r.checkOut.time : '—';
+      st   = r.checkIn.late ? 'มาสาย' : 'ปกติ';
+      const n = [];
+      if (r.checkIn.reason)  n.push(r.checkIn.reason);
+      if (r.checkOut && r.checkOut.reason) n.push(r.checkOut.reason);
+      if (!r.checkOut) n.push('ไม่ได้ลงเวลากลับ');
+      note = n.join(' · ');
+    } else if (l){
+      st = LEAVE_NAME[l.type] || l.type;
+      note = l.reason || '';
+    } else if (p){
+      st = 'รออนุมัติการลา';
+      note = (LEAVE_NAME[p.type] || p.type) + (p.reason ? ' · ' + p.reason : '');
+    } else {
+      st = 'ไม่ได้ลงเวลา';
+    }
+    return { uid, u, inT, outT, st, note,
+             present: !!(r && r.checkIn), leave: !!l, type: staffTypeOf(u) };
+  });
+}
+
+/** ตารางสรุปท้ายแผ่น แยกตามประเภทบุคลากร */
+function summaryRows(rows){
+  const used = STAFF_TYPES.filter(t => rows.some(r => r.type === t));
+  const cells = used.map(t => {
+    const g = rows.filter(r => r.type === t);
+    const pre = g.filter(r => r.present).length;
+    const lv  = g.filter(r => !r.present && r.leave).length;
+    const ab  = g.length - pre - lv;
+    return '<tr><td class="l">' + esc(t) + '</td>' +
+      '<td class="c">' + g.length + '</td><td class="c">' + pre + '</td>' +
+      '<td class="c">' + lv + '</td><td class="c">' + ab + '</td></tr>';
+  }).join('');
+  const pre = rows.filter(r => r.present).length;
+  const lv  = rows.filter(r => !r.present && r.leave).length;
+  return '<table class="rp-sum"><thead><tr>' +
+    '<th class="l">ประเภทบุคลากร</th><th>ทั้งหมด</th><th>มาปฏิบัติราชการ</th>' +
+    '<th>ลา</th><th>ไม่ได้ลงเวลา</th></tr></thead><tbody>' + cells +
+    '<tr class="tot"><td class="l">รวมทั้งสิ้น</td><td class="c">' + rows.length +
+    '</td><td class="c">' + pre + '</td><td class="c">' + lv +
+    '</td><td class="c">' + (rows.length - pre - lv) + '</td></tr>' +
+    '</tbody></table>';
+}
+
+function dayPage(dateStr, rows){
+  const body = rows.map((r, i) =>
+    '<tr><td class="c">' + (i+1) + '</td>' +
+    '<td class="l">' + esc(fullName(r.u)) + '</td>' +
+    '<td class="l">' + esc(r.u.position || '') + '</td>' +
+    '<td class="c">' + esc(r.inT) + '</td>' +
+    '<td class="c">' + esc(r.outT) + '</td>' +
+    '<td class="c">' + esc(r.st) + '</td>' +
+    '<td class="l small">' + esc(r.note) + '</td></tr>').join('');
+
+  return '<section class="rp-page">' +
+    '<div class="rp-hd">' +
+      '<div class="t1">บันทึกการลงเวลาปฏิบัติราชการ</div>' +
+      '<div class="t2">' + esc(CFG.schoolName || '') + '</div>' +
+      '<div class="t3">' + esc(CFG.areaOffice || '') + '</div>' +
+      '<div class="t3 bold">' + thaiDate(dateStr) + '</div>' +
+    '</div>' +
+    '<table class="rp-main"><thead><tr>' +
+      '<th style="width:9mm">ที่</th><th style="width:52mm">ชื่อ-สกุล</th>' +
+      '<th style="width:34mm">ตำแหน่ง</th><th style="width:19mm">เวลามา</th>' +
+      '<th style="width:19mm">เวลากลับ</th><th style="width:26mm">สถานะ</th>' +
+      '<th>หมายเหตุ</th></tr></thead><tbody>' + body + '</tbody></table>' +
+    summaryRows(rows) +
+    '<div class="rp-note">ข้อมูลเวลาบันทึกโดยระบบลงเวลาปฏิบัติราชการอิเล็กทรอนิกส์ ' +
+      'ซึ่งตรวจสอบพิกัดภายในบริเวณสถานศึกษาและบันทึกภาพยืนยันทุกครั้ง</div>' +
+    '<div class="rp-sign"><div class="box">' +
+      '<div>ขอรับรองว่าข้อมูลข้างต้นถูกต้องตรงตามความเป็นจริง</div>' +
+      '<div class="ln"></div>' +
+      '<div>( ' + esc(directorName()) + ' )</div>' +
+      '<div>ผู้อำนวยการ' + esc(CFG.schoolName || '') + '</div>' +
+      '<div class="small">วันที่ ........ เดือน .................... พ.ศ. ..........</div>' +
+    '</div></div>' +
+  '</section>';
+}
+
+function directorName(){
+  const d = Object.keys(USERS).find(u =>
+    USERS[u].role === 'DIRECTOR' && USERS[u].status === 'ACTIVE');
+  return d ? fullName(USERS[d]) : '.......................................';
+}
+
+async function buildReport(){
+  const out = $('rpOut');
+  out.innerHTML = '<div class="empty">กำลังจัดทำรายงาน…</div>';
+  alertBox('rpMsg', '', 'info');
+
+  let days = [];
+  if (rpMode === 'day'){
+    days = [$('rpDay').value || dateKey()];
+  } else {
+    const mk = $('rpMonth').value || monthKey();
+    const [y, m] = mk.split('-').map(Number);
+    const last = new Date(y, m, 0).getDate(), today = dateKey();
+    for (let d = 1; d <= last; d++){
+      const key = mk + '-' + pad(d);
+      if (key > today) break;
+      days.push(key);
+    }
+  }
+
+  const months = [...new Set(days.map(d => d.slice(0, 7)))];
+  const [attList, lvSnap] = await Promise.all([
+    Promise.all(months.map(m => db.ref('attendance/' + m).get())),
+    db.ref('leaves').get()
+  ]);
+  const attByMonth = {};
+  months.forEach((m, i) => { attByMonth[m] = attList[i].exists() ? attList[i].val() : {}; });
+  const leaves = lvSnap.exists()
+    ? Object.keys(lvSnap.val()).map(id => Object.assign({ id }, lvSnap.val()[id])) : [];
+
+  const pages = [], skipped = [];
+  days.forEach(d => {
+    const rows = dayData(d, attByMonth[d.slice(0, 7)], leaves);
+    if (!rows) { skipped.push(d); return; }
+    pages.push(dayPage(d, rows));
+  });
+
+  if (!pages.length){
+    out.innerHTML = '';
+    alertBox('rpMsg', rpMode === 'day'
+      ? thaiDateShort(days[0]) + ' ไม่ใช่วันทำการ จึงไม่มีรายงาน'
+      : 'เดือนที่เลือกยังไม่มีวันทำการ', 'warn');
+    return;
+  }
+
+  out.innerHTML = pages.join('');
+  alertBox('rpMsg', 'จัดทำแล้ว ' + pages.length + ' แผ่น' +
+    (skipped.length ? ' (ข้ามวันหยุด ' + skipped.length + ' วัน)' : ''), 'info');
+}
+
+/* ============================================================
    ส่วนที่ 10 : ตั้งค่าระบบ
    ============================================================ */
 function initAdmin(){ adminTab('users'); }
@@ -1118,7 +1321,8 @@ async function loadUserList(){
       (u.mustChangePin ? ' <span class="chip c-late">รอเปลี่ยนรหัส</span>' : '');
     return '<div class="row"><div class="row-av">' + esc(initials(u)) + '</div>' +
       '<div class="row-m"><div class="row-n">' + esc(fullName(u)) + '</div>' +
-      '<div class="row-d">' + esc(u.position || '') + '</div>' +
+      '<div class="row-d">' + esc(u.position || '') +
+        ' · ' + esc(staffTypeOf(u)) + '</div>' +
       '<div class="chips" style="margin-top:4px">' + chips + '</div></div>' +
       '<div class="row-r" style="display:flex;flex-direction:column;gap:6px">' +
       '<button class="b-out b-sm" onclick="openUserForm(\'' + uid + '\')">แก้ไข</button>' +
@@ -1142,6 +1346,9 @@ function openUserForm(uid){
   $('ufFirst').value  = u ? (u.firstName || '') : '';
   $('ufLast').value   = u ? (u.lastName || '') : '';
   $('ufPos').value    = u ? (u.position || '') : '';
+  $('ufType').innerHTML = STAFF_TYPES.map(t =>
+    '<option value="' + t + '">' + t + '</option>').join('');
+  $('ufType').value   = u ? staffTypeOf(u) : 'ข้าราชการครู';
   $('ufRole').value   = u ? (u.role || 'TEACHER') : 'TEACHER';
   $('ufStatus').value = u ? (u.status || 'ACTIVE') : 'ACTIVE';
   $('ufLark').value   = u ? (u.larkUserId || '') : '';
@@ -1186,6 +1393,7 @@ async function saveUser(){
     const base = {
       prefix:$('ufPrefix').value.trim(), firstName:first, lastName:last,
       position:pos, role, isAdmin:ufAdmin, status,
+      staffType:$('ufType').value,
       larkUserId:$('ufLark').value.trim()
     };
     if (editUid){
@@ -1309,12 +1517,13 @@ async function delHoliday(key){
   loadHolidayList();
 }
 async function openHolidayToday(){
-  const name = prompt('ประกาศหยุดวันนี้เพราะเหตุใด\n(เช่น น้ำท่วม อากาศแปรปรวน กิจกรรมเขตพื้นที่)');
+  const key = $('dbDay').value || dateKey();
+  const name = prompt('ประกาศให้ ' + thaiDate(key) + ' เป็นวันหยุดเพราะเหตุใด' +
+    '\n(เช่น น้ำท่วม อากาศแปรปรวน กิจกรรมเขตพื้นที่)');
   if (!name || !name.trim()) return;
-  const key = dateKey();
   await db.ref('holidays/' + key).set({ name:name.trim(), createdBy:ME.uid, createdAt:Date.now() });
   HOLIDAYS[key] = { name:name.trim() };
-  toast('ประกาศวันหยุดแล้ว ระบบจะไม่นับขาดงานในวันนี้');
+  toast('ประกาศวันหยุดแล้ว ระบบจะไม่นับขาดงานในวันดังกล่าว');
   loadDashToday();
 }
 

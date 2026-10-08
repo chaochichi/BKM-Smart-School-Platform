@@ -8,7 +8,7 @@
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700&family=Noto+Sans+Thai:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700&family=Noto+Sans+Thai:wght@400;500;600;700&family=Sarabun:wght@400;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -201,15 +201,17 @@
         <div class="page-t">แดชบอร์ดการปฏิบัติงาน</div>
         <div class="page-s" id="dbSub"></div>
         <div class="tabs">
-          <button class="tab on" id="dbT1" onclick="dashTab('today')">วันนี้</button>
+          <button class="tab on" id="dbT1" onclick="dashTab('today')">รายวัน</button>
           <button class="tab" id="dbT2" onclick="dashTab('month')">รายเดือน</button>
           <button class="tab" id="dbT3" onclick="dashTab('leave')">อนุมัติการลา</button>
         </div>
 
         <div id="dbToday">
+          <div class="field"><label>วันที่</label>
+            <input id="dbDay" type="date" onchange="loadDashToday()"></div>
           <div class="tiles" id="dbTiles"></div>
           <div class="card">
-            <div class="card-h"><span class="card-t">สถานะรายบุคคล</span>
+            <div class="card-h"><span class="card-t" id="dbDayLabel">สถานะรายบุคคล</span>
               <button class="b-out b-sm" onclick="loadDashToday()">รีเฟรช</button></div>
             <div id="dbRows"></div>
           </div>
@@ -226,6 +228,31 @@
         <div id="dbLeave" class="hide">
           <div class="card" id="dbLeaveList"></div>
         </div>
+      </section>
+
+      <!-- ---------- หน้ารายงาน ---------- -->
+      <section id="pgReport" class="hide">
+        <div class="noprint">
+          <div class="page-t">รายงานการลงเวลาปฏิบัติราชการ</div>
+          <div class="page-s">จัดทำเป็นรายวัน หนึ่งวันต่อหนึ่งแผ่น พร้อมช่องรับรองของผู้อำนวยการ</div>
+          <div class="card">
+            <div class="tabs">
+              <button class="tab on" id="rpT1" onclick="reportMode('day')">รายวัน</button>
+              <button class="tab" id="rpT2" onclick="reportMode('month')">ทั้งเดือน</button>
+            </div>
+            <div class="field" id="rpDayWrap"><label>วันที่</label>
+              <input id="rpDay" type="date" onchange="buildReport()"></div>
+            <div class="field hide" id="rpMonthWrap"><label>เดือน</label>
+              <input id="rpMonth" type="month" onchange="buildReport()"></div>
+            <div id="rpMsg" class="alert a-info"></div>
+            <button class="b-pri b-full" onclick="window.print()">
+              <svg class="ic ic-s"><use href="#i-list"/></svg>พิมพ์รายงาน</button>
+            <div class="help" style="text-align:center;margin-top:8px">
+              ในหน้าต่างพิมพ์ ให้เลือกขนาดกระดาษ A4 และปลายทางเป็น บันทึกเป็น PDF
+              หากต้องการไฟล์เอกสาร</div>
+          </div>
+        </div>
+        <div id="rpOut"></div>
       </section>
 
       <!-- ---------- หน้าตั้งค่า ---------- -->
@@ -374,6 +401,11 @@
       <div class="field"><label>คำนำหน้า</label><input id="ufPrefix" placeholder="นาย / นาง / นางสาว"></div>
       <div class="field"><label>ตำแหน่ง<span class="req">*</span></label>
         <input id="ufPos" placeholder="ครู / ธุรการ / นักการภารโรง"></div>
+    </div>
+    <div class="field"><label>ประเภทบุคลากร<span class="req">*</span></label>
+      <select id="ufType"></select>
+      <div class="help">ใช้สรุปจำนวนท้ายรายงานการลงเวลาประจำวัน</div></div>
+    <div class="duo" style="display:none">
     </div>
     <div class="duo">
       <div class="field"><label>ชื่อ<span class="req">*</span></label><input id="ufFirst"></div>

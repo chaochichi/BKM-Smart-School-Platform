@@ -3,7 +3,10 @@
    app.js
    ============================================================ */
 
-/* ---------- ตั้งค่า Firebase : แก้ค่าตรงนี้ให้ตรงกับโครงการของท่าน ---------- */
+/* ---------- ตั้งค่า Firebase ----------
+   ค่าชุดนี้ของโครงการ bkm-smart-school ใส่ไว้ให้แล้ว
+   หากย้ายไปใช้โครงการอื่น ให้แทนที่ทั้งบล็อกด้วยค่าจาก Firebase Console
+   (Project settings แท็บ General ส่วน Your apps เลือก Config)            */
 const FIREBASE_CONFIG = {
   apiKey:            "AIzaSyC3wIfLmTusbz1RD0g6JAJEXmwiiV4ZcC8",
   authDomain:        "bkm-smart-school.firebaseapp.com",
@@ -210,6 +213,10 @@ async function boot(){
     await loadFirebase();
 
     $('bootMsg').textContent = 'กำลังเชื่อมต่อฐานข้อมูล…';
+    const bad = Object.keys(FIREBASE_CONFIG).filter(k =>
+      !FIREBASE_CONFIG[k] || String(FIREBASE_CONFIG[k]).indexOf('ใส่ค่า') === 0);
+    if (bad.length) throw new Error(
+      'ยังไม่ได้ใส่ค่า Firebase ในไฟล์ app.js — ขาด ' + bad.join(', '));
     firebase.initializeApp(FIREBASE_CONFIG);
     db = firebase.database();
     await firebase.auth().signInAnonymously();

@@ -275,9 +275,40 @@ button:disabled{background:var(--dim)!important;color:#fff!important;cursor:not-
   .duo3{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start;}
 }
 
+/* ---------- รายงานสำหรับพิมพ์ ---------- */
+.rp-page{background:#fff;color:#000;padding:14mm 12mm;margin:0 auto 20px;
+  max-width:210mm;border:1px solid var(--edge);border-radius:4px;
+  font-family:'Sarabun','Noto Sans Thai',sans-serif;}
+.rp-hd{text-align:center;margin-bottom:14px;}
+.rp-hd .t1{font-size:19px;font-weight:700;line-height:28px;}
+.rp-hd .t2{font-size:16px;font-weight:600;line-height:26px;}
+.rp-hd .t3{font-size:14px;line-height:23px;}
+.rp-hd .bold{font-weight:600;margin-top:5px;}
+.rp-page table{width:100%;border-collapse:collapse;}
+.rp-page th,.rp-page td{border:1px solid #000;padding:4px 6px;
+  font-size:13px;line-height:20px;color:#000;}
+.rp-page th{background:#f2f2f2;font-weight:600;text-align:center;}
+.rp-page td.c{text-align:center;}
+.rp-page td.l{text-align:left;}
+.rp-page td.small{font-size:11px;line-height:17px;}
+.rp-sum{margin-top:12px;width:auto !important;}
+.rp-sum th,.rp-sum td{padding:3px 10px;font-size:12px;}
+.rp-sum tr.tot td{font-weight:700;background:#f7f7f7;}
+.rp-note{margin-top:10px;font-size:11px;line-height:17px;color:#444;}
+.rp-sign{margin-top:22px;display:flex;justify-content:flex-end;}
+.rp-sign .box{width:76mm;text-align:center;font-size:13px;line-height:25px;}
+.rp-sign .ln{border-bottom:1px dotted #000;height:28px;margin:6px 0 4px;}
+.rp-sign .small{font-size:12px;margin-top:4px;}
+
 /* ---------- พิมพ์ ---------- */
 @media print{
-  .topbar,.bottomnav,.side,button{display:none !important;}
-  .wrap{padding:0;}
+  .topbar,.bottomnav,.side,button,.noprint{display:none !important;}
+  body{background:#fff;}
+  .wrap{padding:0;max-width:none;}
   .card{box-shadow:none;break-inside:avoid;}
+  .rp-page{border:0;border-radius:0;margin:0;padding:0;max-width:none;
+           break-after:page;page-break-after:always;}
+  .rp-page:last-child{break-after:auto;page-break-after:auto;}
+  .rp-page table{break-inside:avoid;}
+  @page{ size:A4 portrait; margin:12mm; }
 }

@@ -3,6 +3,10 @@
    app.js
    ============================================================ */
 
+/** รุ่นของไฟล์ ใช้ตรวจว่าเบราว์เซอร์โหลดไฟล์ใหม่จริงหรือยังใช้ของเก่าในแคช */
+const BUILD = '20261009a';
+try { console.log('BKM e-Time build', BUILD); } catch (e) {}
+
 /* ---------- ตั้งค่า Firebase ----------
    ค่าชุดนี้ของโครงการ bkm-smart-school ใส่ไว้ให้แล้ว
    หากย้ายไปใช้โครงการอื่น ให้แทนที่ทั้งบล็อกด้วยค่าจาก Firebase Console
@@ -18,10 +22,12 @@ const FIREBASE_CONFIG = {
 };
 
 const SDK_VER = '10.12.2';
+/* ที่อยู่สำรองสำหรับโหลดไลบรารี Firebase
+   gstatic ใช้รูปแบบ <ฐาน>/<รุ่น>/<ไฟล์> ส่วน jsDelivr และ unpkg ใช้ <ฐาน>@<รุ่น>/<ไฟล์> */
 const CDNS = [
-  'https://www.gstatic.com/firebasejs',
-  'https://cdn.jsdelivr.net/npm/firebase',
-  'https://unpkg.com/firebase'
+  { base:'https://www.gstatic.com/firebasejs', sep:'/' },
+  { base:'https://cdn.jsdelivr.net/npm/firebase', sep:'@' },
+  { base:'https://unpkg.com/firebase', sep:'@' }
 ];
 
 const LEAVE_TYPES = [
@@ -195,9 +201,9 @@ function loadScript(src){
 async function loadFirebase(){
   const files = ['firebase-app-compat.js','firebase-database-compat.js','firebase-auth-compat.js'];
   let lastErr = null;
-  for (const base of CDNS){
+  for (const c of CDNS){
     try {
-      for (const f of files) await loadScript(base + '/' + SDK_VER + '/' + f);
+      for (const f of files) await loadScript(c.base + c.sep + SDK_VER + '/' + f);
       return true;
     } catch(e){ lastErr = e; }
   }
@@ -218,6 +224,8 @@ async function boot(){
     if (bad.length) throw new Error(
       'ยังไม่ได้ใส่ค่า Firebase ในไฟล์ app.js — ขาด ' + bad.join(', '));
     firebase.initializeApp(FIREBASE_CONFIG);
+    try { console.log('Firebase SDK', firebase.SDK_VERSION,
+      '| databaseURL', FIREBASE_CONFIG.databaseURL); } catch (e) {}
     db = firebase.database();
     await firebase.auth().signInAnonymously();
 

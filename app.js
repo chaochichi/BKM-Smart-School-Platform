@@ -5,13 +5,13 @@
 
 /* ---------- ตั้งค่า Firebase : แก้ค่าตรงนี้ให้ตรงกับโครงการของท่าน ---------- */
 const FIREBASE_CONFIG = {
-  apiKey:            "ใส่ค่า apiKey",
-  authDomain:        "ใส่ค่า authDomain",
-  databaseURL:       "ใส่ค่า databaseURL",
-  projectId:         "ใส่ค่า projectId",
-  storageBucket:     "ใส่ค่า storageBucket",
-  messagingSenderId: "ใส่ค่า messagingSenderId",
-  appId:             "ใส่ค่า appId"
+  apiKey:            "AIzaSyC3wIfLmTusbz1RD0g6JAJEXmwiiV4ZcC8",
+  authDomain:        "bkm-smart-school.firebaseapp.com",
+  databaseURL:       "https://bkm-smart-school-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId:         "bkm-smart-school",
+  storageBucket:     "bkm-smart-school.firebasestorage.app",
+  messagingSenderId: "279250652300",
+  appId:             "1:279250652300:web:07e55d4ac7cabbce0e3fa9"
 };
 
 const SDK_VER = '10.12.2';

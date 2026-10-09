@@ -4,7 +4,7 @@
    ============================================================ */
 
 /** รุ่นของไฟล์ ใช้ตรวจว่าเบราว์เซอร์โหลดไฟล์ใหม่จริงหรือยังใช้ของเก่าในแคช */
-const BUILD = '20261009b';
+const BUILD = '20261009c';
 try { console.log('BKM e-Time build', BUILD); } catch (e) {}
 
 /* ---------- ตั้งค่า Firebase ----------
@@ -853,12 +853,21 @@ function pickLeaveType(id){
     b.classList.toggle('on', b.getAttribute('data-t') === id));
   calcLeaveDays();
 }
-/** แสดงช่องช่วงเวลาเฉพาะประเภทที่แบ่งครึ่งวันได้ และขอเพียงวันเดียว */
+/** แสดงช่องช่วงเวลาทันทีที่เลือกไปราชการหรืออบรมสัมมนา
+ *  ครึ่งวันเลือกได้เฉพาะเมื่อขอวันเดียว */
 function syncPeriod(){
   const t = LEAVE_TYPES.find(x => x.id === leaveType);
-  const show = !!(t && t.partial) && $('lfFrom').value && $('lfFrom').value === $('lfTo').value;
+  const show = !!(t && t.partial);
+  const oneDay = $('lfFrom').value && $('lfFrom').value === $('lfTo').value;
   $('lfPeriodWrap').classList.toggle('hide', !show);
-  if (!show) $('lfPeriod').value = 'FULL';
+  ['AM','PM'].forEach(v => {
+    const o = $('lfPeriod').querySelector('option[value="' + v + '"]');
+    if (o) o.disabled = !oneDay;
+  });
+  if (!show || !oneDay) $('lfPeriod').value = 'FULL';
+  $('lfPeriodHelp').textContent = !oneDay
+    ? 'ขอหลายวันได้เฉพาะเต็มวัน หากต้องการครึ่งวัน ให้เลือกวันที่เริ่มและวันที่สิ้นสุดเป็นวันเดียวกัน'
+    : 'ครึ่งวันบ่าย ไม่ต้องกลับมาลงเวลาออกที่โรงเรียน · ครึ่งวันเช้า ลงเวลาเข้าเมื่อกลับถึงโรงเรียนโดยไม่นับว่ามาสาย';
 }
 function calcLeaveDays(){
   const f = $('lfFrom').value, t = $('lfTo').value;

@@ -4,7 +4,7 @@
    ============================================================ */
 
 /** รุ่นของไฟล์ ใช้ตรวจว่าเบราว์เซอร์โหลดไฟล์ใหม่จริงหรือยังใช้ของเก่าในแคช */
-const BUILD = '20261009a';
+const BUILD = '20261009b';
 try { console.log('BKM e-Time build', BUILD); } catch (e) {}
 
 /* ---------- ตั้งค่า Firebase ----------
@@ -30,15 +30,35 @@ const CDNS = [
   { base:'https://unpkg.com/firebase', sep:'@' }
 ];
 
+/* partial:true หมายถึงเลือกครึ่งวันเช้าหรือครึ่งวันบ่ายได้ (เฉพาะการขอวันเดียว) */
 const LEAVE_TYPES = [
-  { id:'SICK',    name:'ลาป่วย',          quotaKey:'qSick' },
-  { id:'BUSINESS',name:'ลากิจส่วนตัว',     quotaKey:'qBiz'  },
-  { id:'VACATION',name:'ลาพักผ่อน',        quotaKey:'qVac'  },
-  { id:'MATERNITY',name:'ลาคลอดบุตร',     quotaKey:'qMat'  },
-  { id:'DUTY',    name:'ไปราชการ',        quotaKey:null    },
-  { id:'TRAINING',name:'อบรมสัมมนา',       quotaKey:null    }
+  { id:'SICK',     name:'ลาป่วย',        quotaKey:'qSick' },
+  { id:'BUSINESS', name:'ลากิจส่วนตัว',   quotaKey:'qBiz'  },
+  { id:'MATERNITY',name:'ลาคลอดบุตร',    quotaKey:'qMat'  },
+  { id:'ORDAIN',   name:'ลาอุปสมบท',     quotaKey:null    },
+  { id:'STUDY',    name:'ลาศึกษาต่อ',     quotaKey:null    },
+  { id:'DUTY',     name:'ไปราชการ',      quotaKey:null, partial:true },
+  { id:'TRAINING', name:'อบรมสัมมนา',     quotaKey:null, partial:true }
 ];
 const LEAVE_NAME = {}; LEAVE_TYPES.forEach(t => LEAVE_NAME[t.id] = t.name);
+LEAVE_NAME.VACATION = 'ลาพักผ่อน';   // เลิกใช้แล้ว คงไว้เพื่อแสดงชื่อของใบลาเดิม
+
+/* ช่วงเวลาของการลาหรือไปราชการ */
+const PERIOD_NAME = { FULL:'เต็มวัน', AM:'ครึ่งวันเช้า', PM:'ครึ่งวันบ่าย' };
+function isPartial(l){ return !!l && (l.period === 'AM' || l.period === 'PM'); }
+function leaveName(l){
+  if (!l) return '';
+  return (LEAVE_NAME[l.type] || l.type) + (isPartial(l) ? ' ' + PERIOD_NAME[l.period] : '');
+}
+/** ใบลาที่อนุมัติแล้วของบุคคลในวันนั้น */
+function approvedOn(list, uid, dateStr){
+  return (list || []).find(x => x.uid === uid && x.status === 'APPROVED'
+                              && x.dateFrom <= dateStr && dateStr <= x.dateTo);
+}
+/** สายจริงหรือไม่ ไม่นับสายเมื่อได้รับอนุมัติไปราชการช่วงเช้า */
+function effLate(r, l){ return !!(r && r.checkIn && r.checkIn.late) && !(isPartial(l) && l.period === 'AM'); }
+/** ขาดการลงเวลาออกหรือไม่ ไม่นับเมื่อได้รับอนุมัติไปราชการช่วงบ่าย */
+function missingOut(r, l){ return !!(r && r.checkIn && !r.checkOut) && !(isPartial(l) && l.period === 'PM'); }
 
 /** ประเภทบุคลากร ใช้สรุปจำนวนท้ายรายงานการลงเวลาประจำวัน */
 const STAFF_TYPES = ['ผู้บริหาร','ข้าราชการครู','พนักงานราชการ','ครูอัตราจ้าง',
@@ -69,7 +89,7 @@ const DEFAULT_CONFIG = {
   lat:17.080757, lng:102.422768, radius:200,
   timeOpen:'06:00', timeStart:'08:00', timeLate:'09:00', timeEnd:'15:30',
   remindIn:'07:30', remindOut:'15:20',
-  qSick:60, qBiz:45, qVac:10, qMat:90,
+  qSick:60, qBiz:45, qMat:90,
   larkWebhook:''
 };
 
@@ -82,6 +102,7 @@ let HOLIDAYS = {};         // 'YYYY-MM-DD' -> {name}
 let todayRec = null;       // บันทึกลงเวลาของวันนี้
 let geo = { ok:false, lat:null, lng:null, dist:null, acc:null };
 let camStream = null, snapData = null, camMode = null;
+let todayPart = null;      // ใบลาครึ่งวันที่อนุมัติแล้วของวันนี้ (ถ้ามี)
 let clockTimer = null, page = 'home', editUid = null, ufAdmin = false;
 let leaveType = null, myLeaves = [], allLeaves = [];
 
@@ -504,28 +525,44 @@ function setHeroState(icon, text){
 function renderHomeState(today){
   const box = $('hoAction'), btns = $('hoBtns');
   const lv = leaveOn(today);
+  const ap = approvedOn(myLeaves, ME.uid, today);
+  todayPart = isPartial(ap) ? ap : null;
 
   if (!isWorkday(today)){
     const why = HOLIDAYS[today] ? HOLIDAYS[today].name : 'วันหยุดประจำสัปดาห์';
     setHeroState('i-info', 'วันนี้ไม่ใช่วันทำการ — ' + esc(why));
     box.classList.add('hide'); return;
   }
-  if (lv && lv.status === 'APPROVED'){
-    setHeroState('i-check', 'วันนี้ท่าน' + LEAVE_NAME[lv.type] + ' (อนุมัติแล้ว)');
+  if (ap && !todayPart){
+    setHeroState('i-check', 'วันนี้ท่าน' + leaveName(ap) + ' (อนุมัติแล้ว)');
     box.classList.add('hide'); return;
   }
-  if (lv && lv.status === 'PENDING'){
-    setHeroState('i-info', 'ใบ' + LEAVE_NAME[lv.type] + 'ของท่านรออนุมัติ ยังลงเวลาได้ตามปกติ');
+  if (!ap && lv && lv.status === 'PENDING'){
+    setHeroState('i-info', 'ใบ' + leaveName(lv) + 'ของท่านรออนุมัติ ยังลงเวลาได้ตามปกติ');
   }
 
   box.classList.remove('hide');
   const ci = todayRec && todayRec.checkIn, co = todayRec && todayRec.checkOut;
 
   if (!ci){
-    if (!lv || lv.status !== 'PENDING')
+    if (todayPart && todayPart.period === 'AM')
+      setHeroState('i-info', 'ได้รับอนุมัติ' + leaveName(todayPart) +
+        ' ลงเวลาเข้าเมื่อกลับถึงโรงเรียน ระบบไม่นับว่ามาสาย');
+    else if (todayPart)
+      setHeroState('i-info', 'ได้รับอนุมัติ' + leaveName(todayPart) +
+        ' กรุณาลงเวลาเข้าตามปกติ ช่วงบ่ายไม่ต้องกลับมาลงเวลาออก');
+    else if (!lv || lv.status !== 'PENDING')
       setHeroState('i-warn', 'ท่านยังไม่ได้ลงเวลาเข้าปฏิบัติราชการ');
     btns.innerHTML = '<button class="b-pri b-big b-full" id="btnAct" onclick="startStamp(\'in\')">' +
       '<svg class="ic"><use href="#i-cam"/></svg>เปิดกล้องเพื่อลงเวลาเข้า</button>';
+    requestGeo();
+  } else if (!co && todayPart && todayPart.period === 'PM'){
+    setHeroState('i-check', 'ลงเวลาเข้าแล้วเมื่อ ' + ci.time + ' น. ได้รับอนุมัติ' +
+      leaveName(todayPart) + ' จึงไม่ต้องลงเวลาออก');
+    btns.innerHTML = '<button class="b-out b-full" id="btnAct" onclick="startStamp(\'out\')">' +
+      '<svg class="ic"><use href="#i-cam"/></svg>ลงเวลาออกเมื่อเสร็จภารกิจ (ไม่บังคับ)</button>' +
+      '<div class="help" style="text-align:center;margin-top:8px">ลงเวลาออกนอกพื้นที่สถานศึกษาได้ ' +
+      'ระบบบันทึกระยะห่างไว้เป็นหลักฐาน</div>';
     requestGeo();
   } else if (!co){
     setHeroState('i-check', 'ลงเวลาเข้าแล้วเมื่อ ' + ci.time + ' น. อย่าลืมลงเวลาออก');
@@ -559,6 +596,10 @@ function requestGeo(){
         box.className = 'geo geo-out';
         txt.textContent = 'อยู่นอกพื้นที่ ห่างจากสถานศึกษา ' + d +
           ' เมตร (อนุญาตไม่เกิน ' + CFG.radius + ' เมตร)';
+        if (todayPart && todayPart.period === 'PM' && todayRec && todayRec.checkIn){
+          box.className = 'geo geo-wait';
+          txt.textContent += ' — ลงเวลาออกนอกพื้นที่ได้ เนื่องจากได้รับอนุมัติ' + leaveName(todayPart);
+        }
       }
     },
     err => {
@@ -638,7 +679,8 @@ function submitStamp(){
       const d = haversine(p.coords.latitude, p.coords.longitude, Number(CFG.lat), Number(CFG.lng));
       geo = { ok:d <= Number(CFG.radius), lat:p.coords.latitude, lng:p.coords.longitude,
               dist:d, acc:Math.round(p.coords.accuracy) };
-      if (!geo.ok){
+      const offsiteOk = camMode === 'out' && todayPart && todayPart.period === 'PM';
+      if (!geo.ok && !offsiteOk){
         saveBtn('idle');
         requestGeo();
         return toast('อยู่นอกพื้นที่สถานศึกษา ' + d + ' เมตร จึงบันทึกเวลาไม่ได้');
@@ -655,6 +697,17 @@ function submitStamp(){
 
 function finishStamp(g){
   const now = new Date(), t = timeNow(now), mins = toMin(t);
+  if (camMode === 'in' && todayPart && todayPart.period === 'AM'){
+    if (mins < toMin(CFG.timeOpen)){
+      saveBtn('idle');
+      return toast('ยังไม่ถึงเวลาเปิดให้ลงเวลา (' + CFG.timeOpen + ' น.)');
+    }
+    return saveStamp(g, t, { late:false, duty:'AM', reason:leaveName(todayPart) });
+  }
+  if (camMode === 'out' && todayPart && todayPart.period === 'PM'){
+    return saveStamp(g, t, { early:false, duty:'PM', offsite: !(g && g.ok),
+                             reason:leaveName(todayPart) + (todayPart.reason ? ' · ' + todayPart.reason : '') });
+  }
   if (camMode === 'in'){
     const late = mins > toMin(CFG.timeStart);
     if (mins < toMin(CFG.timeOpen)){
@@ -696,7 +749,7 @@ async function saveStamp(g, t, extra){
   saveBtn('busy');
   const today = dateKey(), mk = monthKey();
   const entry = Object.assign({
-    time:t, ts:Date.now(),
+    time:t, ts:Date.now(), offsite:false,
     lat:g ? Number(g.lat.toFixed(6)) : null,
     lng:g ? Number(g.lng.toFixed(6)) : null,
     distance:g ? g.dist : null,
@@ -775,7 +828,7 @@ function renderMyLeaves(){
   }
   $('lvList').innerHTML = myLeaves.map(l =>
     '<div class="row tap" onclick="viewLeave(\'' + l.id + '\',false)">' +
-    '<div class="row-m"><div class="row-n">' + LEAVE_NAME[l.type] + ' ' + leaveChip(l.status) + '</div>' +
+    '<div class="row-m"><div class="row-n">' + leaveName(l) + ' ' + leaveChip(l.status) + '</div>' +
     '<div class="row-d">' + thaiDateShort(l.dateFrom) +
       (l.dateFrom !== l.dateTo ? ' – ' + thaiDateShort(l.dateTo) : '') +
       ' · ' + l.days + ' วันทำการ</div></div>' +
@@ -784,6 +837,7 @@ function renderMyLeaves(){
 
 function openLeaveForm(){
   alertBox('lfMsg',''); leaveType = null;
+  $('lfPeriod').value = 'FULL';
   $('lfTypes').innerHTML = LEAVE_TYPES.map(t =>
     '<button type="button" class="opt" data-t="' + t.id + '" onclick="pickLeaveType(\'' + t.id + '\')">' +
     '<span class="dot"></span><span>' + t.name + '</span></button>').join('');
@@ -797,12 +851,22 @@ function pickLeaveType(id){
   leaveType = id;
   document.querySelectorAll('#lfTypes .opt').forEach(b =>
     b.classList.toggle('on', b.getAttribute('data-t') === id));
+  calcLeaveDays();
+}
+/** แสดงช่องช่วงเวลาเฉพาะประเภทที่แบ่งครึ่งวันได้ และขอเพียงวันเดียว */
+function syncPeriod(){
+  const t = LEAVE_TYPES.find(x => x.id === leaveType);
+  const show = !!(t && t.partial) && $('lfFrom').value && $('lfFrom').value === $('lfTo').value;
+  $('lfPeriodWrap').classList.toggle('hide', !show);
+  if (!show) $('lfPeriod').value = 'FULL';
 }
 function calcLeaveDays(){
   const f = $('lfFrom').value, t = $('lfTo').value;
   if (!f || !t) return;
   if (t < f){ $('lfTo').value = f; }
-  const days = eachDate($('lfFrom').value, $('lfTo').value).filter(isWorkday).length;
+  syncPeriod();
+  let days = eachDate($('lfFrom').value, $('lfTo').value).filter(isWorkday).length;
+  if (days && $('lfPeriod').value !== 'FULL') days = 0.5;
   const box = $('lfDays');
   box.textContent = 'รวม ' + days + ' วันทำการ (ไม่นับเสาร์อาทิตย์และวันหยุดที่บันทึกไว้)';
   box.className = 'alert a-info show';
@@ -835,6 +899,7 @@ async function submitLeave(){
     const ref = db.ref('leaves').push();
     await ref.set({
       uid:ME.uid, name:fullName(ME), type:leaveType, dateFrom:from, dateTo:to,
+      period:$('lfPeriod').value || 'FULL',
       days, reason, status:'PENDING', createdAt:Date.now(),
       decidedBy:null, decidedAt:null, comment:null
     });
@@ -851,13 +916,14 @@ async function submitLeave(){
 function viewLeave(id, canDecide){
   const list = canDecide ? allLeaves : myLeaves;
   const l = list.find(x => x.id === id); if (!l) return;
-  $('lvvTitle').textContent = LEAVE_NAME[l.type];
+  $('lvvTitle').textContent = leaveName(l);
   $('lvvSub').textContent = l.name || fullName(USERS[l.uid]);
   $('lvvBody').innerHTML =
     '<div class="kv"><span class="k">สถานะ</span><span class="v">' + leaveChip(l.status) + '</span></div>' +
     '<div class="kv"><span class="k">ช่วงวันที่</span><span class="v">' + thaiDate(l.dateFrom) +
       (l.dateFrom !== l.dateTo ? '<br>ถึง ' + thaiDate(l.dateTo) : '') + '</span></div>' +
-    '<div class="kv"><span class="k">จำนวน</span><span class="v">' + l.days + ' วันทำการ</span></div>' +
+    '<div class="kv"><span class="k">จำนวน</span><span class="v">' + l.days + ' วันทำการ' +
+      (isPartial(l) ? ' (' + PERIOD_NAME[l.period] + ')' : '') + '</span></div>' +
     '<div class="kv"><span class="k">เหตุผล</span><span class="v">' + esc(l.reason) + '</span></div>' +
     (l.comment ? '<div class="kv"><span class="k">ความเห็น</span><span class="v">' + esc(l.comment) + '</span></div>' : '') +
     (l.decidedBy ? '<div class="kv"><span class="k">ผู้พิจารณา</span><span class="v">' +
@@ -919,11 +985,13 @@ async function loadHistory(){
     if (key > today) break;
     if (!isWorkday(key)) continue;
     work++;
-    const r = att[key], lv = leaveOn(key);
+    const r = att[key], lv = leaveOn(key), ap = approvedOn(myLeaves, ME.uid, key);
     if (r && r.checkIn){
-      if (r.checkIn.late) late++; else onTime++;
-      if (!r.checkOut) noOut++;
-      rows.push({ key, kind:'att', r });
+      if (effLate(r, ap)) late++; else onTime++;
+      if (missingOut(r, ap)) noOut++;
+      rows.push({ key, kind:'att', r, ap });
+    } else if (ap && isPartial(ap)){
+      absent++; rows.push({ key, kind:'absent', ap });
     } else if (lv && lv.status === 'APPROVED'){
       leaveD++; rows.push({ key, kind:'leave', lv });
     } else if (lv && lv.status === 'PENDING'){
@@ -954,20 +1022,22 @@ function historyRow(x){
     const ci = x.r.checkIn, co = x.r.checkOut;
     return '<div class="row tap" onclick="viewStamp(\'' + x.key + '\',\'' + ME.uid + '\')">' +
       '<div class="row-m"><div class="row-n">' + d + ' ' +
-        (ci.late ? '<span class="chip c-late">สาย</span>' : '<span class="chip c-ok">ตรงเวลา</span>') +
-        (!co ? ' <span class="chip c-no">ไม่ได้ลงเวลาออก</span>' : '') + '</div>' +
+        (effLate(x.r, x.ap) ? '<span class="chip c-late">สาย</span>' : '<span class="chip c-ok">ตรงเวลา</span>') +
+        (missingOut(x.r, x.ap) ? ' <span class="chip c-no">ไม่ได้ลงเวลาออก</span>' : '') +
+        (isPartial(x.ap) ? ' <span class="chip c-info">' + leaveName(x.ap) + '</span>' : '') + '</div>' +
       '<div class="row-d">เข้า ' + ci.time + (co ? ' · ออก ' + co.time : '') + '</div></div></div>';
   }
   if (x.kind === 'leave')
     return '<div class="row"><div class="row-m"><div class="row-n">' + d +
-      ' <span class="chip c-info">' + LEAVE_NAME[x.lv.type] + '</span></div>' +
+      ' <span class="chip c-info">' + leaveName(x.lv) + '</span></div>' +
       '<div class="row-d">อนุมัติแล้ว</div></div></div>';
   if (x.kind === 'pending')
     return '<div class="row"><div class="row-m"><div class="row-n">' + d +
       ' <span class="chip c-late">รออนุมัติการลา</span></div>' +
-      '<div class="row-d">' + LEAVE_NAME[x.lv.type] + '</div></div></div>';
+      '<div class="row-d">' + leaveName(x.lv) + '</div></div></div>';
   return '<div class="row"><div class="row-m"><div class="row-n">' + d +
-    ' <span class="chip c-no">ไม่ได้ลงเวลา</span></div></div></div>';
+    ' <span class="chip c-no">ไม่ได้ลงเวลา</span></div>' +
+    (x.ap ? '<div class="row-d">' + leaveName(x.ap) + ' (อนุมัติแล้ว)</div>' : '') + '</div></div>';
 }
 
 async function viewStamp(key, uid){
@@ -988,7 +1058,8 @@ async function viewStamp(key, uid){
       (img ? '<img src="' + img + '" alt="" style="width:100%;max-width:240px;border-radius:8px;margin-bottom:10px">' : '') +
       '<div class="kv"><span class="k">เวลา</span><span class="v">' + e.time + ' น. ' +
         (e.late ? '<span class="chip c-late">สาย</span>' : '') +
-        (e.early ? '<span class="chip c-late">ออกก่อนเวลา</span>' : '') + '</span></div>' +
+        (e.early ? '<span class="chip c-late">ออกก่อนเวลา</span>' : '') +
+        (e.offsite ? '<span class="chip c-info">นอกพื้นที่</span>' : '') + '</span></div>' +
       '<div class="kv"><span class="k">ระยะจากโรงเรียน</span><span class="v">' +
         (e.distance != null ? e.distance + ' เมตร' : '—') + '</span></div>' +
       (e.reason ? '<div class="kv"><span class="k">เหตุผล</span><span class="v">' + esc(e.reason) + '</span></div>' : '');
@@ -1049,16 +1120,21 @@ async function loadDashToday(){
     const r = (att[uid] || {})[today];
     const l = allLeaves.find(x => x.uid === uid && x.status !== 'REJECTED'
                                   && x.dateFrom <= today && today <= x.dateTo);
+    const ap = approvedOn(allLeaves, uid, today);
     let chip, note;
     if (r && r.checkIn){
-      if (r.checkIn.late){ late++; chip = '<span class="chip c-late">มาสาย</span>'; }
+      if (effLate(r, ap)){ late++; chip = '<span class="chip c-late">มาสาย</span>'; }
       else { onTime++; chip = '<span class="chip c-ok">ตรงเวลา</span>'; }
-      if (!r.checkOut){ noOut++; chip += ' <span class="chip c-no">ยังไม่ลงเวลาออก</span>'; }
-      note = 'เข้า ' + r.checkIn.time + (r.checkOut ? ' · ออก ' + r.checkOut.time : '');
-    } else if (l && l.status === 'APPROVED'){
-      lv++; chip = '<span class="chip c-info">' + LEAVE_NAME[l.type] + '</span>'; note = 'อนุมัติแล้ว';
+      if (missingOut(r, ap)){ noOut++; chip += ' <span class="chip c-no">ยังไม่ลงเวลาออก</span>'; }
+      if (isPartial(ap)) chip += ' <span class="chip c-info">' + leaveName(ap) + '</span>';
+      note = 'เข้า ' + r.checkIn.time + (r.checkOut ? ' · ออก ' + r.checkOut.time +
+        (r.checkOut.offsite ? ' (นอกพื้นที่)' : '') : '');
+    } else if (ap && isPartial(ap)){
+      none++; chip = '<span class="chip c-no">ยังไม่ลงเวลา</span>'; note = leaveName(ap) + ' (อนุมัติแล้ว)';
+    } else if (ap){
+      lv++; chip = '<span class="chip c-info">' + leaveName(ap) + '</span>'; note = 'อนุมัติแล้ว';
     } else if (l && l.status === 'PENDING'){
-      chip = '<span class="chip c-late">รออนุมัติการลา</span>'; note = LEAVE_NAME[l.type];
+      chip = '<span class="chip c-late">รออนุมัติการลา</span>'; note = leaveName(l);
     } else {
       none++; chip = '<span class="chip c-no">ยังไม่ลงเวลา</span>'; note = '—';
     }
@@ -1099,10 +1175,9 @@ async function loadDashMonth(){
     let onTime = 0, late = 0, lv = 0, absent = 0;
     days.forEach(key => {
       const r = mine[key];
-      const l = allLeaves.find(x => x.uid === uid && x.status === 'APPROVED'
-                                    && x.dateFrom <= key && key <= x.dateTo);
-      if (r && r.checkIn){ r.checkIn.late ? late++ : onTime++; }
-      else if (l) lv++; else absent++;
+      const l = approvedOn(allLeaves, uid, key);
+      if (r && r.checkIn){ effLate(r, l) ? late++ : onTime++; }
+      else if (l && !isPartial(l)) lv++; else absent++;
     });
     const pct = days.length ? Math.round((onTime + late) / days.length * 100) : 0;
     return '<div class="row" style="display:block">' +
@@ -1128,7 +1203,7 @@ async function loadPendingLeaves(){
     '<div class="row tap" onclick="viewLeave(\'' + l.id + '\',true)">' +
     '<div class="row-av">' + esc(initials(USERS[l.uid] || {})) + '</div>' +
     '<div class="row-m"><div class="row-n">' + esc(l.name || fullName(USERS[l.uid])) + '</div>' +
-    '<div class="row-d">' + LEAVE_NAME[l.type] + ' · ' + thaiDateShort(l.dateFrom) +
+    '<div class="row-d">' + leaveName(l) + ' · ' + thaiDateShort(l.dateFrom) +
       (l.dateFrom !== l.dateTo ? ' – ' + thaiDateShort(l.dateTo) : '') +
       ' · ' + l.days + ' วัน</div></div>' +
     '<div class="row-r">' + leaveChip(l.status) + '</div></div>';
@@ -1176,23 +1251,29 @@ function dayData(dateStr, att, leaves){
     if (r && r.checkIn){
       inT  = r.checkIn.time;
       outT = r.checkOut ? r.checkOut.time : '—';
-      st   = r.checkIn.late ? 'มาสาย' : 'ปกติ';
+      st   = effLate(r, l) ? 'มาสาย' : 'ปกติ';
       const n = [];
+      if (isPartial(l) && !r.checkIn.duty && !(r.checkOut && r.checkOut.duty))
+        n.push(leaveName(l) + (l.reason ? ' · ' + l.reason : ''));
       if (r.checkIn.reason)  n.push(r.checkIn.reason);
       if (r.checkOut && r.checkOut.reason) n.push(r.checkOut.reason);
-      if (!r.checkOut) n.push('ไม่ได้ลงเวลากลับ');
+      if (r.checkOut && r.checkOut.offsite) n.push('ลงเวลากลับนอกพื้นที่');
+      if (missingOut(r, l)) n.push('ไม่ได้ลงเวลากลับ');
       note = n.join(' · ');
+    } else if (l && isPartial(l)){
+      st = 'ไม่ได้ลงเวลา';
+      note = leaveName(l) + ' (อนุมัติแล้ว)';
     } else if (l){
-      st = LEAVE_NAME[l.type] || l.type;
+      st = leaveName(l);
       note = l.reason || '';
     } else if (p){
       st = 'รออนุมัติการลา';
-      note = (LEAVE_NAME[p.type] || p.type) + (p.reason ? ' · ' + p.reason : '');
+      note = leaveName(p) + (p.reason ? ' · ' + p.reason : '');
     } else {
       st = 'ไม่ได้ลงเวลา';
     }
     return { uid, u, inT, outT, st, note,
-             present: !!(r && r.checkIn), leave: !!l, type: staffTypeOf(u) };
+             present: !!(r && r.checkIn), leave: !!l && !isPartial(l), type: staffTypeOf(u) };
   });
 }
 
@@ -1456,7 +1537,7 @@ function fillConfig(){
   $('cfRemIn').value  = CFG.remindIn;  $('cfRemOut').value = CFG.remindOut;
   $('cfLat').value    = CFG.lat;  $('cfLng').value = CFG.lng;  $('cfRadius').value = CFG.radius;
   $('cfQSick').value  = CFG.qSick; $('cfQBiz').value = CFG.qBiz;
-  $('cfQVac').value   = CFG.qVac;  $('cfQMat').value = CFG.qMat;
+  $('cfQMat').value  = CFG.qMat;
   $('cfLark').value   = CFG.larkWebhook || '';
 }
 function useMyLocation(){
@@ -1477,7 +1558,7 @@ async function saveConfig(){
     lat:Number($('cfLat').value), lng:Number($('cfLng').value),
     radius:Number($('cfRadius').value),
     qSick:Number($('cfQSick').value), qBiz:Number($('cfQBiz').value),
-    qVac:Number($('cfQVac').value), qMat:Number($('cfQMat').value),
+    qMat:Number($('cfQMat').value),
     larkWebhook:$('cfLark').value.trim()
   };
   if (!next.schoolName) return toast('กรุณากรอกชื่อโรงเรียน');

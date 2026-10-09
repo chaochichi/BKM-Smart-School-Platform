@@ -310,10 +310,10 @@
               <div class="field"><label>ลากิจส่วนตัว</label><input id="cfQBiz" type="number"></div>
             </div>
             <div class="duo">
-              <div class="field"><label>ลาพักผ่อน</label><input id="cfQVac" type="number"></div>
               <div class="field"><label>ลาคลอดบุตร</label><input id="cfQMat" type="number"></div>
+              <div></div>
             </div>
-            <div class="help">ไปราชการและอบรมสัมมนาไม่จำกัดจำนวนวัน</div>
+            <div class="help">ลาอุปสมบท ลาศึกษาต่อ ไปราชการ และอบรมสัมมนา ไม่จำกัดจำนวนวัน</div>
           </div>
           <div class="card">
             <div class="card-t" style="margin-bottom:14px">การแจ้งเตือน Lark</div>
@@ -373,6 +373,14 @@
       <div class="field"><label>ถึงวันที่<span class="req">*</span></label>
         <input id="lfTo" type="date" onchange="calcLeaveDays()"></div>
     </div>
+    <div class="field hide" id="lfPeriodWrap"><label>ช่วงเวลา<span class="req">*</span></label>
+      <select id="lfPeriod" onchange="calcLeaveDays()">
+        <option value="FULL">เต็มวัน</option>
+        <option value="AM">ครึ่งวันเช้า</option>
+        <option value="PM">ครึ่งวันบ่าย</option>
+      </select>
+      <div class="help">ครึ่งวันบ่าย ไม่ต้องกลับมาลงเวลาออกที่โรงเรียน ·
+        ครึ่งวันเช้า ลงเวลาเข้าเมื่อกลับถึงโรงเรียนโดยไม่นับว่ามาสาย</div></div>
     <div class="alert a-info show" id="lfDays">เลือกวันที่เพื่อคำนวณจำนวนวัน</div>
     <div class="field" style="margin:0"><label>เหตุผล<span class="req">*</span></label>
       <textarea id="lfReason" placeholder="ระบุเหตุผลการลา"></textarea></div>
@@ -474,6 +482,6 @@
 <script>window.__FB_READY__ = false;</script>
 <!-- ?v= ท้ายชื่อไฟล์ บังคับให้เบราว์เซอร์โหลด app.js ใหม่ ไม่ใช้ของเก่าในแคช
      เมื่อแก้ไข app.js ครั้งต่อไป ให้เปลี่ยนเลขนี้ด้วย -->
-<script src="app.js?v=20261009a"></script>
+<script src="app.js?v=20261009b"></script>
 </body>
 </html>
